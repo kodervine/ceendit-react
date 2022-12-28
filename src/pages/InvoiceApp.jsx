@@ -1,6 +1,7 @@
 import React from "react";
 import DateInput from "../components/DateInput";
 import InvoiceForm from "../components/InvoiceForm";
+import InvoiceItems from "../components/InvoiceItems";
 
 const InvoiceApp = () => {
   return (
@@ -18,6 +19,10 @@ const InvoiceApp = () => {
           placeholder="who is this invoice from"
         />
         <InvoiceForm recipient="Bill to" placeholder="who is this email to" />
+      </section>
+      {/* Invoice items */}
+      <section>
+        <InvoiceItems />
       </section>
     </main>
   );
