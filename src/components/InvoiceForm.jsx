@@ -35,6 +35,16 @@ const InvoiceForm = ({
           onChange={onHandleChange}
         />
       </div>
+      <div>
+        <input
+          type="number"
+          name={formNameOfInvoiceFormNumber}
+          id="invoice-form-phonenumber"
+          placeholder="Phone number"
+          value={valueOfInvoiceFormPhoneNumber}
+          onChange={onHandleChange}
+        />
+      </div>
     </section>
   );
 };

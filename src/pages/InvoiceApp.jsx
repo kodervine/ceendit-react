@@ -26,7 +26,9 @@ const InvoiceApp = () => {
         />
       </section>
 
-      {/* Bill from and to input with names and email. Also passing the props to InvoiceForm component*/}
+      {/* InvoiceForm Bill from and to input rendering with name, phone number and email with data gotten from the useGlobalContext from useContext. 
+      
+      Also passing the data via props to InvoiceForm component*/}
       <section className="invoice-form-recipient">
         <InvoiceForm
           recipient="Bill from"
@@ -39,7 +41,7 @@ const InvoiceApp = () => {
           valueOfInvoiceFormPhoneNumber={invoiceFormData.billFromPhoneNumber}
           onHandleChange={handleInputChange}
         />
-        {/* Bill to Invoice form */}
+        {/* Bill to InvoiceForm rendering */}
         <InvoiceForm
           recipient="Bill to"
           placeholder="who is this email to"
