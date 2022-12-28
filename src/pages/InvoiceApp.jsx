@@ -41,7 +41,7 @@ const InvoiceApp = () => {
           valueOfInvoiceFormPhoneNumber={invoiceFormData.billFromPhoneNumber}
           onHandleChange={handleInputChange}
         />
-        {/* Bill to InvoiceForm rendering */}
+        {/* BillTo InvoiceForm rendering */}
         <InvoiceForm
           recipient="Bill to"
           placeholder="who is this email to"
@@ -55,9 +55,19 @@ const InvoiceApp = () => {
         />
       </section>
 
-      {/* Invoice items with qty, description. Passing the props to the InvoiceItems component*/}
+      {/* InvoiceItems rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
       <section>
-        <InvoiceItems />
+        <InvoiceItems
+          nameOfInvoiceItemName="itemName"
+          nameOfInvoiceItemContent="itemContent"
+          nameOfInvoiceItemQty="itemQty"
+          nameOfInvoiceItemTotal="itemTotal"
+          valueOfInvoiceItemName={invoiceFormData.itemName}
+          valueOfInvoiceItemContent={invoiceFormData.itemContent}
+          valueOfInvoiceItemQty={invoiceFormData.itemQty}
+          valueOfInvoiceItemTotal={invoiceFormData.itemTotal}
+          onHandleChange={handleInputChange}
+        />
       </section>
     </main>
   );

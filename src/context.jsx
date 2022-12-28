@@ -14,9 +14,9 @@ const AppProvider = ({ children }) => {
     billToName: "",
     billToPhoneNumber: "",
     itemName: "",
-    itemDescription: "",
+    itemContent: "",
     itemQty: "",
-    totalPrice: "",
+    itemTotal: "",
   });
 
   const handleInputChange = (e) => {
