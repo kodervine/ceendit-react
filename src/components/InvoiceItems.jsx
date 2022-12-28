@@ -20,6 +20,11 @@ const InvoiceItems = () => {
       <input type="number" name="item-qty" id="item-qty" />
       <h4>Total</h4>
       <input type="text" name="item-total" id="item-total" />
+
+      {/* Add new item description */}
+      <div>
+        <button>Add New item</button>
+      </div>
     </div>
   );
 };

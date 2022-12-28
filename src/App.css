@@ -1,14 +1,15 @@
 * {
   padding: 0 8px;
+  margin-bottom: 0px;
 }
 
 /* Invoice date */
 .invoice-date-input {
   display: flex;
-  justify-content: space-between;
+  gap: 2;
 }
 
 .invoice-form-recipient {
   display: flex;
-  justify-content: space-between;
+  gap: 2;
 }
