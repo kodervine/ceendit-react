@@ -7,3 +7,8 @@
   display: flex;
   justify-content: space-between;
 }
+
+.invoice-form-recipient {
+  display: flex;
+  justify-content: space-between;
+}
