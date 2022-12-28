@@ -1,6 +1,6 @@
 import React from "react";
 
-const InvoiceForm = ({ recipient, placeholder }) => {
+const InvoiceForm = ({ recipient, placeholder, email }) => {
   return (
     <section>
       <h3>{recipient}</h3>
