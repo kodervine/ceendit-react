@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalContext } from "../context";
-
 import DateInput from "../components/DateInput";
 import InvoiceForm from "../components/InvoiceForm";
 import InvoiceItems from "../components/InvoiceItems";
 
 const InvoiceApp = () => {
   const { invoiceFormData, handleInputChange } = useGlobalContext();
+
+  const [totalItemsArray, setTotalItemsArray] = useState([]);
   console.log(invoiceFormData);
   return (
     <main>
