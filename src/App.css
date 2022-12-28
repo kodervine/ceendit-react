@@ -1,0 +1,9 @@
+* {
+  padding: 0 8px;
+}
+
+/* Invoice date */
+.invoice-date-input {
+  display: flex;
+  justify-content: space-between;
+}
