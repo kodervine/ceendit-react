@@ -9,7 +9,7 @@ const InvoiceApp = () => {
       {/* From */}
       <section className="invoice-date-input">
         <DateInput text="Date from" />
-        <DateInput text="Date to" />
+        <DateInput text="Date due" />
       </section>
 
       {/* Bill names and email */}
