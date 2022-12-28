@@ -31,9 +31,26 @@ const InvoiceApp = () => {
         <InvoiceForm
           recipient="Bill from"
           placeholder="who is this invoice from"
-          email={invoiceFormData.billFromEmail}
+          formNameOfInvoiceFormEmail="billFromEmail"
+          formNameOfInvoiceFormText="billFromName"
+          formNameOfInvoiceFormNumber="billFromPhoneNumber"
+          valueOfInvoiceFormEmail={invoiceFormData.billFromEmail}
+          valueOfInvoiceFormText={invoiceFormData.billFromName}
+          valueOfInvoiceFormPhoneNumber={invoiceFormData.billFromPhoneNumber}
+          onHandleChange={handleInputChange}
         />
-        <InvoiceForm recipient="Bill to" placeholder="who is this email to" />
+        {/* Bill to Invoice form */}
+        <InvoiceForm
+          recipient="Bill to"
+          placeholder="who is this email to"
+          formNameOfInvoiceFormEmail="billToEmail"
+          formNameOfInvoiceFormText="billToName"
+          formNameOfInvoiceFormNumber="billToPhoneNumber"
+          valueOfInvoiceFormEmail={invoiceFormData.billToEmail}
+          valueOfInvoiceFormText={invoiceFormData.billToName}
+          valueOfInvoiceFormPhoneNumber={invoiceFormData.billToPhoneNumber}
+          onHandleChange={handleInputChange}
+        />
       </section>
 
       {/* Invoice items with qty, description. Passing the props to the InvoiceItems component*/}
