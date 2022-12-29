@@ -1,5 +1,6 @@
 import React from "react";
 import { useGlobalContext } from "../context";
+import { Input } from "@chakra-ui/react";
 
 // Deconstructing data gotten from the Invoice App and context.jsx. Date on the invoice page
 const DateInput = ({
@@ -12,8 +13,10 @@ const DateInput = ({
   return (
     <div>
       <p>{text}</p>
-      <input
-        type="date"
+      <Input
+        placeholder="Select Date and Time"
+        size="md"
+        type="datetime-local"
         name={nameOfDateInput}
         id="date-input"
         onChange={onHandleChange}
