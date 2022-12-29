@@ -34,8 +34,8 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // FormPreview function - setShowPreviewComponent to false initially. Thus, when the PreviewData is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
-  const handlePreviewData = (e) => {
+  // FormPreview function - setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
+  const handlePreviewData = () => {
     return setShowPreviewComponent(true);
   };
 
