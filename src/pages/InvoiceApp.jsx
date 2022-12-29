@@ -5,12 +5,19 @@ import InvoiceForm from "../components/InvoiceForm";
 import InvoiceItems from "../components/InvoiceItems";
 
 const InvoiceApp = () => {
-  const { invoiceFormData, handleInputChange } = useGlobalContext();
+  const {
+    invoiceFormData,
+    handleInputChange,
+    allInvoice,
+    handleInvoiceSubmit,
+  } = useGlobalContext();
 
   const [totalItemsArray, setTotalItemsArray] = useState([]);
+  console.log(allInvoice);
+
   console.log(invoiceFormData);
   return (
-    <main>
+    <form onSubmit={handleInvoiceSubmit}>
       {/* Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
       <section className="invoice-date-input">
         <DateInput
@@ -70,7 +77,10 @@ const InvoiceApp = () => {
           onHandleChange={handleInputChange}
         />
       </section>
-    </main>
+      <div>
+        <button>Submit btn</button>
+      </div>
+    </form>
   );
 };
 
