@@ -1,15 +1,4 @@
 * {
-  padding: 0 8px;
+  padding: 0px 3px;
   margin-bottom: 0px;
-}
-
-/* Invoice date */
-.invoice-date-input {
-  display: flex;
-  gap: 2;
-}
-
-.invoice-form-recipient {
-  display: flex;
-  gap: 2;
 }
