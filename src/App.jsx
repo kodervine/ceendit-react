@@ -15,8 +15,7 @@ function App() {
   return (
     <BrowserRouter>
       <InvoiceApp />
-      <FormPreview />
-      {/* {showPreviewComponent && <FormPreview />} */}
+      {showPreviewComponent && <FormPreview />}
     </BrowserRouter>
 
     // <div className="App">
