@@ -20,7 +20,7 @@ const AppProvider = ({ children }) => {
   });
 
   // Save all the invoices created in state
-  const [allInvoice, setAllInvoice] = useState([]);
+  const [allInvoiceData, setAllInvoiceData] = useState([]);
 
   // This function ensures that the input values on each form are saved in state
   const handleInputChange = (e) => {
@@ -34,7 +34,7 @@ const AppProvider = ({ children }) => {
   // The function handles each invoice submit and save it to the `allInvoice` useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
-    setAllInvoice(allInvoice.concat(invoiceFormData));
+    setAllInvoiceData(allInvoiceData.concat(invoiceFormData));
   };
 
   return (
@@ -42,7 +42,7 @@ const AppProvider = ({ children }) => {
       value={{
         invoiceFormData,
         handleInputChange,
-        allInvoice,
+        allInvoiceData,
         handleInvoiceSubmit,
       }}
     >

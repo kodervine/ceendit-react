@@ -8,12 +8,11 @@ const InvoiceApp = () => {
   const {
     invoiceFormData,
     handleInputChange,
-    allInvoice,
+    allInvoiceData,
     handleInvoiceSubmit,
   } = useGlobalContext();
 
-  const [totalItemsArray, setTotalItemsArray] = useState([]);
-  console.log(allInvoice);
+  console.log(allInvoiceData);
 
   console.log(invoiceFormData);
   return (
