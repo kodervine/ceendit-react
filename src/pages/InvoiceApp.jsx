@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Flex, Spacer } from "@chakra-ui/react";
+import { Flex, Spacer, Box, FormControl, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
 import DateInput from "../components/DateInput";
 import InvoiceForm from "../components/InvoiceForm";
 import InvoiceItems from "../components/InvoiceItems";
+import { Form } from "react-router-dom";
 
 const InvoiceApp = () => {
   const {
@@ -17,7 +18,7 @@ const InvoiceApp = () => {
   console.log(allInvoiceData);
   console.log(invoiceFormData);
   return (
-    <form onSubmit={handleInvoiceSubmit}>
+    <FormControl onSubmit={handleInvoiceSubmit}>
       {/* Input -  Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
       <Flex>
         <DateInput
@@ -38,7 +39,7 @@ const InvoiceApp = () => {
       {/* InvoiceForm Bill from and to input rendering with name, phone number and email with data gotten from the useGlobalContext from useContext. 
       
       Also passing the data via props to InvoiceForm component*/}
-      <section>
+      <Box>
         <InvoiceForm
           recipient="Bill from"
           placeholder="who is this invoice from"
@@ -63,7 +64,7 @@ const InvoiceApp = () => {
           valueOfInvoiceFormPhoneNumber={invoiceFormData.billToPhoneNumber}
           onHandleChange={handleInputChange}
         />
-      </section>
+      </Box>
 
       {/* InvoiceItems rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
       <section>
@@ -79,10 +80,12 @@ const InvoiceApp = () => {
           onHandleChange={handleInputChange}
         />
       </section>
-      <div>
-        <button onClick={handlePreviewData}>Preview Invoice</button>
-      </div>
-    </form>
+      <Box mt="10px">
+        <Button onClick={handlePreviewData} colorScheme="blue">
+          Preview Invoice
+        </Button>
+      </Box>
+    </FormControl>
   );
 };
 
