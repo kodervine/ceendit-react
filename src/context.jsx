@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import App from "./App";
+import FormPreview from "./pages/FormPreview";
 
 const AppContext = React.createContext();
 
@@ -31,6 +32,11 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  // Preview data form
+  const handlePreviewData = (e) => {
+    return <FormPreview />;
+  };
+
   // The function handles each invoice submit and save it to the `allInvoice` useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
@@ -44,6 +50,7 @@ const AppProvider = ({ children }) => {
         handleInputChange,
         allInvoiceData,
         handleInvoiceSubmit,
+        handlePreviewData,
       }}
     >
       {children}

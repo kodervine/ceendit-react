@@ -10,14 +10,14 @@ const InvoiceApp = () => {
     handleInputChange,
     allInvoiceData,
     handleInvoiceSubmit,
+    handlePreviewData,
   } = useGlobalContext();
 
   console.log(allInvoiceData);
-
   console.log(invoiceFormData);
   return (
     <form onSubmit={handleInvoiceSubmit}>
-      {/* Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
+      {/* Input -  Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
       <section className="invoice-date-input">
         <DateInput
           text="Date Created"
@@ -77,7 +77,7 @@ const InvoiceApp = () => {
         />
       </section>
       <div>
-        <button>Submit btn</button>
+        <button onClick={handlePreviewData}>Preview Invoice</button>
       </div>
     </form>
   );

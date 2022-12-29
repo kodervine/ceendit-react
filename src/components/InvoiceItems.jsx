@@ -51,11 +51,6 @@ const InvoiceItems = ({
         value={valueOfInvoiceItemTotal}
         onChange={onHandleChange}
       />
-
-      {/* Add new item description */}
-      <div>
-        <button>Add New item</button>
-      </div>
     </div>
   );
 };
