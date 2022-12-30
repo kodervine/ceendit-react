@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import jsPDF from "jspdf";
 import App from "./App";
 import FormPreview from "./pages/FormPreview";
@@ -20,11 +20,15 @@ const AppProvider = ({ children }) => {
     itemQty: "",
     itemTotal: "",
   });
+  const [showPreviewComponent, setShowPreviewComponent] = useState(false);
 
   // Save all the invoices created in array state to be used when I can acess all the invoices in the past
   const [allInvoiceData, setAllInvoiceData] = useState([]);
 
-  const [showPreviewComponent, setShowPreviewComponent] = useState(false);
+  // Save data from invoicedata
+  useEffect(() => {
+    localStorage.setItem("invoiceData", JSON.stringify(allInvoiceData));
+  }, [allInvoiceData]);
 
   // This function ensures that the input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
@@ -67,6 +71,7 @@ const AppProvider = ({ children }) => {
         invoiceFormData,
         handleInputChange,
         allInvoiceData,
+        setAllInvoiceData,
         handleInvoiceSubmit,
         showPreviewComponent,
         handlePreviewData,

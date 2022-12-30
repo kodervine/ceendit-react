@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -14,8 +14,20 @@ import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 
 function App() {
-  const { showPreviewComponent, FormPreviewRef, invoiceHistoryRef } =
-    useGlobalContext();
+  const {
+    showPreviewComponent,
+    FormPreviewRef,
+    invoiceHistoryRef,
+    allInvoiceData,
+    setAllInvoiceData,
+  } = useGlobalContext();
+
+  // useEffect(() => {
+  //   const dataFromStorage = JSON.parse(localStorage.getItem("invoiceData"));
+  //   if (dataFromStorage) {
+  //     setAllInvoiceData(dataFromStorage);
+  //   }
+  // }, []);
   return (
     <BrowserRouter>
       <InvoiceApp />
