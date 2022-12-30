@@ -22,12 +22,6 @@ function App() {
     setAllInvoiceData,
   } = useGlobalContext();
 
-  // useEffect(() => {
-  //   const dataFromStorage = JSON.parse(localStorage.getItem("invoiceData"));
-  //   if (dataFromStorage) {
-  //     setAllInvoiceData(dataFromStorage);
-  //   }
-  // }, []);
   return (
     <BrowserRouter>
       <InvoiceApp />

@@ -22,12 +22,15 @@ const AppProvider = ({ children }) => {
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
 
-  // Save all the invoices created in array state to be used when I can acess all the invoices in the past
-  const [allInvoiceData, setAllInvoiceData] = useState([]);
+  // Save all the invoices created in array state for the invoiceHistory page and get saved data from local storage on reload. If nothing is there, return an empty array
+  const LOCAL_STORAGE_KEY = "invoiceData";
+  const [allInvoiceData, setAllInvoiceData] = useState(() => {
+    return JSON.parse(localStorage.getItem("invoiceData")) || [];
+  });
 
-  // Save data from invoicedata
+  // Save data from allInvoiceData to localStorage
   useEffect(() => {
-    localStorage.setItem("invoiceData", JSON.stringify(allInvoiceData));
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allInvoiceData));
   }, [allInvoiceData]);
 
   // This function ensures that the input values on the forms are saved to the invoiceFormData state
