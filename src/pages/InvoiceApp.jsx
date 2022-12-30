@@ -4,7 +4,6 @@ import { useGlobalContext } from "../context";
 import DateInput from "../components/DateInput";
 import InvoiceForm from "../components/InvoiceForm";
 import InvoiceItems from "../components/InvoiceItems";
-import { Form } from "react-router-dom";
 
 const InvoiceApp = () => {
   const {
@@ -83,6 +82,11 @@ const InvoiceApp = () => {
       <Box mt="10px">
         <Button onClick={handlePreviewData} colorScheme="blue">
           Preview Invoice
+        </Button>
+      </Box>
+      <Box>
+        <Button onClick={handleInvoiceSubmit} colorScheme="blue">
+          Save Invoice
         </Button>
       </Box>
     </FormControl>

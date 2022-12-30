@@ -11,6 +11,7 @@ import { useGlobalContext } from "./context";
 import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
 import InvoiceToPdf from "./components/InvoiceToPdf";
+import InvoiceHistory from "./pages/InvoiceHistory";
 
 function App() {
   const { showPreviewComponent, FormPreviewRef } = useGlobalContext();
@@ -20,6 +21,7 @@ function App() {
       {/* renders the FormPreview page ref to be downloaded from InvoiceToPdf button  */}
       <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box>
       {showPreviewComponent && <InvoiceToPdf />}
+      <InvoiceHistory />
     </BrowserRouter>
   );
 }
