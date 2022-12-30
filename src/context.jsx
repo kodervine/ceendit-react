@@ -48,7 +48,7 @@ const AppProvider = ({ children }) => {
 
   // Used the jdpdf library to convert FormPreview page to pdf. Documentation used - https://pspdfkit.com/blog/2022/how-to-convert-html-to-pdf-using-react/. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
-  const invoiceHistoryIdRef = useRef();
+  const invoiceHistoryRef = useRef();
   const handleGenerateInvoicePdf = () => {
     const doc = new jsPDF({
       format: "a4",
