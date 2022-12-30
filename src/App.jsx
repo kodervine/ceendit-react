@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -9,13 +9,16 @@ import {
 import { useGlobalContext } from "./context";
 import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
+import InvoiceToPdf from "./components/InvoiceToPdf";
 
 function App() {
-  const { showPreviewComponent, handlePreviewData } = useGlobalContext();
+  const { showPreviewComponent, handlePreviewData, handleGenerateInvoicePdf } =
+    useGlobalContext();
   return (
     <BrowserRouter>
       <InvoiceApp />
       {showPreviewComponent && <FormPreview />}
+      <InvoiceToPdf />
     </BrowserRouter>
 
     // <div className="App">

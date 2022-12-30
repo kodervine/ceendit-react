@@ -13,12 +13,13 @@ import {
   Th,
   Td,
   TableContainer,
+  Button,
 } from "@chakra-ui/react";
 
 import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
-  const { invoiceFormData } = useGlobalContext();
+  const { invoiceFormData, handleGenerateInvoicePdf } = useGlobalContext();
   return (
     <Stack>
       {/* Date */}
@@ -70,6 +71,12 @@ const FormPreview = () => {
           </Tbody>
         </Table>
       </TableContainer>
+
+      <Box mt="10px">
+        <Button onClick={handleGenerateInvoicePdf} colorScheme="blue">
+          Download Invoice
+        </Button>
+      </Box>
     </Stack>
   );
 };

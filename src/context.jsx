@@ -1,4 +1,5 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useRef } from "react";
+import jsPDF from "jspdf";
 import App from "./App";
 import FormPreview from "./pages/FormPreview";
 
@@ -44,6 +45,18 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     setAllInvoiceData(allInvoiceData.concat(invoiceFormData));
   };
+  const FormPreview = useRef();
+  const handleGenerateInvoicePdf = () => {
+    const doc = new jsPDF({
+      format: "a4",
+      unit: "px",
+    });
+    doc.html(FormPreview.current, {
+      async callback(doc) {
+        await doc.save("document");
+      },
+    });
+  };
 
   return (
     <AppContext.Provider
@@ -54,6 +67,7 @@ const AppProvider = ({ children }) => {
         handleInvoiceSubmit,
         showPreviewComponent,
         handlePreviewData,
+        handleGenerateInvoicePdf,
       }}
     >
       {children}
