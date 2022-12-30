@@ -12,18 +12,15 @@ import FormPreview from "./pages/FormPreview";
 import InvoiceToPdf from "./components/InvoiceToPdf";
 
 function App() {
-  const { showPreviewComponent, handlePreviewData, handleGenerateInvoicePdf } =
+  const { showPreviewComponent, FormPreviewRef, handleGenerateInvoicePdf } =
     useGlobalContext();
   return (
     <BrowserRouter>
       <InvoiceApp />
-      {showPreviewComponent && <FormPreview />}
-      <InvoiceToPdf />
-    </BrowserRouter>
 
-    // <div className="App">
-    //
-    // </div>
+      <div ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</div>
+      {showPreviewComponent && <InvoiceToPdf />}
+    </BrowserRouter>
   );
 }
 

@@ -71,12 +71,6 @@ const FormPreview = () => {
           </Tbody>
         </Table>
       </TableContainer>
-
-      <Box mt="10px">
-        <Button onClick={handleGenerateInvoicePdf} colorScheme="blue">
-          Download Invoice
-        </Button>
-      </Box>
     </Stack>
   );
 };

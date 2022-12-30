@@ -45,13 +45,14 @@ const AppProvider = ({ children }) => {
     e.preventDefault();
     setAllInvoiceData(allInvoiceData.concat(invoiceFormData));
   };
-  const FormPreview = useRef();
+
+  const FormPreviewRef = useRef();
   const handleGenerateInvoicePdf = () => {
     const doc = new jsPDF({
       format: "a4",
       unit: "px",
     });
-    doc.html(FormPreview.current, {
+    doc.html(FormPreviewRef.current, {
       async callback(doc) {
         await doc.save("document");
       },
@@ -68,6 +69,7 @@ const AppProvider = ({ children }) => {
         showPreviewComponent,
         handlePreviewData,
         handleGenerateInvoicePdf,
+        FormPreviewRef,
       }}
     >
       {children}
