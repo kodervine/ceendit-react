@@ -86,7 +86,7 @@ const InvoiceApp = () => {
       </Box>
       <Box>
         <Button onClick={handleInvoiceSubmit} colorScheme="blue">
-          Save Invoice
+          View all Invoice
         </Button>
       </Box>
     </FormControl>

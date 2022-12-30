@@ -15,9 +15,11 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
+import InvoiceToPdf from "../components/InvoiceToPdf";
 
+//  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
-  const { handleInvoiceSubmit, allInvoiceData } = useGlobalContext();
+  const { allInvoiceData } = useGlobalContext();
   return (
     <div>
       {allInvoiceData.map((invoice, index) => {
@@ -86,6 +88,7 @@ const InvoiceHistory = () => {
                 </Tbody>
               </Table>
             </TableContainer>
+            <InvoiceToPdf />
           </Stack>
         );
       })}
