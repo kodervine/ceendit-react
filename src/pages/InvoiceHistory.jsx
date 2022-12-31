@@ -16,6 +16,7 @@ import {
 } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
 import InvoiceToPdf from "../components/InvoiceToPdf";
+import DeleteInvoice from "../components/DeleteInvoice";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
@@ -98,7 +99,16 @@ const InvoiceHistory = () => {
                 </Tbody>
               </Table>
             </TableContainer>
-            <InvoiceToPdf />
+
+            {/* Buttons  */}
+            <Flex>
+              <Box>
+                <InvoiceToPdf />
+              </Box>
+              <Box>
+                <DeleteInvoice />
+              </Box>
+            </Flex>
           </Stack>
         );
       })}

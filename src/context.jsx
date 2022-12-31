@@ -83,7 +83,8 @@ const AppProvider = ({ children }) => {
   const handleGenerateInvoicePdf = () => {
     const doc = new jsPDF({
       format: "a4",
-      unit: "px",
+      // format: [1125, 793],
+      unit: "mm",
     });
     doc.html(FormPreviewRef.current, {
       async callback(doc) {
