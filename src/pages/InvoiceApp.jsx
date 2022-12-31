@@ -12,6 +12,7 @@ const InvoiceApp = () => {
     allInvoiceData,
     handleInvoiceSubmit,
     handleInvoiceEdit,
+    handleAllInvoiceHistory,
     showAllInvoice,
     handlePreviewData,
   } = useGlobalContext();
@@ -20,7 +21,7 @@ const InvoiceApp = () => {
   console.log(invoiceFormData);
   return (
     <FormControl
-      onSubmit={handleInvoiceSubmit}
+      onSubmit={handleAllInvoiceHistory}
       width={{ base: "100%", md: "90%", lg: "70%" }}
       maxW="960px"
       margin="auto"

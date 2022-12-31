@@ -19,8 +19,6 @@ const AppProvider = ({ children }) => {
     itemContent: "",
     itemQty: "",
     itemTotal: "",
-    isEditing: false,
-    originalData: {},
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
@@ -46,9 +44,19 @@ const AppProvider = ({ children }) => {
     });
   };
 
+  const handleAllInvoiceHistory = () => {
+    const checkEmptyInput = Object.values(invoiceFormData);
+    if (checkEmptyInput.some((input) => !input)) {
+      alert("please fill out all fields");
+      return;
+    }
+    setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+  };
+
   // FormPreview function - Checks if any of the input is empty. If not, it setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
   const handlePreviewData = () => {
     const checkEmptyInput = Object.values(invoiceFormData);
+
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
@@ -61,7 +69,12 @@ const AppProvider = ({ children }) => {
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
 
-    setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+    // const checkEmptyInput = Object.values(invoiceFormData);
+    // if (checkEmptyInput.some((input) => !input)) {
+    //   alert("please fill out all fields");
+    //   return;
+    // }
+    // setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
     setShowAllInvoice(true);
   };
 
@@ -117,6 +130,7 @@ const AppProvider = ({ children }) => {
         allInvoiceData,
         setAllInvoiceData,
         handleInvoiceSubmit,
+        handleAllInvoiceHistory,
         handleDeleteInvoice,
         // handleInvoiceEdit,
         showAllInvoice,
