@@ -99,8 +99,9 @@ const InvoiceApp = () => {
           </Button>
         </Box>
         <Box>
+          {/* Eventually this should show only the submit */}
           <Button onClick={handleInvoiceSubmit} colorScheme="blue">
-            View all Invoice
+            Submit and View all Invoice
           </Button>
         </Box>
       </Flex>
