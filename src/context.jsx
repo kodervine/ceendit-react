@@ -46,14 +46,13 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // FormPreview function - setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
-  const handlePreviewData = (e) => {
-    const { name, value } = e.target;
-    console.log(name, value);
-    // if (!name) {
-    //   alert("not working");
-    //   return;
-    // }
+  // FormPreview function - Checks if any of the input is empty. If not, it setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
+  const handlePreviewData = () => {
+    const checkEmptyInput = Object.values(invoiceFormData);
+    if (checkEmptyInput.some((input) => !input)) {
+      alert("please fill out all fields");
+      return;
+    }
 
     return setShowPreviewComponent(true);
   };
@@ -61,14 +60,12 @@ const AppProvider = ({ children }) => {
   // Handles each invoice submit and pushes it to the `allInvoice` array in useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
-    // if (!invoiceFormData) {
-    //   alert("I am empty");
-    // }
+
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
     setShowAllInvoice(true);
   };
 
-  // Check if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
+  // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (id) => {
     const updatedInvoiceArray = allInvoiceData.filter(
       (invoice) => allInvoiceData.indexOf(invoice) !== id
