@@ -11,6 +11,7 @@ const InvoiceApp = () => {
     handleInputChange,
     allInvoiceData,
     handleInvoiceSubmit,
+    handleInvoiceEdit,
     handlePreviewData,
   } = useGlobalContext();
 
