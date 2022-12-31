@@ -91,16 +91,18 @@ const InvoiceApp = () => {
           onHandleChange={handleInputChange}
         />
       </section>
-      <Box mt="10px">
-        <Button onClick={handlePreviewData} colorScheme="blue">
-          Preview Invoice
-        </Button>
-      </Box>
-      <Box>
-        <Button onClick={handleInvoiceSubmit} colorScheme="blue">
-          View all Invoice
-        </Button>
-      </Box>
+      <Flex pt="6" gap="2">
+        <Box>
+          <Button onClick={handlePreviewData} colorScheme="blue">
+            Preview Invoice
+          </Button>
+        </Box>
+        <Box>
+          <Button onClick={handleInvoiceSubmit} colorScheme="blue">
+            View all Invoice
+          </Button>
+        </Box>
+      </Flex>
     </FormControl>
   );
 };
