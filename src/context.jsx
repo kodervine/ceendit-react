@@ -64,14 +64,6 @@ const AppProvider = ({ children }) => {
     return setShowPreviewComponent(true);
   };
 
-  function handleEmptyInput() {
-    const checkEmptyInput = Object.values(invoiceFormData);
-    if (checkEmptyInput.some((input) => !input)) {
-      alert("please fill out all fields");
-      return;
-    }
-  }
-
   // Handles each invoice submit and pushes it to the `allInvoice` array in useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
@@ -82,7 +74,6 @@ const AppProvider = ({ children }) => {
       return;
     }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
-
     setShowAllInvoice(true);
   };
 

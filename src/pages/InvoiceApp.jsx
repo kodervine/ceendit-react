@@ -21,7 +21,7 @@ const InvoiceApp = () => {
   console.log(invoiceFormData);
   return (
     <FormControl
-      onSubmit={handleAllInvoiceHistory}
+      onSubmit={handleInvoiceSubmit}
       width={{ base: "100%", md: "90%", lg: "70%" }}
       maxW="960px"
       margin="auto"
@@ -94,7 +94,7 @@ const InvoiceApp = () => {
       </section>
       <Flex pt="6" gap="2">
         <Box>
-          <Button onClick={handlePreviewData} colorScheme="blue">
+          <Button onClick={handlePreviewData} colorScheme="blue" type="submit">
             Preview Invoice
           </Button>
         </Box>
