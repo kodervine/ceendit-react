@@ -20,7 +20,7 @@ import DeleteInvoice from "../components/DeleteInvoice";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
-  const { allInvoiceData } = useGlobalContext();
+  const { allInvoiceData, handleDeleteInvoice } = useGlobalContext();
   return (
     <div>
       {allInvoiceData.map((invoice, index) => {
@@ -105,8 +105,10 @@ const InvoiceHistory = () => {
               <Box>
                 <InvoiceToPdf />
               </Box>
+              ``
               <Box>
-                <DeleteInvoice />
+                {/* same index from the map above */}
+                <DeleteInvoice id={index} />
               </Box>
             </Flex>
           </Stack>

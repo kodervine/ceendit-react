@@ -2,7 +2,8 @@ import React from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
 
-const DeleteInvoice = () => {
+// Id parameter is the index of each of invoice mapped from the invoiceHistory page.
+const DeleteInvoice = ({ id }) => {
   const { handleDeleteInvoice } = useGlobalContext();
   return (
     // The handleGenerateInvoicePdf frpm the useContext is executed here and rendered on the App.js
@@ -14,12 +15,14 @@ const DeleteInvoice = () => {
       mb="10px"
     >
       <Button
-        onClick={handleDeleteInvoice}
+        onClick={() => {
+          handleDeleteInvoice(id);
+        }}
         colorScheme="blue"
         borderColor="gray.200"
         boxShadow="lg"
       >
-        DeleteInvoice
+        Delete Invoice
       </Button>
     </Box>
   );

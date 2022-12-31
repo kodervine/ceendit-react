@@ -39,6 +39,7 @@ const AppProvider = ({ children }) => {
   // This function ensures that the input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
     setInvoiceFormData({
       ...invoiceFormData,
       [name]: value,
@@ -46,15 +47,33 @@ const AppProvider = ({ children }) => {
   };
 
   // FormPreview function - setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
-  const handlePreviewData = () => {
+  const handlePreviewData = (e) => {
+    const { name, value } = e.target;
+    console.log(name, value);
+    // if (!name) {
+    //   alert("not working");
+    //   return;
+    // }
+
     return setShowPreviewComponent(true);
   };
 
-  // The function handles each invoice submit and pushes it to the `allInvoice` array useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
+  // Handles each invoice submit and pushes it to the `allInvoice` array in useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
+    // if (!invoiceFormData) {
+    //   alert("I am empty");
+    // }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
     setShowAllInvoice(true);
+  };
+
+  // Check if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
+  const handleDeleteInvoice = (id) => {
+    const updatedInvoiceArray = allInvoiceData.filter(
+      (invoice) => allInvoiceData.indexOf(invoice) !== id
+    );
+    setAllInvoiceData(updatedInvoiceArray);
   };
 
   //Handle form edit
@@ -101,6 +120,7 @@ const AppProvider = ({ children }) => {
         allInvoiceData,
         setAllInvoiceData,
         handleInvoiceSubmit,
+        handleDeleteInvoice,
         // handleInvoiceEdit,
         showAllInvoice,
         showPreviewComponent,
