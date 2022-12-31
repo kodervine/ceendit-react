@@ -105,7 +105,7 @@ const InvoiceHistory = () => {
               <Box>
                 <InvoiceToPdf />
               </Box>
-              ``
+
               <Box>
                 {/* same index from the map above */}
                 <DeleteInvoice id={index} />
