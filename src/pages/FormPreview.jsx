@@ -21,7 +21,11 @@ import { useGlobalContext } from "../context";
 const FormPreview = () => {
   const { invoiceFormData, handleGenerateInvoicePdf } = useGlobalContext();
   return (
-    <Stack>
+    <Stack
+      width={{ base: "100%", md: "90%", lg: "70%" }}
+      maxW="960px"
+      margin="auto"
+    >
       {/* Date */}
       <Box>
         <Heading size="md">{invoiceFormData.billFromName}</Heading>

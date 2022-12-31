@@ -38,7 +38,12 @@ const InvoiceHistory = () => {
           itemTotal,
         } = invoice;
         return (
-          <Stack key={index}>
+          <Stack
+            key={index}
+            width={{ base: "100%", md: "90%", lg: "70%" }}
+            maxW="960px"
+            margin="auto"
+          >
             {/* Date */}
             <Box>
               <Heading size="md">{billFromName}</Heading>

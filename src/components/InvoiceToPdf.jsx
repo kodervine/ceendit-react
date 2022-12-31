@@ -5,7 +5,12 @@ const InvoiceToPdf = () => {
   const { handleGenerateInvoicePdf } = useGlobalContext();
   return (
     // The handleGenerateInvoicePdf frpm the useContext is executed here and rendered on the App.js
-    <Box mt="10px">
+    <Box
+      mt="10px"
+      width={{ base: "100%", md: "90%", lg: "70%" }}
+      maxW="960px"
+      margin="auto"
+    >
       <Button onClick={handleGenerateInvoicePdf} colorScheme="blue">
         Download Invoice
       </Button>
