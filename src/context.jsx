@@ -23,6 +23,7 @@ const AppProvider = ({ children }) => {
     originalData: {},
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
+  const [showAllInvoice, setShowAllInvoice] = useState(false);
 
   // Save all the invoices created in array state for the invoiceHistory page and get saved data from local storage on reload. If nothing is there, return an empty array
   const LOCAL_STORAGE_KEY = "invoiceData";
@@ -53,6 +54,7 @@ const AppProvider = ({ children }) => {
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+    setShowAllInvoice(true);
   };
 
   //Handle form edit
@@ -99,6 +101,7 @@ const AppProvider = ({ children }) => {
         setAllInvoiceData,
         handleInvoiceSubmit,
         // handleInvoiceEdit,
+        showAllInvoice,
         showPreviewComponent,
         handlePreviewData,
         handleGenerateInvoicePdf,

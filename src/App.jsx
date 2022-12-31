@@ -16,6 +16,7 @@ import InvoiceHistory from "./pages/InvoiceHistory";
 function App() {
   const {
     showPreviewComponent,
+    showAllInvoice,
     FormPreviewRef,
     invoiceHistoryRef,
     allInvoiceData,
@@ -28,9 +29,7 @@ function App() {
       {/* renders the FormPreview page ref to be downloaded from InvoiceToPdf button  */}
       <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box>
       {showPreviewComponent && <InvoiceToPdf />}
-      <Box ref={invoiceHistoryRef}>
-        <InvoiceHistory />
-      </Box>
+      <Box ref={invoiceHistoryRef}>{showAllInvoice && <InvoiceHistory />}</Box>
     </BrowserRouter>
   );
 }

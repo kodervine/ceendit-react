@@ -12,6 +12,7 @@ const InvoiceApp = () => {
     allInvoiceData,
     handleInvoiceSubmit,
     handleInvoiceEdit,
+    showAllInvoice,
     handlePreviewData,
   } = useGlobalContext();
 
