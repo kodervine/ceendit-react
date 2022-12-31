@@ -24,6 +24,11 @@ const InvoiceApp = () => {
       width={{ base: "100%", md: "90%", lg: "70%" }}
       maxW="960px"
       margin="auto"
+      border="1px"
+      borderColor="gray.200"
+      boxShadow="md"
+      p="6"
+      rounded="md"
     >
       {/* Input -  Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
       <Flex>

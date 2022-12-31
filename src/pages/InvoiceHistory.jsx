@@ -42,7 +42,12 @@ const InvoiceHistory = () => {
             key={index}
             width={{ base: "100%", md: "90%", lg: "70%" }}
             maxW="960px"
-            margin="auto"
+            m="auto"
+            mb="6"
+            p="6"
+            boxShadow="dark-lg"
+            rounded="md"
+            bg="white"
           >
             {/* Date */}
             <Box>
