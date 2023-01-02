@@ -4,6 +4,7 @@ import { useGlobalContext } from "../context";
 import DateInput from "../components/DateInput";
 import InvoiceForm from "../components/InvoiceForm";
 import InvoiceItems from "../components/InvoiceItems";
+import InvoiceBankDetails from "../components/InvoiceBankDetails";
 
 const InvoiceApp = () => {
   const {
@@ -74,6 +75,18 @@ const InvoiceApp = () => {
           valueOfInvoiceFormEmail={invoiceFormData.billToEmail}
           valueOfInvoiceFormText={invoiceFormData.billToName}
           valueOfInvoiceFormPhoneNumber={invoiceFormData.billToPhoneNumber}
+          onHandleChange={handleInputChange}
+        />
+      </Box>
+      {/* InvoiceForm Bank account details from and to input rendering with name, phone number and email with data gotten from the useGlobalContext from useContext. 
+      
+      Also passing the data via props to InvoiceForm component*/}
+      <Box>
+        <InvoiceBankDetails
+          formNameOfInvoiceFormBankName="bankName"
+          formNameOfInvoiceFormBankAccount="bankAccount"
+          valueOfInvoiceFormBankName={invoiceFormData.bankName}
+          valueOfInvoiceFormBankAccount={invoiceFormData.bankAccount}
           onHandleChange={handleInputChange}
         />
       </Box>

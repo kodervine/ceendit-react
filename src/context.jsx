@@ -16,6 +16,8 @@ const AppProvider = ({ children }) => {
     billToEmail: "",
     billToName: "",
     billToPhoneNumber: "",
+    bankName: "",
+    bankAccount: "",
     itemName: "",
     itemContent: "",
     itemQty: "",
