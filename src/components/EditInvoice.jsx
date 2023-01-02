@@ -6,7 +6,7 @@ import { useGlobalContext } from "../context";
 const EditInvoice = ({ id }) => {
   const { handleEditInvoice } = useGlobalContext();
   return (
-    // The handleGenerateInvoicePdf frpm the useContext is executed here and rendered on the App.js
+    // The handleEditInvoice frpm the useContext is executed here and rendered on the InvoiceHistory mapped
     <Box
       width={{ base: "100%", md: "90%", lg: "70%" }}
       maxW="960px"

@@ -119,12 +119,13 @@ const InvoiceHistory = () => {
                   <DeleteInvoice id={index} />
                 </Box>
 
-                <Box>
+                {/* Edit invoice render */}
+                {/* <Box>
                   <EditInvoice id={index} />
-                </Box>
+                </Box> */}
               </Flex>
             </Stack>
-            {isFormEditing && <InvoiceApp buttonText="SaveBtn" />}
+            {/* {isFormEditing && <InvoiceApp buttonText="SaveBtn" />} */}
           </Box>
         );
       })}

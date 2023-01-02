@@ -91,13 +91,11 @@ const AppProvider = ({ children }) => {
     const editingInvoice = allInvoiceData.filter((item) => {
       return allInvoiceData.indexOf(item) === id;
     });
-    console.log(editingInvoice);
     setInvoiceFormData(editingInvoice);
     setIsFormEditing(true);
-    console.log(invoiceFormData);
   };
-  console.log(invoiceFormData);
-  // Used the jdpdf library to convert FormPreview page to pdf. Documentation used - https://pspdfkit.com/blog/2022/how-to-convert-html-to-pdf-using-react/. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
+
+  // Used the jspdf library to convert FormPreview page to pdf. Documentation used - https://pspdfkit.com/blog/2022/how-to-convert-html-to-pdf-using-react/. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
   const invoiceHistoryRef = useRef();
   const handleGenerateInvoicePdf = () => {
