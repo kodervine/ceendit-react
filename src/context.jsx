@@ -1,5 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 import App from "./App";
 import FormPreview from "./pages/FormPreview";
 
@@ -99,16 +100,28 @@ const AppProvider = ({ children }) => {
   const FormPreviewRef = useRef();
   const invoiceHistoryRef = useRef();
   const handleGenerateInvoicePdf = () => {
-    const doc = new jsPDF({
-      format: "a4",
-      // format: [1125, 793],
-      unit: "mm",
+    const input = document.getElementById("form-input");
+    html2canvas(input).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF();
+      const imgProps = pdf.getImageProperties(imgData);
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+      pdf.save("download.pdf");
     });
-    doc.html(FormPreviewRef.current, {
-      async callback(doc) {
-        await doc.save("document");
-      },
-    });
+
+    // const doc = new jsPDF({
+    //   format: "a4",
+    //   // format: [1125, 793],
+    //   unit: "mm",
+    // });
+    // doc.html(FormPreviewRef.current, {
+    //   async callback(doc) {
+    //     await doc.save("document");
+    //   },
+    // });
   };
 
   return (

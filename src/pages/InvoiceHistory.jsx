@@ -46,87 +46,85 @@ const InvoiceHistory = () => {
           itemTotal,
         } = invoice;
         return (
-          <Box>
-            <Stack
-              key={index}
-              width={{ base: "100%", md: "90%", lg: "70%" }}
-              maxW="960px"
-              m="auto"
-              mb="6"
-              p="6"
-              boxShadow="dark-lg"
-              rounded="md"
-              bg="white"
-            >
-              {/* Date */}
+          <Stack
+            key={index}
+            width={{ base: "100%", md: "90%", lg: "70%" }}
+            maxW="960px"
+            m="auto"
+            mb="6"
+            p="6"
+            boxShadow="dark-lg"
+            rounded="md"
+            bg="white"
+          >
+            {/* Date */}
+            <Box>
+              <Heading size="md">{billFromName}</Heading>
+              <Text>{billFromPhoneNumber}</Text>
+              <Text>{billFromEmail}</Text>
+            </Box>
+
+            {/* Invoice date and due date */}
+            <Flex>
               <Box>
-                <Heading size="md">{billFromName}</Heading>
-                <Text>{billFromPhoneNumber}</Text>
-                <Text>{billFromEmail}</Text>
+                <Heading size="sm">Invoice date</Heading>
+                <Text>{dateCreated}</Text>
+              </Box>
+              <Spacer />
+              <Box>
+                <Heading size="sm">Due date</Heading>
+                <Text>{dateDue}</Text>
+              </Box>
+            </Flex>
+
+            {/* Billed to */}
+            <Box>
+              <Heading size="sm">Billed to</Heading>
+              <Text>{billToName}</Text>
+              <Text>{billToPhoneNumber}</Text>
+              <Text>{billToEmail}</Text>
+            </Box>
+
+            {/* Invoice Items */}
+            <TableContainer>
+              <Table variant="simple">
+                <Thead>
+                  <Tr>
+                    <Th>Item Name</Th>
+                    <Th>Item Details</Th>
+                    <Th isNumeric>Qty</Th>
+                    <Th isNumeric>Amount</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  <Tr>
+                    <Td>{itemName}</Td>
+                    <Td>{itemContent}</Td>
+                    <Td isNumeric>{itemQty}</Td>
+                    <Td isNumeric>{itemTotal}</Td>
+                  </Tr>
+                </Tbody>
+              </Table>
+            </TableContainer>
+
+            {/* Buttons  */}
+            <Flex>
+              <Box>
+                <InvoiceToPdf />
               </Box>
 
-              {/* Invoice date and due date */}
-              <Flex>
-                <Box>
-                  <Heading size="sm">Invoice date</Heading>
-                  <Text>{dateCreated}</Text>
-                </Box>
-                <Spacer />
-                <Box>
-                  <Heading size="sm">Due date</Heading>
-                  <Text>{dateDue}</Text>
-                </Box>
-              </Flex>
-
-              {/* Billed to */}
               <Box>
-                <Heading size="sm">Billed to</Heading>
-                <Text>{billToName}</Text>
-                <Text>{billToPhoneNumber}</Text>
-                <Text>{billToEmail}</Text>
+                {/* same index from the map above */}
+                <DeleteInvoice id={index} />
               </Box>
 
-              {/* Invoice Items */}
-              <TableContainer>
-                <Table variant="simple">
-                  <Thead>
-                    <Tr>
-                      <Th>Item Name</Th>
-                      <Th>Item Details</Th>
-                      <Th isNumeric>Qty</Th>
-                      <Th isNumeric>Amount</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    <Tr>
-                      <Td>{itemName}</Td>
-                      <Td>{itemContent}</Td>
-                      <Td isNumeric>{itemQty}</Td>
-                      <Td isNumeric>{itemTotal}</Td>
-                    </Tr>
-                  </Tbody>
-                </Table>
-              </TableContainer>
-
-              {/* Buttons  */}
-              <Flex>
-                <Box>
-                  <InvoiceToPdf />
-                </Box>
-
-                <Box>
-                  {/* same index from the map above */}
-                  <DeleteInvoice id={index} />
-                </Box>
-
-                {/* Edit invoice render */}
-                {/* <Box>
+              {/* Edit invoice render */}
+              {/* <Box>
                   <EditInvoice id={index} />
                 </Box> */}
-              </Flex>
-            </Stack>
-            {/* {isFormEditing && <InvoiceApp buttonText="SaveBtn" />} */}
-          </Box>
+            </Flex>
+          </Stack>
+          /* {isFormEditing && <InvoiceApp buttonText="SaveBtn" />} */
         );
       })}
     </div>

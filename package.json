@@ -13,6 +13,7 @@
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
     "framer-motion": "^6.5.1",
+    "html2canvas": "^1.4.1",
     "jspdf": "^2.5.1",
     "pdfjs": "^2.4.7",
     "react": "^18.2.0",
