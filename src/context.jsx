@@ -100,28 +100,43 @@ const AppProvider = ({ children }) => {
   const FormPreviewRef = useRef();
   const invoiceHistoryRef = useRef();
   const handleGenerateInvoicePdf = () => {
-    const input = document.getElementById("form-input");
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
+    // html2canvas before pdf
+    // const input = document.getElementById("form-input");
+    // html2canvas(input).then((canvas) => {
+    //   const imgData = canvas.toDataURL("image/png");
 
-      const pdf = new jsPDF();
-      const imgProps = pdf.getImageProperties(imgData);
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("download.pdf");
-    });
+    //   const pdf = new jsPDF();
+    //   const imgProps = pdf.getImageProperties(imgData);
+    //   const pdfWidth = pdf.internal.pageSize.getWidth();
+    //   const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+    //   pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    //   pdf.save("download.pdf");
+    // });
 
+    // old version used
     // const doc = new jsPDF({
     //   format: "a4",
-    //   // format: [1125, 793],
-    //   unit: "mm",
+    //   unit: "px",
     // });
     // doc.html(FormPreviewRef.current, {
     //   async callback(doc) {
     //     await doc.save("document");
     //   },
     // });
+
+    // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020
+    const doc = new jsPDF("p", "pt", [800, 800]);
+    doc.setFontSize(12);
+    doc.html(FormPreviewRef.current, {
+      callback: function (doc) {
+        doc.save("document");
+      },
+      x: 20,
+      y: 20,
+      width: 800,
+      windowWidth: 800,
+      margin: -20,
+    });
   };
 
   return (
