@@ -22,6 +22,7 @@ const AppProvider = ({ children }) => {
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
+  const [isFormEditing, setIsFormEditing] = useState(false);
 
   // Save all the invoices created in array state for the invoiceHistory page and get saved data from local storage on reload. If nothing is there, return an empty array
   const LOCAL_STORAGE_KEY = "invoiceData";
@@ -86,25 +87,16 @@ const AppProvider = ({ children }) => {
   };
 
   //Handle form edit
-  // const handleInvoiceEdit = () => {
-  //   setInvoiceFormData({
-  //     ...invoiceFormData,
-  //     isEditing: true,
-  //     dateCreated: invoiceFormData.originalData.dateCreated,
-  //     dateDue: invoiceFormData.originalData.dateDue,
-  //     billFromEmail: invoiceFormData.originalData.billFromEmail,
-  //     billFromName: invoiceFormData.originalData.billFromName,
-  //     billFromPhoneNumber: invoiceFormData.originalData.billFromPhoneNumber,
-  //     billToEmail: invoiceFormData.originalData.billToEmail,
-  //     billToName: invoiceFormData.originalData.billToName,
-  //     billToPhoneNumber: invoiceFormData.originalData.billToPhoneNumber,
-  //     itemName: invoiceFormData.originalData.itemName,
-  //     itemContent: invoiceFormData.originalData.itemContent,
-  //     itemQty: invoiceFormData.originalData.itemQty,
-  //     itemTotal: invoiceFormData.originalData.itemTotal,
-  //   });
-  // };
-
+  const handleEditInvoice = (id) => {
+    const editingInvoice = allInvoiceData.filter((item) => {
+      return allInvoiceData.indexOf(item) === id;
+    });
+    console.log(editingInvoice);
+    setInvoiceFormData(editingInvoice);
+    setIsFormEditing(true);
+    console.log(invoiceFormData);
+  };
+  console.log(invoiceFormData);
   // Used the jdpdf library to convert FormPreview page to pdf. Documentation used - https://pspdfkit.com/blog/2022/how-to-convert-html-to-pdf-using-react/. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
   const invoiceHistoryRef = useRef();
@@ -131,7 +123,8 @@ const AppProvider = ({ children }) => {
         handleInvoiceSubmit,
         handleAllInvoiceHistory,
         handleDeleteInvoice,
-        // handleInvoiceEdit,
+        handleEditInvoice,
+        isFormEditing,
         showAllInvoice,
         showPreviewComponent,
         handlePreviewData,
