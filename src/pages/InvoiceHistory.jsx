@@ -40,6 +40,8 @@ const InvoiceHistory = () => {
           billToEmail,
           billToName,
           billToPhoneNumber,
+          bankName,
+          bankAccount,
           itemName,
           itemContent,
           itemQty,
@@ -83,6 +85,13 @@ const InvoiceHistory = () => {
               <Text>{billToName}</Text>
               <Text>{billToPhoneNumber}</Text>
               <Text>{billToEmail}</Text>
+            </Box>
+
+            {/* Bank details */}
+            <Box>
+              <Heading size="sm">Bank Details</Heading>
+              <Text>{bankName}</Text>
+              <Text>{bankAccount}</Text>
             </Box>
 
             {/* Invoice Items */}
