@@ -1,6 +1,7 @@
 import React, { useRef } from "react";
 import {
   Box,
+  Button,
   Stack,
   Heading,
   Flex,
@@ -15,18 +16,14 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
-import InvoiceToPdf from "../components/InvoiceToPdf";
 import DeleteInvoice from "../components/DeleteInvoice";
 import EditInvoice from "../components/EditInvoice";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
-  const {
-    allInvoiceData,
-    invoiceHistoryRef,
-    handleEditInvoice,
-    isFormEditing,
-  } = useGlobalContext();
+  const { allInvoiceData, handlePrint, handleEditInvoice, isFormEditing } =
+    useGlobalContext();
+
   return (
     <div>
       {allInvoiceData.map((invoice, index) => {
@@ -47,10 +44,10 @@ const InvoiceHistory = () => {
           itemQty,
           itemTotal,
         } = invoice;
+
         return (
           <Stack
             key={index}
-            ref={invoiceHistoryRef}
             width={{ base: "100%", md: "90%", lg: "70%" }}
             maxW="960px"
             m="auto"
@@ -59,6 +56,7 @@ const InvoiceHistory = () => {
             boxShadow="dark-lg"
             rounded="md"
             bg="white"
+            id="print-section"
           >
             {/* Date */}
             <Box>
@@ -133,9 +131,9 @@ const InvoiceHistory = () => {
 
             {/* Buttons  */}
             <Flex>
-              <Box>
-                <InvoiceToPdf id={index} />
-              </Box>
+              <Button onClick={handlePrint} colorScheme="blue" mt="10px">
+                <Text>Download</Text>
+              </Button>
 
               <Box>
                 {/* same index from the map above */}
