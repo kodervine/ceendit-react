@@ -12,8 +12,10 @@ import {
 // Props for the input are gotten from InvoiceApp page, with data from the iseState declared on the useContext component
 const InvoiceBankDetails = ({
   formNameOfInvoiceFormBankName,
+  formNameOfInvoiceFormAccountName,
   formNameOfInvoiceFormBankAccount,
   valueOfInvoiceFormBankName,
+  valueOfInvoiceFormAccountName,
   valueOfInvoiceFormBankAccount,
   onHandleChange,
 }) => {
@@ -33,6 +35,15 @@ const InvoiceBankDetails = ({
           onChange={onHandleChange}
         />
 
+        <Input
+          type="text"
+          name={formNameOfInvoiceFormAccountName}
+          id="invoice-form-bank-Name"
+          placeholder="Your full name"
+          variant="filled"
+          value={valueOfInvoiceFormAccountName}
+          onChange={onHandleChange}
+        />
         <Input
           type="number"
           name={formNameOfInvoiceFormBankAccount}

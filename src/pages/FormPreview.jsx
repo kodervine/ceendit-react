@@ -62,17 +62,30 @@ const FormPreview = () => {
         </Box>
 
         {/* Bank details */}
-        <Box>
-          <Heading size="sm">Bank Details</Heading>
-          <Text>{invoiceFormData.bankName}</Text>
-          <Text>{invoiceFormData.bankAccount}</Text>
-        </Box>
+        <TableContainer>
+          <Table variant="simple">
+            <Thead>
+              <Tr bg="gray.100">
+                <Th>Bank Name</Th>
+                <Th>Account Name</Th>
+                <Th isNumeric>Account Number</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>{invoiceFormData.bankName}</Td>
+                <Td>{invoiceFormData.accountName}</Td>
+                <Td isNumeric>{invoiceFormData.bankAccount}</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </TableContainer>
 
         {/* Invoice Items */}
         <TableContainer>
           <Table variant="simple">
             <Thead>
-              <Tr>
+              <Tr bg="gray.100">
                 <Th>Item Name</Th>
                 <Th>Item Details</Th>
                 <Th isNumeric>Qty</Th>

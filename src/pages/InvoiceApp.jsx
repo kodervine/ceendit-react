@@ -85,7 +85,9 @@ const InvoiceApp = () => {
         <InvoiceBankDetails
           formNameOfInvoiceFormBankName="bankName"
           formNameOfInvoiceFormBankAccount="bankAccount"
+          formNameOfInvoiceFormAccountName="accountName"
           valueOfInvoiceFormBankName={invoiceFormData.bankName}
+          valueOfInvoiceFormAccountName={invoiceFormData.accountName}
           valueOfInvoiceFormBankAccount={invoiceFormData.bankAccount}
           onHandleChange={handleInputChange}
         />

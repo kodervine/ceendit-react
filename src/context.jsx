@@ -17,6 +17,7 @@ const AppProvider = ({ children }) => {
     billToName: "",
     billToPhoneNumber: "",
     bankName: "",
+    accountName: "",
     bankAccount: "",
     itemName: "",
     itemContent: "",
@@ -102,7 +103,7 @@ const AppProvider = ({ children }) => {
   const FormPreviewRef = useRef();
   let invoiceHistoryRef = useRef();
 
-  const handleGenerateInvoicePdf = (invoiceRef, id) => {
+  const handleGenerateInvoicePdf = () => {
     // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020
     // const doc = new jsPDF("p", "pt", [800, 800]);
     // doc.setFontSize(12);
@@ -119,7 +120,7 @@ const AppProvider = ({ children }) => {
 
     const doc = new jsPDF("p", "pt", [800, 800]);
     doc.setFontSize(12);
-    doc.html(invoiceHistoryRef.current, {
+    doc.html(FormPreviewRef.current, {
       callback: function (doc) {
         doc.save("document");
       },
