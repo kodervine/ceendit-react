@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import {
   Box,
   Stack,
@@ -18,13 +18,12 @@ import { useGlobalContext } from "../context";
 import InvoiceToPdf from "../components/InvoiceToPdf";
 import DeleteInvoice from "../components/DeleteInvoice";
 import EditInvoice from "../components/EditInvoice";
-import InvoiceApp from "./InvoiceApp";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
   const {
     allInvoiceData,
-    handleDeleteInvoice,
+    invoiceHistoryRef,
     handleEditInvoice,
     isFormEditing,
   } = useGlobalContext();
@@ -50,6 +49,7 @@ const InvoiceHistory = () => {
         return (
           <Stack
             key={index}
+            ref={invoiceHistoryRef}
             width={{ base: "100%", md: "90%", lg: "70%" }}
             maxW="960px"
             m="auto"
@@ -119,7 +119,7 @@ const InvoiceHistory = () => {
             {/* Buttons  */}
             <Flex>
               <Box>
-                <InvoiceToPdf />
+                <InvoiceToPdf id={index} />
               </Box>
 
               <Box>

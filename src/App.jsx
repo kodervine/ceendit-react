@@ -32,7 +32,7 @@ function App() {
 
       {showPreviewComponent && <InvoiceToPdf />}
       {/* {showPreviewComponent && <DeleteInvoice />} */}
-      <Box ref={invoiceHistoryRef}>
+      <Box>
         {/* {showAllInvoice && <InvoiceHistory />} */}
         <InvoiceHistory />
       </Box>

@@ -89,7 +89,7 @@ const AppProvider = ({ children }) => {
     setAllInvoiceData(updatedInvoiceArray);
   };
 
-  //Handle form edit
+  // Handle form edit
   const handleEditInvoice = (id) => {
     const editingInvoice = allInvoiceData.filter((item) => {
       return allInvoiceData.indexOf(item) === id;
@@ -98,38 +98,28 @@ const AppProvider = ({ children }) => {
     setIsFormEditing(true);
   };
 
-  // Used the jspdf library to convert FormPreview page to pdf. Documentation used - https://pspdfkit.com/blog/2022/how-to-convert-html-to-pdf-using-react/. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
+  // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
-  const invoiceHistoryRef = useRef();
-  const handleGenerateInvoicePdf = () => {
-    // html2canvas before pdf
-    // const input = document.getElementById("form-input");
-    // html2canvas(input).then((canvas) => {
-    //   const imgData = canvas.toDataURL("image/png");
+  let invoiceHistoryRef = useRef();
 
-    //   const pdf = new jsPDF();
-    //   const imgProps = pdf.getImageProperties(imgData);
-    //   const pdfWidth = pdf.internal.pageSize.getWidth();
-    //   const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    //   pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-    //   pdf.save("download.pdf");
-    // });
-
-    // old version used
-    // const doc = new jsPDF({
-    //   format: "a4",
-    //   unit: "px",
-    // });
-    // doc.html(FormPreviewRef.current, {
-    //   async callback(doc) {
-    //     await doc.save("document");
-    //   },
-    // });
-
+  const handleGenerateInvoicePdf = (invoiceRef, id) => {
     // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020
+    // const doc = new jsPDF("p", "pt", [800, 800]);
+    // doc.setFontSize(12);
+    // doc.html(FormPreviewRef.current, {
+    //   callback: function (doc) {
+    //     doc.save("document");
+    //   },
+    //   x: 20,
+    //   y: 20,
+    //   width: 800,
+    //   windowWidth: 800,
+    //   margin: -20,
+    // });
+
     const doc = new jsPDF("p", "pt", [800, 800]);
     doc.setFontSize(12);
-    doc.html(FormPreviewRef.current, {
+    doc.html(invoiceHistoryRef.current, {
       callback: function (doc) {
         doc.save("document");
       },
@@ -158,6 +148,7 @@ const AppProvider = ({ children }) => {
         handlePreviewData,
         handleGenerateInvoicePdf,
         FormPreviewRef,
+        invoiceHistoryRef,
       }}
     >
       {children}

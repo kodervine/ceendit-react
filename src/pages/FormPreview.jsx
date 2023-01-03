@@ -60,8 +60,8 @@ const FormPreview = () => {
           <Text>{invoiceFormData.billToPhoneNumber}</Text>
           <Text>{invoiceFormData.billToEmail}</Text>
         </Box>
-        {/* Bank details */}
 
+        {/* Bank details */}
         <Box>
           <Heading size="sm">Bank Details</Heading>
           <Text>{invoiceFormData.bankName}</Text>

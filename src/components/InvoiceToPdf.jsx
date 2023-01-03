@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
-const InvoiceToPdf = () => {
-  const { handleGenerateInvoicePdf } = useGlobalContext();
+const InvoiceToPdf = ({ id }) => {
+  const { handleGenerateInvoicePdf, invoiceHistoryRef } = useGlobalContext();
   return (
     // The handleGenerateInvoicePdf frpm the useContext is executed here and rendered on the App.js
     <Box
@@ -13,7 +13,9 @@ const InvoiceToPdf = () => {
       mb="10px"
     >
       <Button
-        onClick={handleGenerateInvoicePdf}
+        onClick={() => {
+          handleGenerateInvoicePdf(invoiceHistoryRef, id);
+        }}
         colorScheme="blue"
         borderColor="gray.200"
         boxShadow="lg"
