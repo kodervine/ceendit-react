@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -24,6 +24,8 @@ const InvoiceHistory = () => {
   const { allInvoiceData, handlePrint, handleEditInvoice, isFormEditing } =
     useGlobalContext();
 
+  const [id, setId] = useState("print-section");
+
   return (
     <div>
       {allInvoiceData.map((invoice, index) => {
@@ -39,9 +41,9 @@ const InvoiceHistory = () => {
           bankName,
           accountName,
           bankAccount,
-          itemName,
           itemContent,
           itemQty,
+          itemPrice,
           itemTotal,
         } = invoice;
 
@@ -112,17 +114,17 @@ const InvoiceHistory = () => {
               <Table variant="simple">
                 <Thead>
                   <Tr bg="gray.100">
-                    <Th>Item Name</Th>
                     <Th>Item Details</Th>
                     <Th isNumeric>Qty</Th>
+                    <Th isNumeric>Item Price</Th>
                     <Th isNumeric>Amount</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>{itemName}</Td>
                     <Td>{itemContent}</Td>
                     <Td isNumeric>{itemQty}</Td>
+                    <Td>{itemPrice}</Td>
                     <Td isNumeric>{itemTotal}</Td>
                   </Tr>
                 </Tbody>

@@ -19,9 +19,9 @@ const AppProvider = ({ children }) => {
     bankName: "",
     accountName: "",
     bankAccount: "",
-    itemName: "",
     itemContent: "",
     itemQty: "",
+    itemPrice: "",
     itemTotal: "",
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);

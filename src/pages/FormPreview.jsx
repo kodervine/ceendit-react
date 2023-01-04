@@ -20,6 +20,8 @@ import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
   const { invoiceFormData, handleGenerateInvoicePdf } = useGlobalContext();
+
+  const handleEdit = () => {};
   return (
     <div id="form-input">
       <Stack
@@ -87,16 +89,17 @@ const FormPreview = () => {
             <Thead>
               <Tr bg="gray.100">
                 <Th>Item Name</Th>
-                <Th>Item Details</Th>
                 <Th isNumeric>Qty</Th>
+                <Th isNumeric>Price</Th>
+
                 <Th isNumeric>Amount</Th>
               </Tr>
             </Thead>
             <Tbody>
               <Tr>
-                <Td>{invoiceFormData.itemName}</Td>
                 <Td>{invoiceFormData.itemContent}</Td>
                 <Td isNumeric>{invoiceFormData.itemQty}</Td>
+                <Td>{invoiceFormData.itemPrice}</Td>
                 <Td isNumeric>{invoiceFormData.itemTotal}</Td>
               </Tr>
             </Tbody>

@@ -96,11 +96,11 @@ const InvoiceApp = () => {
       {/* InvoiceItems rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
       <section>
         <InvoiceItems
-          nameOfInvoiceItemName="itemName"
+          nameOfInvoiceItemPrice="itemPrice"
           nameOfInvoiceItemContent="itemContent"
           nameOfInvoiceItemQty="itemQty"
           nameOfInvoiceItemTotal="itemTotal"
-          valueOfInvoiceItemName={invoiceFormData.itemName}
+          valueOfInvoiceItemPrice={invoiceFormData.itemPrice}
           valueOfInvoiceItemContent={invoiceFormData.itemContent}
           valueOfInvoiceItemQty={invoiceFormData.itemQty}
           valueOfInvoiceItemTotal={invoiceFormData.itemTotal}
