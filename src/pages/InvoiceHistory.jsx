@@ -124,7 +124,7 @@ const InvoiceHistory = () => {
                   <Tr>
                     <Td>{itemContent}</Td>
                     <Td isNumeric>{itemQty}</Td>
-                    <Td>{itemPrice}</Td>
+                    <Td isNumeric>{itemPrice}</Td>
                     <Td isNumeric>{itemTotal}</Td>
                   </Tr>
                 </Tbody>
