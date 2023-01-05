@@ -44,7 +44,6 @@ const InvoiceHistory = () => {
           itemContent,
           itemQty,
           itemPrice,
-          itemTotal,
         } = invoice;
 
         return (
@@ -117,7 +116,7 @@ const InvoiceHistory = () => {
                     <Th>Item Details</Th>
                     <Th isNumeric>Qty</Th>
                     <Th isNumeric>Item Price</Th>
-                    <Th isNumeric>Amount</Th>
+                    <Th isNumeric>Items Total</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -125,7 +124,7 @@ const InvoiceHistory = () => {
                     <Td>{itemContent}</Td>
                     <Td isNumeric>{itemQty}</Td>
                     <Td isNumeric>{itemPrice}</Td>
-                    <Td isNumeric>{itemTotal}</Td>
+                    <Td isNumeric>#{parseInt(itemQty * itemPrice)}</Td>
                   </Tr>
                 </Tbody>
               </Table>

@@ -46,10 +46,10 @@ const InvoiceItems = ({
 
         <Heading>Price</Heading>
         <Input
-          type="text"
+          type="number"
           name={nameOfInvoiceItemPrice}
-          id="item-name"
-          placeholder="Item name"
+          id="item-price"
+          placeholder="Item Price"
           value={valueOfInvoiceItemPrice}
           onChange={onHandleChange}
         />

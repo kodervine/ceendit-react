@@ -92,7 +92,7 @@ const FormPreview = () => {
                 <Th isNumeric>Qty</Th>
                 <Th isNumeric>Price</Th>
 
-                <Th isNumeric>Amount</Th>
+                <Th isNumeric>Total Amount</Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -100,7 +100,12 @@ const FormPreview = () => {
                 <Td>{invoiceFormData.itemContent}</Td>
                 <Td isNumeric>{invoiceFormData.itemQty}</Td>
                 <Td>{invoiceFormData.itemPrice}</Td>
-                <Td isNumeric>{invoiceFormData.itemTotal}</Td>
+                <Td isNumeric>
+                  #
+                  {parseInt(
+                    invoiceFormData.itemQty * invoiceFormData.itemPrice
+                  )}
+                </Td>
               </Tr>
             </Tbody>
           </Table>

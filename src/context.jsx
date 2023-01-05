@@ -22,7 +22,7 @@ const AppProvider = ({ children }) => {
     itemContent: "",
     itemQty: "",
     itemPrice: "",
-    itemTotal: "",
+    // itemTotal: "",
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
