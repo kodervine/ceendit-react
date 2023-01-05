@@ -1,8 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
-import App from "./App";
-import FormPreview from "./pages/FormPreview";
 
 const AppContext = React.createContext();
 
@@ -26,7 +23,6 @@ const AppProvider = ({ children }) => {
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
-  const [isFormEditing, setIsFormEditing] = useState(false);
 
   // Save all the invoices created in array state for the invoiceHistory page and get saved data from local storage on reload. If nothing is there, return an empty array
   const LOCAL_STORAGE_KEY = "invoiceData";
@@ -42,7 +38,6 @@ const AppProvider = ({ children }) => {
   // This function ensures that the input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
     setInvoiceFormData({
       ...invoiceFormData,
       [name]: value,
@@ -66,7 +61,7 @@ const AppProvider = ({ children }) => {
       return;
     }
 
-    return setShowPreviewComponent(true);
+    setShowPreviewComponent(true);
   };
 
   // Handles each invoice submit and pushes it to the `allInvoice` array in useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
@@ -108,15 +103,7 @@ const AppProvider = ({ children }) => {
     setAllInvoiceData(updatedInvoiceArray);
   };
 
-  // Handle form edit
-  const handleEditInvoice = (id) => {
-    const editingInvoice = allInvoiceData.filter((item) => {
-      return allInvoiceData.indexOf(item) === id;
-    });
-    setInvoiceFormData(editingInvoice);
-    setIsFormEditing(true);
-  };
-
+  // handle print
   const handlePrint = (id) => {
     const printInvoice = allInvoiceData.filter((item) => {
       return allInvoiceData.indexOf(item) === id;
@@ -168,8 +155,6 @@ const AppProvider = ({ children }) => {
         handleInvoiceSubmit,
         handleAllInvoiceHistory,
         handleDeleteInvoice,
-        handleEditInvoice,
-        isFormEditing,
         showAllInvoice,
         showPreviewComponent,
         handlePreviewData,

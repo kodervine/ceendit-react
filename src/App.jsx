@@ -12,8 +12,6 @@ import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
 import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
-import EditInvoice from "./components/EditInvoice";
-// import DeleteInvoice from "./components/DeleteInvoice";
 
 function App() {
   const {
@@ -31,12 +29,8 @@ function App() {
       {/* renders the FormPreview page ref to be downloaded from InvoiceToPdf button  */}
       <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box>
 
-      <Flex gap="1">
-        {showPreviewComponent && <InvoiceToPdf />}
-        {showPreviewComponent && <EditInvoice />}
-      </Flex>
+      {showPreviewComponent && <InvoiceToPdf />}
 
-      {/* {showPreviewComponent && <DeleteInvoice />} */}
       <Box>
         {/* {showAllInvoice && <InvoiceHistory />} */}
         <InvoiceHistory />

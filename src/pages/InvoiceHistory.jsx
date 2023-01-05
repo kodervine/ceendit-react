@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
 import DeleteInvoice from "../components/DeleteInvoice";
-import EditInvoice from "../components/EditInvoice";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
@@ -140,11 +139,6 @@ const InvoiceHistory = () => {
                 {/* same index from the map above */}
                 <DeleteInvoice id={index} />
               </Box>
-
-              {/* Edit invoice render */}
-              {/* <Box>
-                  <EditInvoice id={index} />
-                </Box> */}
             </Flex>
           </Stack>
           /* {isFormEditing && <InvoiceApp buttonText="SaveBtn" />} */
