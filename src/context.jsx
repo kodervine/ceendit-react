@@ -72,7 +72,6 @@ const AppProvider = ({ children }) => {
   // Handles each invoice submit and pushes it to the `allInvoice` array in useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
-
     const checkEmptyInput = Object.values(invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
@@ -80,6 +79,25 @@ const AppProvider = ({ children }) => {
     }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
     setShowAllInvoice(true);
+    setInvoiceFormData((data) => {
+      return {
+        ...data,
+        dateCreated: "",
+        dateDue: "",
+        billFromEmail: "",
+        billFromName: "",
+        billFromPhoneNumber: "",
+        billToEmail: "",
+        billToName: "",
+        billToPhoneNumber: "",
+        bankName: "",
+        accountName: "",
+        bankAccount: "",
+        itemContent: "",
+        itemQty: "",
+        itemPrice: "",
+      };
+    });
   };
 
   // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
@@ -143,6 +161,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         invoiceFormData,
+        setInvoiceFormData,
         handleInputChange,
         allInvoiceData,
         setAllInvoiceData,

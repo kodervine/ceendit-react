@@ -1,4 +1,6 @@
 import React from "react";
+import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineDelete } from "react-icons/ai";
 import {
   Flex,
   Spacer,
@@ -19,9 +21,15 @@ import {
 import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
-  const { invoiceFormData, handleGenerateInvoicePdf } = useGlobalContext();
+  const { invoiceFormData, setInvoiceFormData } = useGlobalContext();
 
-  const handleEdit = () => {};
+  // const handleEdit = () => {
+  //   setInvoiceFormData((prev) => {
+  //     return {...invoiceFormData,
+  //     invoiceFormData.tot
+  //     }
+  //   })
+  // };
   return (
     <div id="form-input">
       <Stack
@@ -105,6 +113,14 @@ const FormPreview = () => {
                   {parseInt(
                     invoiceFormData.itemQty * invoiceFormData.itemPrice
                   )}
+                </Td>
+              </Tr>
+              <Tr>
+                <Td>
+                  <AiOutlineEdit />
+                </Td>
+                <Td>
+                  <AiOutlineDelete />
                 </Td>
               </Tr>
             </Tbody>
