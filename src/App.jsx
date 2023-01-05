@@ -1,4 +1,3 @@
-import { useState, useRef, useEffect } from "react";
 import "./App.css";
 import {
   BrowserRouter as Router,
@@ -14,14 +13,7 @@ import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 
 function App() {
-  const {
-    showPreviewComponent,
-    showAllInvoice,
-    FormPreviewRef,
-    invoiceHistoryRef,
-    allInvoiceData,
-    setAllInvoiceData,
-  } = useGlobalContext();
+  const { showPreviewComponent, FormPreviewRef } = useGlobalContext();
 
   return (
     <BrowserRouter>

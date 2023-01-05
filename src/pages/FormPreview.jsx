@@ -115,14 +115,6 @@ const FormPreview = () => {
                   )}
                 </Td>
               </Tr>
-              <Tr>
-                <Td>
-                  <AiOutlineEdit />
-                </Td>
-                <Td>
-                  <AiOutlineDelete />
-                </Td>
-              </Tr>
             </Tbody>
           </Table>
         </TableContainer>
