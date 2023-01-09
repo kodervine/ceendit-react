@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import logo from "../assets/logo.png";
 import {
   Box,
+  Image,
   Button,
   Stack,
   Heading,
@@ -58,6 +60,13 @@ const InvoiceHistory = () => {
             bg="white"
             id="print-section"
           >
+            <Flex>
+              <Image src={logo} />
+              <Box>
+                <Text fontWeight="bold">Invoice No 0000{index}</Text>
+              </Box>
+            </Flex>
+
             {/* Date */}
             <Box>
               <Heading size="md">{billFromName}</Heading>
