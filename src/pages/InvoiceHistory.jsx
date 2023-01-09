@@ -51,7 +51,7 @@ const InvoiceHistory = () => {
           itemQty,
           itemPrice,
         } = invoice;
-        console.log(logoImage);
+
         return (
           <Stack
             key={index}
@@ -65,9 +65,8 @@ const InvoiceHistory = () => {
             bg="white"
             id="print-section"
           >
-            <Flex>
-              <img src={URL.createObjectURL(logoImage)} />
-              {/* <Image src={logoImage} /> */}
+            <Flex alignItems="center" justifyContent="space-between">
+              <Image src={logo} />
               <Box>
                 <Text fontWeight="bold">Invoice No 0000{index}</Text>
               </Box>

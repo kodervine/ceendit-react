@@ -22,7 +22,7 @@ const AppProvider = ({ children }) => {
     itemPrice: "",
     // itemTotal: "",
   });
-  const [logoImage, setLogoImage] = useState(null);
+
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
@@ -44,10 +44,6 @@ const AppProvider = ({ children }) => {
       ...invoiceFormData,
       [name]: value,
     });
-  };
-
-  const handleLogoImageChange = (e) => {
-    setLogoImage(e.target.files[0]);
   };
 
   const handleAllInvoiceHistory = () => {
@@ -79,6 +75,7 @@ const AppProvider = ({ children }) => {
       return;
     }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
       return {
@@ -100,6 +97,7 @@ const AppProvider = ({ children }) => {
       };
     });
   };
+  console.log(allInvoiceData);
 
   // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (id) => {
@@ -156,8 +154,7 @@ const AppProvider = ({ children }) => {
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
-        logoImage,
-        handleLogoImageChange,
+
         allInvoiceData,
         setAllInvoiceData,
         handleInvoiceSubmit,

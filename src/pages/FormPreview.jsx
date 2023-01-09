@@ -1,8 +1,10 @@
 import React from "react";
+import logo from "../assets/logo.png";
 import { AiOutlineEdit } from "react-icons/ai";
 import { AiOutlineDelete } from "react-icons/ai";
 import {
   Flex,
+  Image,
   Spacer,
   Box,
   Stack,
@@ -43,6 +45,16 @@ const FormPreview = () => {
         rounded="md"
         bg="white"
       >
+        {/* Logo header */}
+        <Flex alignItems="center" justifyContent="space-between">
+          <Image src={logo} />
+          <Box>
+            <Text fontWeight="bold">
+              Invoice No {invoiceFormData.dateCreated}
+            </Text>
+          </Box>
+        </Flex>
+
         {/* Date */}
         <Box>
           <Heading size="md">{invoiceFormData.billFromName}</Heading>
