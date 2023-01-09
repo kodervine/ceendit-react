@@ -154,7 +154,6 @@ const AppProvider = ({ children }) => {
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
-
         allInvoiceData,
         setAllInvoiceData,
         handleInvoiceSubmit,
