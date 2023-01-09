@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
+import logo from "./assets/logo.png";
 import jsPDF from "jspdf";
 
 const AppContext = React.createContext();
@@ -21,6 +22,7 @@ const AppProvider = ({ children }) => {
     itemPrice: "",
     // itemTotal: "",
   });
+  const [logoImage, setLogoImage] = useState(null);
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
@@ -42,6 +44,10 @@ const AppProvider = ({ children }) => {
       ...invoiceFormData,
       [name]: value,
     });
+  };
+
+  const handleLogoImageChange = (e) => {
+    setLogoImage(e.target.files[0]);
   };
 
   const handleAllInvoiceHistory = () => {
@@ -150,6 +156,8 @@ const AppProvider = ({ children }) => {
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
+        logoImage,
+        handleLogoImageChange,
         allInvoiceData,
         setAllInvoiceData,
         handleInvoiceSubmit,

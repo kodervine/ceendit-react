@@ -22,8 +22,13 @@ import DeleteInvoice from "../components/DeleteInvoice";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
-  const { allInvoiceData, handlePrint, handleEditInvoice, isFormEditing } =
-    useGlobalContext();
+  const {
+    allInvoiceData,
+    handlePrint,
+    handleEditInvoice,
+    isFormEditing,
+    logoImage,
+  } = useGlobalContext();
 
   const [id, setId] = useState("print-section");
 
@@ -46,7 +51,7 @@ const InvoiceHistory = () => {
           itemQty,
           itemPrice,
         } = invoice;
-
+        console.log(logoImage);
         return (
           <Stack
             key={index}
@@ -61,7 +66,8 @@ const InvoiceHistory = () => {
             id="print-section"
           >
             <Flex>
-              <Image src={logo} />
+              <img src={URL.createObjectURL(logoImage)} />
+              {/* <Image src={logoImage} /> */}
               <Box>
                 <Text fontWeight="bold">Invoice No 0000{index}</Text>
               </Box>

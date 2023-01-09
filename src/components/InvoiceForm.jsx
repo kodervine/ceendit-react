@@ -24,6 +24,7 @@ const InvoiceForm = ({
   return (
     <section>
       <Stack spacing={3}>
+        {" "}
         <Heading as="h3" size="md" pt="10px">
           {recipient}
         </Heading>
@@ -36,7 +37,6 @@ const InvoiceForm = ({
           value={valueOfInvoiceFormText}
           onChange={onHandleChange}
         />
-
         <Input
           type="number"
           name={formNameOfInvoiceFormNumber}
@@ -46,7 +46,6 @@ const InvoiceForm = ({
           value={valueOfInvoiceFormPhoneNumber}
           onChange={onHandleChange}
         />
-
         <Input
           size="md"
           variant="filled"

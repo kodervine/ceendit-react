@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Flex, Spacer, Box, FormControl, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
 import DateInput from "../components/DateInput";
+import ChooseLogo from "../components/ChooseLogo";
 import InvoiceForm from "../components/InvoiceForm";
 import InvoiceItems from "../components/InvoiceItems";
 import InvoiceBankDetails from "../components/InvoiceBankDetails";
@@ -32,6 +33,7 @@ const InvoiceApp = () => {
       p="6"
       rounded="md"
     >
+      <ChooseLogo />
       {/* Input -  Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
       <Flex>
         <DateInput
