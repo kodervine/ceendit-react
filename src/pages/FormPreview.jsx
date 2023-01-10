@@ -28,6 +28,7 @@ const FormPreview = () => {
     setInvoiceFormData,
     FormPreviewRef,
     showPreviewComponent,
+    InvoiceToPdf,
   } = useGlobalContext();
 
   // const handleEdit = () => {
@@ -136,7 +137,10 @@ const FormPreview = () => {
             </Tbody>
           </Table>
         </TableContainer>
+        {showPreviewComponent && <InvoiceToPdf />}
       </Stack>
+
+      {/* {showPreviewComponent && <InvoiceToPdf />} */}
     </Box>
   );
 };

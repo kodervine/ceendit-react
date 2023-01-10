@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "./assets/logo.png";
 import jsPDF from "jspdf";
 
@@ -56,6 +57,7 @@ const AppProvider = ({ children }) => {
   };
 
   // FormPreview function - Checks if any of the input is empty. If not, it setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
+
   const handlePreviewData = () => {
     const checkEmptyInput = Object.values(invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
@@ -75,7 +77,6 @@ const AppProvider = ({ children }) => {
       return;
     }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
-
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
       return {
@@ -118,7 +119,6 @@ const AppProvider = ({ children }) => {
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
-
   const handleGenerateInvoicePdf = () => {
     // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020
     // const doc = new jsPDF("p", "pt", [800, 800]);

@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { Box, Flex } from "@chakra-ui/react";
 import { useGlobalContext } from "./context";
 import InvoiceApp from "./pages/InvoiceApp";
@@ -13,6 +13,11 @@ function App() {
 
   return (
     <Router>
+      <nav>
+        <Link to="/">Home</Link>
+        <Link to="/form-preview">Form Preview</Link>
+        <Link to="/invoice-history">See all Invoice</Link>
+      </nav>
       <Routes>
         <Route path="/" element={<InvoiceApp />} />
         <Route path="form-preview" element={<FormPreview />} />

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Image,
   Text,
@@ -26,6 +27,8 @@ const InvoiceApp = () => {
     showAllInvoice,
     handlePreviewData,
   } = useGlobalContext();
+
+  let navigatePages = useNavigate();
 
   console.log(allInvoiceData);
   console.log(invoiceFormData);
@@ -133,7 +136,7 @@ const InvoiceApp = () => {
         <Box>
           {/* Eventually this should show only the submit */}
           <Button onClick={handleInvoiceSubmit} colorScheme="blue">
-            Submit and View all Invoice
+            Save to Invoice History
           </Button>
         </Box>
       </Flex>
