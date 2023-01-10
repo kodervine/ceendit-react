@@ -23,7 +23,12 @@ import {
 import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
-  const { invoiceFormData, setInvoiceFormData } = useGlobalContext();
+  const {
+    invoiceFormData,
+    setInvoiceFormData,
+    FormPreviewRef,
+    showPreviewComponent,
+  } = useGlobalContext();
 
   // const handleEdit = () => {
   //   setInvoiceFormData((prev) => {
@@ -32,8 +37,9 @@ const FormPreview = () => {
   //     }
   //   })
   // };
+  // <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box>;
   return (
-    <div id="form-input">
+    <Box id="form-input" ref={FormPreviewRef}>
       <Stack
         width={{ base: "100%", md: "90%", lg: "70%" }}
         maxW="960px"
@@ -131,7 +137,7 @@ const FormPreview = () => {
           </Table>
         </TableContainer>
       </Stack>
-    </div>
+    </Box>
   );
 };
 
