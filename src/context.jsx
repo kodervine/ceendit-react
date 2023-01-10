@@ -45,6 +45,7 @@ const AppProvider = ({ children }) => {
       ...invoiceFormData,
       [name]: value,
     });
+    setShowPreviewComponent(true);
   };
 
   const handleAllInvoiceHistory = () => {

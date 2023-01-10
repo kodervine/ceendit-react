@@ -1,7 +1,5 @@
 import React from "react";
 import logo from "../assets/logo.png";
-import { AiOutlineEdit } from "react-icons/ai";
-import { AiOutlineDelete } from "react-icons/ai";
 import {
   Flex,
   Image,
@@ -137,9 +135,8 @@ const FormPreview = () => {
             </Tbody>
           </Table>
         </TableContainer>
-        {showPreviewComponent && <InvoiceToPdf />}
       </Stack>
-
+      {showPreviewComponent && <InvoiceToPdf />}
       {/* {showPreviewComponent && <InvoiceToPdf />} */}
     </Box>
   );
