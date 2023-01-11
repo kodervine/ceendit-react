@@ -15,7 +15,7 @@ import FormPreview from "./pages/FormPreview";
 import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
-import Alert from "./components/Alert";
+import AlertComponent from "./components/AlertComponent";
 
 function App() {
   const { showPreviewComponent, showAllInvoice } = useGlobalContext();
@@ -36,7 +36,7 @@ function App() {
         </TabList>
       </Tabs>
 
-      {showAllInvoice && <Alert />}
+      {showAllInvoice && <AlertComponent />}
       <Routes>
         <Route exact path="/" element={<InvoiceApp />} />
 
