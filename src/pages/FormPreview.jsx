@@ -17,7 +17,7 @@ import {
   TableContainer,
   Button,
 } from "@chakra-ui/react";
-
+import InvoiceToPdf from "../components/InvoiceToPdf";
 import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
@@ -26,7 +26,6 @@ const FormPreview = () => {
     setInvoiceFormData,
     FormPreviewRef,
     showPreviewComponent,
-    InvoiceToPdf,
   } = useGlobalContext();
 
   // const handleEdit = () => {
@@ -137,7 +136,6 @@ const FormPreview = () => {
         </TableContainer>
       </Stack>
       {showPreviewComponent && <InvoiceToPdf />}
-      {/* {showPreviewComponent && <InvoiceToPdf />} */}
     </Box>
   );
 };

@@ -56,15 +56,13 @@ const AppProvider = ({ children }) => {
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
   };
 
-  // FormPreview function - Checks if any of the input is empty. If not, it setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
-
+  // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
   const handlePreviewData = () => {
     const checkEmptyInput = Object.values(invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
     }
-    <Link to="/form-preview">Form Preview</Link>;
   };
 
   // Handles each invoice submit and pushes it to the `allInvoice` array state. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
@@ -108,10 +106,12 @@ const AppProvider = ({ children }) => {
   };
 
   // handle print
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const handlePrint = (id) => {
-    const printInvoice = allInvoiceData.filter((item) => {
-      return allInvoiceData.indexOf(item) === id;
-    });
+    // const printInvoice = allInvoiceData.filter((item) => {
+    //   return allInvoiceData.indexOf(item) === id;
+    // });
+    setSelectedIndex(id);
 
     window.print();
   };
@@ -163,6 +163,7 @@ const AppProvider = ({ children }) => {
         showPreviewComponent,
         handlePreviewData,
         handleGenerateInvoicePdf,
+        selectedIndex,
         handlePrint,
         FormPreviewRef,
       }}
