@@ -118,7 +118,7 @@ const AppProvider = ({ children }) => {
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
-  const handleGenerateInvoicePdf = () => {
+  const handlePreviewInvoicePdf = () => {
     // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020
     // const doc = new jsPDF("p", "pt", [800, 800]);
     // doc.setFontSize(12);
@@ -162,7 +162,7 @@ const AppProvider = ({ children }) => {
         setShowAllInvoice,
         showPreviewComponent,
         handlePreviewData,
-        handleGenerateInvoicePdf,
+        handlePreviewInvoicePdf,
         selectedIndex,
         handlePrint,
         FormPreviewRef,
