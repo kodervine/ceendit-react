@@ -31,8 +31,6 @@ function App() {
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      {/* renders the FormPreview page ref to be downloaded from InvoiceToPdf button  */}
-      {/* <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box> */}
 
       {/* {showPreviewComponent && <InvoiceToPdf />} */}
     </Router>

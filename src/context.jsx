@@ -56,8 +56,7 @@ const AppProvider = ({ children }) => {
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
   };
 
-  // FormPreview function - Checks if any of the input is empty. If not, it setShowPreviewComponent to false initially. Thus, when the PreviewData button is clicked on the InvoiceApp component, it renders the FormPreview Component on the App.js
-
+  // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
   const handlePreviewData = () => {
     const checkEmptyInput = Object.values(invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
