@@ -12,7 +12,7 @@ const Alert = () => {
     return () => {
       clearTimeout(timeId);
     };
-  }, [showAllInvoice]);
+  }, []);
 
   if (!showAllInvoice) {
     return null;

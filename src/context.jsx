@@ -108,10 +108,12 @@ const AppProvider = ({ children }) => {
   };
 
   // handle print
+  const [selectedIndex, setSelectedIndex] = useState(null);
   const handlePrint = (id) => {
-    const printInvoice = allInvoiceData.filter((item) => {
-      return allInvoiceData.indexOf(item) === id;
-    });
+    // const printInvoice = allInvoiceData.filter((item) => {
+    //   return allInvoiceData.indexOf(item) === id;
+    // });
+    setSelectedIndex(id);
 
     window.print();
   };
@@ -163,6 +165,7 @@ const AppProvider = ({ children }) => {
         showPreviewComponent,
         handlePreviewData,
         handleGenerateInvoicePdf,
+        selectedIndex,
         handlePrint,
         FormPreviewRef,
       }}
