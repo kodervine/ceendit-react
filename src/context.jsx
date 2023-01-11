@@ -1,6 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import logo from "./assets/logo.png";
+import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
 
 const AppContext = React.createContext();
@@ -65,11 +64,10 @@ const AppProvider = ({ children }) => {
       alert("please fill out all fields");
       return;
     }
-
-    setShowPreviewComponent(true);
+    <Link to="/form-preview">Form Preview</Link>;
   };
 
-  // Handles each invoice submit and pushes it to the `allInvoice` array in useState. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
+  // Handles each invoice submit and pushes it to the `allInvoice` array state. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
   const handleInvoiceSubmit = (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormData);
@@ -161,6 +159,7 @@ const AppProvider = ({ children }) => {
         handleAllInvoiceHistory,
         handleDeleteInvoice,
         showAllInvoice,
+        setShowAllInvoice,
         showPreviewComponent,
         handlePreviewData,
         handleGenerateInvoicePdf,

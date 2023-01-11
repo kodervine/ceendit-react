@@ -7,9 +7,10 @@ import FormPreview from "./pages/FormPreview";
 import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
+import Alert from "./components/Alert";
 
 function App() {
-  const { showPreviewComponent } = useGlobalContext();
+  const { showPreviewComponent, showAllInvoice } = useGlobalContext();
 
   return (
     <Router>
@@ -18,14 +19,17 @@ function App() {
         <Link to="/form-preview">Form Preview</Link>
         <Link to="/invoice-history">See all Invoice</Link>
       </nav>
+      {showAllInvoice && <Alert />}
       <Routes>
-        <Route path="/" element={<InvoiceApp />} />
-        <Route
+        <Route exact path="/" element={<InvoiceApp />} />
+
+        <Route path="/form-preview" element={<FormPreview />} />
+        {/* <Route
           path="/form-preview"
           element={
-            showPreviewComponent ? <FormPreview /> : "No preview available"
+            showPreviewComponent ? <FormPreview /> : <Error />
           }
-        />
+        /> */}
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import {
   Box,
@@ -138,13 +139,22 @@ const InvoiceHistory = () => {
             <Flex>
               <Button
                 onClick={() => {
+                  <Link to={`/invoice-history/${index + 1}`}></Link>;
+                }}
+                colorScheme="blue"
+                mt="10px"
+              >
+                Download
+              </Button>
+              {/* <Button
+                onClick={() => {
                   handlePrint(index);
                 }}
                 colorScheme="blue"
                 mt="10px"
               >
                 <Text>Download</Text>
-              </Button>
+              </Button> */}
 
               <Box>
                 {/* same index from the map above */}
