@@ -20,12 +20,13 @@ function App() {
       </nav>
       <Routes>
         <Route path="/" element={<InvoiceApp />} />
-        <Route
+        <Route path="/form-preview" element={<FormPreview />} />
+        {/* <Route
           path="/form-preview"
           element={
             showPreviewComponent ? <FormPreview /> : <Error />
           }
-        />
+        /> */}
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>

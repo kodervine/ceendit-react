@@ -10,12 +10,3 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
-@media print {
-  * {
-    display: none;
-  }
-  #print-section {
-    display: block;
-  }
-}

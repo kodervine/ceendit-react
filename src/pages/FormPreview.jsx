@@ -38,7 +38,7 @@ const FormPreview = () => {
   // };
   // <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box>;
   return (
-    <Box id="form-input" ref={FormPreviewRef}>
+    <Box id="form-input">
       <Stack
         width={{ base: "100%", md: "90%", lg: "70%" }}
         maxW="960px"
