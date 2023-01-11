@@ -23,13 +23,11 @@ function App() {
       <Routes>
         <Route exact path="/" element={<InvoiceApp />} />
 
-        <Route path="/form-preview" element={<FormPreview />} />
-        {/* <Route
+        {/* <Route path="/form-preview" element={<FormPreview />} /> */}
+        <Route
           path="/form-preview"
-          element={
-            showPreviewComponent ? <FormPreview /> : <Error />
-          }
-        /> */}
+          element={showPreviewComponent ? <FormPreview /> : <Error />}
+        />
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>

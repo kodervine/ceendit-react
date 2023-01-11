@@ -64,7 +64,6 @@ const AppProvider = ({ children }) => {
       alert("please fill out all fields");
       return;
     }
-    <Link to="/form-preview">Form Preview</Link>;
   };
 
   // Handles each invoice submit and pushes it to the `allInvoice` array state. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
