@@ -1,10 +1,11 @@
 import React, { useRef } from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
-const InvoiceToPdf = ({ id }) => {
-  const { handleGenerateInvoicePdf } = useGlobalContext();
+const InvoiceToPdf = () => {
+  const { handlePreviewInvoicePdf } = useGlobalContext();
+
   return (
-    // The handleGenerateInvoicePdf frpm the useContext is executed here and rendered on the App.js
+    // The handlePreviewInvoicePdf from the useContext is executed here and rendered on the FormPreview page
     <Box
       width={{ base: "100%", md: "90%", lg: "70%" }}
       maxW="960px"
@@ -13,7 +14,7 @@ const InvoiceToPdf = ({ id }) => {
       mb="10px"
     >
       <Button
-        onClick={handleGenerateInvoicePdf}
+        onClick={handlePreviewInvoicePdf}
         colorScheme="blue"
         borderColor="gray.200"
         boxShadow="lg"
