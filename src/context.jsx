@@ -120,18 +120,6 @@ const AppProvider = ({ children }) => {
   const FormPreviewRef = useRef();
   const handlePreviewInvoicePdf = () => {
     // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020
-    // const doc = new jsPDF("p", "pt", [800, 800]);
-    // doc.setFontSize(12);
-    // doc.html(FormPreviewRef.current, {
-    //   callback: function (doc) {
-    //     doc.save("document");
-    //   },
-    //   x: 20,
-    //   y: 20,
-    //   width: 800,
-    //   windowWidth: 800,
-    //   margin: -20,
-    // });
 
     const doc = new jsPDF("p", "pt", [800, 800]);
     doc.setFontSize(12);
