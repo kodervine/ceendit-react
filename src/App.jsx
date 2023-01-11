@@ -1,25 +1,42 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@chakra-ui/react";
 import { useGlobalContext } from "./context";
 import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
 import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
-import Alert from "./components/Alert";
+import AlertComponent from "./components/AlertComponent";
 
 function App() {
   const { showPreviewComponent, showAllInvoice } = useGlobalContext();
 
   return (
     <Router>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/form-preview">Form Preview</Link>
-        <Link to="/invoice-history">See all Invoice</Link>
-      </nav>
-      {showAllInvoice && <Alert />}
+      <Tabs variant="soft-rounded" colorScheme="blue">
+        <TabList mt="4" mb="4">
+          <Tab>
+            <Link to="/">Home</Link>
+          </Tab>
+          <Tab>
+            <Link to="/form-preview">Form Preview</Link>
+          </Tab>
+          <Tab>
+            <Link to="/invoice-history">See all Invoice</Link>
+          </Tab>
+        </TabList>
+      </Tabs>
+
+      {showAllInvoice && <AlertComponent />}
       <Routes>
         <Route exact path="/" element={<InvoiceApp />} />
 
