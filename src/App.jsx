@@ -23,7 +23,7 @@ function App() {
         <Route
           path="/form-preview"
           element={
-            showPreviewComponent ? <FormPreview /> : "No preview available"
+            showPreviewComponent ? <FormPreview /> : <Error />
           }
         />
         <Route path="/invoice-history" element={<InvoiceHistory />} />

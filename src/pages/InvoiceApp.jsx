@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   Image,
   Text,
@@ -137,6 +137,12 @@ const InvoiceApp = () => {
           {/* Eventually this should show only the submit */}
           <Button onClick={handleInvoiceSubmit} colorScheme="blue">
             Save to Invoice History
+          </Button>
+        </Box>
+        <Box>
+          {/* View all invoice */}
+          <Button colorScheme="blue">
+            <Link to="/invoice-history">View all Invoice</Link>
           </Button>
         </Box>
       </Flex>
