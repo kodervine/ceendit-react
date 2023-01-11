@@ -1,6 +1,14 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import { Box, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+} from "@chakra-ui/react";
 import { useGlobalContext } from "./context";
 import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
@@ -14,11 +22,20 @@ function App() {
 
   return (
     <Router>
-      <nav>
-        <Link to="/">Home</Link>
-        <Link to="/form-preview">Form Preview</Link>
-        <Link to="/invoice-history">See all Invoice</Link>
-      </nav>
+      <Tabs variant="soft-rounded" colorScheme="blue">
+        <TabList mt="4" mb="4">
+          <Tab>
+            <Link to="/">Home</Link>
+          </Tab>
+          <Tab>
+            <Link to="/form-preview">Form Preview</Link>
+          </Tab>
+          <Tab>
+            <Link to="/invoice-history">See all Invoice</Link>
+          </Tab>
+        </TabList>
+      </Tabs>
+
       {showAllInvoice && <Alert />}
       <Routes>
         <Route exact path="/" element={<InvoiceApp />} />
