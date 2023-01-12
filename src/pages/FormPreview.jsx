@@ -25,6 +25,7 @@ const FormPreview = () => {
     invoiceFormData,
     setInvoiceFormData,
     FormPreviewRef,
+    handleInvoiceSubmit,
     showPreviewComponent,
   } = useGlobalContext();
 
@@ -136,7 +137,15 @@ const FormPreview = () => {
           </Table>
         </TableContainer>
       </Stack>
-      {showPreviewComponent && <InvoiceToPdf />}
+      <Flex>
+        {showPreviewComponent && <InvoiceToPdf />}
+        <Box>
+          {/* Eventually this should show only the submit */}
+          <Button onClick={handleInvoiceSubmit} colorScheme="blue">
+            Save to Invoice History
+          </Button>
+        </Box>
+      </Flex>
     </Box>
   );
 };
