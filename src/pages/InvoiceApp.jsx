@@ -25,6 +25,7 @@ const InvoiceApp = () => {
     handleInvoiceEdit,
     handleAllInvoiceHistory,
     showAllInvoice,
+    showPreviewComponent,
     handlePreviewData,
   } = useGlobalContext();
 
@@ -130,7 +131,10 @@ const InvoiceApp = () => {
       <Flex pt="6" gap="2">
         <Box>
           <Button onClick={handlePreviewData} colorScheme="blue" type="submit">
-            Preview Invoice
+            {" "}
+            {showPreviewComponent && (
+              <Link to="/form-preview"> Preview Invoice</Link>
+            )}
           </Button>
         </Box>
         <Box>
