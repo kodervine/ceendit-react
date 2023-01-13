@@ -105,27 +105,19 @@ const AppProvider = ({ children }) => {
     setAllInvoiceData(updatedInvoiceArray);
   };
 
-  // handle print
-  const [selectedIndex, setSelectedIndex] = useState(null);
+  // handle each individual download with jspdf.
   const EachDownloadRef = useRef([]);
-
   EachDownloadRef.current = Array(allInvoiceData.length)
     .fill()
     .map(() => useRef(null));
 
   const handlePrint = (id) => {
-    // const printInvoice = allInvoiceData.filter((item) => {
-    //   return allInvoiceData.indexOf(item) === id;
-    // });
-    // setSelectedIndex(id);
-
-    // window.print();
     const content = EachDownloadRef.current[id].current.innerHTML;
     const doc = new jsPDF("p", "pt", [800, 800]);
     doc.setFontSize(12);
     doc.html(content, {
       callback: function (doc) {
-        doc.save("document" + id);
+        doc.save("document");
       },
       x: 20,
       y: 20,
@@ -170,7 +162,6 @@ const AppProvider = ({ children }) => {
         showPreviewComponent,
         handlePreviewData,
         handlePreviewInvoicePdf,
-        selectedIndex,
         handlePrint,
         FormPreviewRef,
         EachDownloadRef,

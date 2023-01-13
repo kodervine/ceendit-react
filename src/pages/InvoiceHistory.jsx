@@ -27,7 +27,6 @@ const InvoiceHistory = () => {
     handlePrint,
     handlePreviewInvoicePdf,
     EachDownloadRef,
-    selectedIndex,
   } = useGlobalContext();
 
   return (
