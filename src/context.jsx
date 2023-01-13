@@ -115,6 +115,7 @@ const AppProvider = ({ children }) => {
     .fill()
     .map(() => useRef(null));
 
+  console.log(EachDownloadRef);
   const handlePrint = (id) => {
     const content = EachDownloadRef.current[id].current.innerHTML;
     const doc = new jsPDF("p", "pt", [800, 800]);
