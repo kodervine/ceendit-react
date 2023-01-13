@@ -99,10 +99,9 @@ const AppProvider = ({ children }) => {
 
   // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (id) => {
-    const updatedInvoiceArray = [...allInvoiceData];
-    const index = updatedInvoiceArray.findIndex((invoice) => invoice.id === id);
-    updatedInvoiceArray.splice(index, 1);
-    setAllInvoiceData(updatedInvoiceArray);
+    setAllInvoiceData((prevData) =>
+      prevData.filter((invoice) => invoice.id !== id)
+    );
 
     // const updatedInvoiceArray = allInvoiceData.filter(
     //   (invoice) => allInvoiceData.indexOf(invoice) !== id
