@@ -107,13 +107,32 @@ const AppProvider = ({ children }) => {
 
   // handle print
   const [selectedIndex, setSelectedIndex] = useState(null);
+  const EachDownloadRef = useRef([]);
+
+  EachDownloadRef.current = Array(allInvoiceData.length)
+    .fill()
+    .map(() => useRef(null));
+
   const handlePrint = (id) => {
     // const printInvoice = allInvoiceData.filter((item) => {
     //   return allInvoiceData.indexOf(item) === id;
     // });
-    setSelectedIndex(id);
+    // setSelectedIndex(id);
 
-    window.print();
+    // window.print();
+    const content = EachDownloadRef.current[id].current.innerHTML;
+    const doc = new jsPDF("p", "pt", [800, 800]);
+    doc.setFontSize(12);
+    doc.html(content, {
+      callback: function (doc) {
+        doc.save("document" + id);
+      },
+      x: 20,
+      y: 20,
+      width: 800,
+      windowWidth: 800,
+      margin: -20,
+    });
   };
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
@@ -154,6 +173,7 @@ const AppProvider = ({ children }) => {
         selectedIndex,
         handlePrint,
         FormPreviewRef,
+        EachDownloadRef,
       }}
     >
       {children}
