@@ -17,6 +17,7 @@ import {
   Td,
   TableContainer,
 } from "@chakra-ui/react";
+import { nanoid } from "nanoid";
 import { useGlobalContext } from "../context";
 import DeleteInvoice from "../components/DeleteInvoice";
 
@@ -51,7 +52,7 @@ const InvoiceHistory = () => {
 
         return (
           <Stack
-            key={index}
+            key={nanoid()}
             width={{ base: "100%", md: "90%", lg: "70%" }}
             maxW="960px"
             m="auto"
