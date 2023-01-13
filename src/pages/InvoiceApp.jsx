@@ -129,13 +129,30 @@ const InvoiceApp = () => {
         />
       </section>
       <Flex pt="6" gap="2">
+        {/* Disable preview invoice button if the forms haven't been filled */}
         <Box>
-          <Button onClick={handlePreviewData} colorScheme="blue" type="submit">
-            {" "}
-            {showPreviewComponent && (
+          {!showPreviewComponent ? (
+            <Button
+              onClick={handlePreviewData}
+              colorScheme="blue"
+              type="submit"
+              disabled
+            >
+              {" "}
               <Link to="/form-preview"> Preview Invoice</Link>
-            )}
-          </Button>
+            </Button>
+          ) : (
+            <Button
+              onClick={handlePreviewData}
+              colorScheme="blue"
+              type="submit"
+            >
+              {" "}
+              {showPreviewComponent && (
+                <Link to="/form-preview"> Preview Invoice</Link>
+              )}
+            </Button>
+          )}
         </Box>
         <Box>
           {/* Eventually this should show only the submit */}
