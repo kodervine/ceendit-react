@@ -137,15 +137,20 @@ const FormPreview = () => {
           </Table>
         </TableContainer>
       </Stack>
-      <Flex>
-        {showPreviewComponent && <InvoiceToPdf />}
-        <Box>
-          {/* Eventually this should show only the submit */}
-          <Button onClick={handleInvoiceSubmit} colorScheme="blue">
-            Save to Invoice History
-          </Button>
-        </Box>
-      </Flex>
+
+      {showPreviewComponent && <InvoiceToPdf />}
+      <Box
+        width={{ base: "100%", md: "90%", lg: "70%" }}
+        maxW="960px"
+        margin="auto"
+        mt="10px"
+        mb="10px"
+      >
+        {/* Eventually this should show only the submit */}
+        <Button onClick={handleInvoiceSubmit} colorScheme="blue">
+          Save to Invoice History
+        </Button>
+      </Box>
     </Box>
   );
 };
