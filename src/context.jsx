@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
-
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -20,7 +19,6 @@ const AppProvider = ({ children }) => {
     itemContent: "",
     itemQty: "",
     itemPrice: "",
-    // itemTotal: "",
   });
 
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
