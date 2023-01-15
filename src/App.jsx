@@ -22,7 +22,11 @@ function App() {
 
   return (
     <Router>
-      <Tabs variant="soft-rounded" colorScheme="blue">
+      <Tabs
+        variant="soft-rounded"
+        colorScheme="blue"
+        ml={{ base: "0", md: "60", lg: "96" }}
+      >
         <TabList mt="4" mb="4">
           <Tab>
             <Link to="/">Home</Link>

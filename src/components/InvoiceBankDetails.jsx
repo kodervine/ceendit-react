@@ -30,7 +30,7 @@ const InvoiceBankDetails = ({
           variant="filled"
           name={formNameOfInvoiceFormBankName}
           id="invoice-form-bank-name"
-          placeholder="Which account should this be sent to?"
+          placeholder="Which bank should this be sent to?"
           value={valueOfInvoiceFormBankName}
           onChange={onHandleChange}
         />
