@@ -1,12 +1,18 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  getFirestore,
+  doc,
+  deleteDoc,
+} from "firebase/firestore";
 import { db } from "./firebase-config";
 import { nanoid } from "nanoid";
 
 const AppContext = React.createContext();
-
 const AppProvider = ({ children }) => {
   const [invoiceFormData, setInvoiceFormData] = useState({
     dateCreated: "",
@@ -28,7 +34,7 @@ const AppProvider = ({ children }) => {
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
-  // Save all the invoices created in array state for the invoiceHistory page and get saved data from local storage on reload. If nothing is there, return an empty array
+  // Save all the invoices for the invoiceHistory page and get data from firebase store
   const [allInvoiceData, setAllInvoiceData] = useState([]);
 
   const fetchInvoiceData = async () => {
@@ -75,7 +81,7 @@ const AppProvider = ({ children }) => {
     }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
 
-    // Save to firebase
+    // Save to firestore
     try {
       const docRef = await addDoc(collection(db, "invoiceData"), {
         invoice: invoiceFormData,
@@ -121,27 +127,30 @@ const AppProvider = ({ children }) => {
   };
 
   // handle each individual download with jspdf.
-  // const EachDownloadRef = useRef([]);
-  // EachDownloadRef.current = Array(allInvoiceData.length)
-  //   .fill()
-  //   .map(() => useRef(null));
+  const EachDownloadRef = useRef([]);
+  useEffect(() => {
+    const refs = Array(allInvoiceData.length)
+      .fill()
+      .map(() => useRef(null));
+    EachDownloadRef.current = refs;
+  }, []);
 
-  // console.log(EachDownloadRef);
-  // const handlePrint = (id) => {
-  //   const content = EachDownloadRef.current[id].current.innerHTML;
-  //   const doc = new jsPDF("p", "pt", [800, 800]);
-  //   doc.setFontSize(12);
-  //   doc.html(content, {
-  //     callback: function (doc) {
-  //       doc.save("document");
-  //     },
-  //     x: 20,
-  //     y: 20,
-  //     width: 800,
-  //     windowWidth: 800,
-  //     margin: -20,
-  //   });
-  // };
+  console.log(EachDownloadRef);
+  const handlePrint = (id) => {
+    const content = EachDownloadRef.current[id].current.innerHTML;
+    const doc = new jsPDF("p", "pt", [800, 800]);
+    doc.setFontSize(12);
+    doc.html(content, {
+      callback: function (doc) {
+        doc.save("document");
+      },
+      x: 20,
+      y: 20,
+      width: 800,
+      windowWidth: 800,
+      margin: -20,
+    });
+  };
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
@@ -177,9 +186,9 @@ const AppProvider = ({ children }) => {
         showPreviewComponent,
         handlePreviewData,
         handlePreviewInvoicePdf,
-        // handlePrint,
+        handlePrint,
         FormPreviewRef,
-        // EachDownloadRef,
+        EachDownloadRef,
       }}
     >
       {children}
