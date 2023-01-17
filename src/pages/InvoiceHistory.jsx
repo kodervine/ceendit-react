@@ -139,8 +139,9 @@ const InvoiceHistory = () => {
               </Button>
 
               <Box>
-                {/* same index from the map above */}
-                <DeleteInvoice id={index} />
+                {/* same id from the map from firestore */}
+                <DeleteInvoice id={invoiceFirestore} />
+                {/* {console.log(invoiceFirestore.id)} */}
               </Box>
             </Flex>
           </Stack>

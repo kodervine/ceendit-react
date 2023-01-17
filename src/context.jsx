@@ -122,15 +122,8 @@ const AppProvider = ({ children }) => {
   console.log(allInvoiceData);
 
   // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
-  const handleDeleteInvoice = (id) => {
-    // setAllInvoiceData((prevData) =>
-    //   prevData.filter((invoice) => invoice.id !== id)
-    // );
-
-    const updatedInvoiceArray = allInvoiceData.filter(
-      (invoice) => allInvoiceData.indexOf(invoice) !== id
-    );
-    setAllInvoiceData(updatedInvoiceArray);
+  const handleDeleteInvoice = async (invoice) => {
+    await deleteDoc(doc(db, "invoiceData", invoice.id));
   };
 
   // handle each individual download with jspdf.
