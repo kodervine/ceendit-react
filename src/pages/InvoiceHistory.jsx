@@ -61,7 +61,7 @@ const InvoiceHistory = () => {
             boxShadow="dark-lg"
             rounded="md"
             bg="white"
-            ref={EachDownloadRef.current[index]}
+            // ref={EachDownloadRef.current[index]}
           >
             <Flex alignItems="center" justifyContent="space-between">
               <Image src={logo} />

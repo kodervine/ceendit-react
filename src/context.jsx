@@ -1,6 +1,10 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "./firebase-config";
+import { nanoid } from "nanoid";
+
 const AppContext = React.createContext();
 
 const AppProvider = ({ children }) => {
@@ -51,7 +55,8 @@ const AppProvider = ({ children }) => {
       alert("please fill out all fields");
       return;
     }
-    setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+
+    // setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
   };
 
   // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
@@ -64,7 +69,7 @@ const AppProvider = ({ children }) => {
   };
 
   // Handles each invoice submit and pushes it to the `allInvoice` array state. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
-  const handleInvoiceSubmit = (e) => {
+  const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
@@ -72,6 +77,17 @@ const AppProvider = ({ children }) => {
       return;
     }
     setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+
+    // Save to firebase
+    try {
+      const docRef = await addDoc(collection(db, "invoiceData"), {
+        invoice: invoiceFormData,
+      });
+      console.log("document saved", docRef.id);
+    } catch (e) {
+      console.log(e);
+    }
+
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
       return {
@@ -97,38 +113,38 @@ const AppProvider = ({ children }) => {
 
   // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (id) => {
-    setAllInvoiceData((prevData) =>
-      prevData.filter((invoice) => invoice.id !== id)
-    );
-
-    // const updatedInvoiceArray = allInvoiceData.filter(
-    //   (invoice) => allInvoiceData.indexOf(invoice) !== id
+    // setAllInvoiceData((prevData) =>
+    //   prevData.filter((invoice) => invoice.id !== id)
     // );
-    // setAllInvoiceData(updatedInvoiceArray);
+
+    const updatedInvoiceArray = allInvoiceData.filter(
+      (invoice) => allInvoiceData.indexOf(invoice) !== id
+    );
+    setAllInvoiceData(updatedInvoiceArray);
   };
 
   // handle each individual download with jspdf.
-  const EachDownloadRef = useRef([]);
-  EachDownloadRef.current = Array(allInvoiceData.length)
-    .fill()
-    .map(() => useRef(null));
+  // const EachDownloadRef = useRef([]);
+  // EachDownloadRef.current = Array(allInvoiceData.length)
+  //   .fill()
+  //   .map(() => useRef(null));
 
-  console.log(EachDownloadRef);
-  const handlePrint = (id) => {
-    const content = EachDownloadRef.current[id].current.innerHTML;
-    const doc = new jsPDF("p", "pt", [800, 800]);
-    doc.setFontSize(12);
-    doc.html(content, {
-      callback: function (doc) {
-        doc.save("document");
-      },
-      x: 20,
-      y: 20,
-      width: 800,
-      windowWidth: 800,
-      margin: -20,
-    });
-  };
+  // console.log(EachDownloadRef);
+  // const handlePrint = (id) => {
+  //   const content = EachDownloadRef.current[id].current.innerHTML;
+  //   const doc = new jsPDF("p", "pt", [800, 800]);
+  //   doc.setFontSize(12);
+  //   doc.html(content, {
+  //     callback: function (doc) {
+  //       doc.save("document");
+  //     },
+  //     x: 20,
+  //     y: 20,
+  //     width: 800,
+  //     windowWidth: 800,
+  //     margin: -20,
+  //   });
+  // };
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
@@ -165,9 +181,9 @@ const AppProvider = ({ children }) => {
         showPreviewComponent,
         handlePreviewData,
         handlePreviewInvoicePdf,
-        handlePrint,
+        // handlePrint,
         FormPreviewRef,
-        EachDownloadRef,
+        // EachDownloadRef,
       }}
     >
       {children}
