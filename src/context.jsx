@@ -1,4 +1,11 @@
-import React, { useContext, useState, useEffect, useMemo, useRef } from "react";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useMemo,
+  useRef,
+  useCallback,
+} from "react";
 import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import {
@@ -128,29 +135,30 @@ const AppProvider = ({ children }) => {
 
   // handle each individual download with jspdf.
   const EachDownloadRef = useRef([]);
+  const handlePrint = useCallback((id) => {
+    if (allInvoiceData.length > 0 && allInvoiceData[id]) {
+      const content = EachDownloadRef.current[id].current.innerHTML;
+      const doc = new jsPDF("p", "pt", [800, 800]);
+      doc.setFontSize(12);
+      doc.html(content, {
+        callback: function (doc) {
+          doc.save("document");
+        },
+        x: 20,
+        y: 20,
+        width: 800,
+        windowWidth: 800,
+        margin: -20,
+      });
+    }
+  }, []);
+
   useEffect(() => {
     const refs = Array(allInvoiceData.length)
       .fill()
       .map(() => useRef(null));
     EachDownloadRef.current = refs;
   }, []);
-
-  console.log(EachDownloadRef);
-  const handlePrint = (id) => {
-    const content = EachDownloadRef.current[id].current.innerHTML;
-    const doc = new jsPDF("p", "pt", [800, 800]);
-    doc.setFontSize(12);
-    doc.html(content, {
-      callback: function (doc) {
-        doc.save("document");
-      },
-      x: 20,
-      y: 20,
-      width: 800,
-      windowWidth: 800,
-      margin: -20,
-    });
-  };
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();

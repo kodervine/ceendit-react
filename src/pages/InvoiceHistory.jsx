@@ -30,25 +30,16 @@ const InvoiceHistory = () => {
     EachDownloadRef,
   } = useGlobalContext();
 
+  // convert the gotten array to this
+  allInvoiceData.map((inv) => {
+    const { invoice, id } = inv;
+    console.log(invoice.billFromEmail);
+  });
+
   return (
     <div>
-      {allInvoiceData.map((invoice, index) => {
-        const {
-          dateCreated,
-          dateDue,
-          billFromEmail,
-          billFromName,
-          billFromPhoneNumber,
-          billToEmail,
-          billToName,
-          billToPhoneNumber,
-          bankName,
-          accountName,
-          bankAccount,
-          itemContent,
-          itemQty,
-          itemPrice,
-        } = invoice;
+      {allInvoiceData.map((invoiceFirestore, index) => {
+        const { invoice, id } = invoiceFirestore;
 
         return (
           <Stack
@@ -61,7 +52,7 @@ const InvoiceHistory = () => {
             boxShadow="dark-lg"
             rounded="md"
             bg="white"
-            // ref={EachDownloadRef.current[index]}
+            ref={EachDownloadRef.current[index]}
           >
             <Flex alignItems="center" justifyContent="space-between">
               <Image src={logo} />
@@ -72,30 +63,30 @@ const InvoiceHistory = () => {
 
             {/* Date */}
             <Box>
-              <Heading size="md">{billFromName}</Heading>
-              <Text>{billFromPhoneNumber}</Text>
-              <Text>{billFromEmail}</Text>
+              <Heading size="md">{invoice.billFromName}</Heading>
+              <Text>{invoice.billFromPhoneNumber}</Text>
+              <Text>{invoice.billFromEmail}</Text>
             </Box>
 
             {/* Invoice date and due date */}
             <Flex>
               <Box>
                 <Heading size="sm">Invoice date</Heading>
-                <Text>{dateCreated}</Text>
+                <Text>{invoice.dateCreated}</Text>
               </Box>
               <Spacer />
               <Box>
                 <Heading size="sm">Due date</Heading>
-                <Text>{dateDue}</Text>
+                <Text>{invoice.dateDue}</Text>
               </Box>
             </Flex>
 
             {/* Billed to */}
             <Box>
               <Heading size="sm">Billed to</Heading>
-              <Text>{billToName}</Text>
-              <Text>{billToPhoneNumber}</Text>
-              <Text>{billToEmail}</Text>
+              <Text>{invoice.billToName}</Text>
+              <Text>{invoice.billToPhoneNumber}</Text>
+              <Text>{invoice.billToEmail}</Text>
             </Box>
 
             {/* Bank details */}
@@ -111,9 +102,9 @@ const InvoiceHistory = () => {
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>{bankName}</Td>
-                    <Td>{accountName}</Td>
-                    <Td isNumeric>{bankAccount}</Td>
+                    <Td>{invoice.bankName}</Td>
+                    <Td>{invoice.accountName}</Td>
+                    <Td isNumeric>{invoice.bankAccount}</Td>
                   </Tr>
                 </Tbody>
               </Table>
@@ -132,10 +123,12 @@ const InvoiceHistory = () => {
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>{itemContent}</Td>
-                    <Td isNumeric>{itemQty}</Td>
-                    <Td isNumeric>{itemPrice}</Td>
-                    <Td isNumeric>#{parseInt(itemQty * itemPrice)}</Td>
+                    <Td>{invoice.itemContent}</Td>
+                    <Td isNumeric>{invoice.itemQty}</Td>
+                    <Td isNumeric>{invoice.itemPrice}</Td>
+                    <Td isNumeric>
+                      #{parseInt(invoice.itemQty * invoice.itemPrice)}
+                    </Td>
                   </Tr>
                 </Tbody>
               </Table>
