@@ -86,7 +86,7 @@ const AppProvider = ({ children }) => {
       alert("please fill out all fields");
       return;
     }
-    setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
+    // setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
 
     // Save to firestore
     try {

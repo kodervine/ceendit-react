@@ -30,12 +30,6 @@ const InvoiceHistory = () => {
     EachDownloadRef,
   } = useGlobalContext();
 
-  // convert the gotten array to this
-  allInvoiceData.map((inv) => {
-    const { invoice, id } = inv;
-    console.log(invoice.billFromEmail);
-  });
-
   return (
     <div>
       {allInvoiceData.map((invoiceFirestore, index) => {
