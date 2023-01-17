@@ -86,9 +86,8 @@ const AppProvider = ({ children }) => {
       alert("please fill out all fields");
       return;
     }
-    // setAllInvoiceData(allInvoiceData.concat([invoiceFormData]));
 
-    // Save to firestore
+    // Save to firestore and fetch the updated data
     try {
       const docRef = await addDoc(collection(db, "invoiceData"), {
         invoice: invoiceFormData,
@@ -97,7 +96,7 @@ const AppProvider = ({ children }) => {
     } catch (e) {
       console.log(e);
     }
-
+    fetchInvoiceData();
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
       return {
@@ -124,6 +123,7 @@ const AppProvider = ({ children }) => {
   // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = async (invoice) => {
     await deleteDoc(doc(db, "invoiceData", invoice.id));
+    fetchInvoiceData();
   };
 
   // handle each individual download with jspdf.
