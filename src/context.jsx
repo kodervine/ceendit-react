@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { nanoid } from "nanoid";
 
@@ -29,15 +29,22 @@ const AppProvider = ({ children }) => {
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
   // Save all the invoices created in array state for the invoiceHistory page and get saved data from local storage on reload. If nothing is there, return an empty array
-  const LOCAL_STORAGE_KEY = "invoiceData";
-  const [allInvoiceData, setAllInvoiceData] = useState(() => {
-    return JSON.parse(localStorage.getItem("invoiceData")) || [];
-  });
+  const [allInvoiceData, setAllInvoiceData] = useState([]);
 
-  // Save data from allInvoiceData to localStorage
+  const fetchInvoiceData = async () => {
+    await getDocs(collection(db, "invoiceData")).then((invoiceQuery) => {
+      const newInvoiceData = invoiceQuery.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setAllInvoiceData(newInvoiceData);
+      console.log(newInvoiceData);
+    });
+  };
+
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(allInvoiceData));
-  }, [allInvoiceData]);
+    fetchInvoiceData();
+  }, []);
 
   // This function ensures that the input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
