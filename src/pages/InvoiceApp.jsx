@@ -23,7 +23,6 @@ const InvoiceApp = () => {
     allInvoiceData,
     handleInvoiceSubmit,
     handleInvoiceEdit,
-    handleAllInvoiceHistory,
     showAllInvoice,
     showPreviewComponent,
     handlePreviewData,
