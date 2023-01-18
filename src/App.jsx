@@ -26,7 +26,7 @@ function App() {
       <Tabs
         variant="soft-rounded"
         colorScheme="blue"
-        ml={{ base: "0", md: "60", lg: "35%" }}
+        ml={{ base: "0", md: "60", lg: "15%" }}
       >
         <TabList
           mt="4"

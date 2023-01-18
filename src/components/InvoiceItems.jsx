@@ -44,7 +44,9 @@ const InvoiceItems = ({
           onChange={onHandleChange}
         />
 
-        <Heading>Price</Heading>
+        <Heading as="h4" size="md">
+          Price
+        </Heading>
         <Input
           type="number"
           name={nameOfInvoiceItemPrice}
@@ -54,7 +56,7 @@ const InvoiceItems = ({
           onChange={onHandleChange}
         />
         {/* Total */}
-        <Heading as="h4" size="md">
+        <Heading as="h4" size="lg">
           Total
         </Heading>
         <Input
