@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import { Box, Button } from "@chakra-ui/react";
 import { useGlobalContext } from "../context";
 const InvoiceToPdf = () => {
+  const smallScreenWidth = window.innerWidth < 700;
   const { handlePreviewInvoicePdf } = useGlobalContext();
 
   return (
@@ -18,6 +19,7 @@ const InvoiceToPdf = () => {
         colorScheme="blue"
         borderColor="gray.200"
         boxShadow="lg"
+        width={smallScreenWidth ? "100%" : "auto"}
       >
         Download Invoice
       </Button>

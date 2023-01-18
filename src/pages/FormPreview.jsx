@@ -21,6 +21,7 @@ import InvoiceToPdf from "../components/InvoiceToPdf";
 import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
+  const smallScreenWidth = window.innerWidth < 700;
   const {
     invoiceFormData,
     setInvoiceFormData,
@@ -147,7 +148,11 @@ const FormPreview = () => {
         mb="10px"
       >
         {/* Eventually this should show only the submit */}
-        <Button onClick={handleInvoiceSubmit} colorScheme="blue">
+        <Button
+          onClick={handleInvoiceSubmit}
+          colorScheme="blue"
+          width={smallScreenWidth ? "100%" : "auto"}
+        >
           Save to Invoice History
         </Button>
       </Box>

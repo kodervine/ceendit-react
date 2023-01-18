@@ -28,7 +28,7 @@ const InvoiceApp = () => {
     handlePreviewData,
   } = useGlobalContext();
 
-  let smallScreenWidth = window.innerWidth < 700;
+  const smallScreenWidth = window.innerWidth < 700;
   console.log(smallScreenWidth);
 
   console.log(allInvoiceData);
