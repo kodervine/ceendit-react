@@ -28,7 +28,8 @@ const InvoiceApp = () => {
     handlePreviewData,
   } = useGlobalContext();
 
-  let navigatePages = useNavigate();
+  let smallScreenWidth = window.innerWidth < 700;
+  console.log(smallScreenWidth);
 
   console.log(allInvoiceData);
   console.log(invoiceFormData);
@@ -127,7 +128,7 @@ const InvoiceApp = () => {
           onHandleChange={handleInputChange}
         />
       </section>
-      <Flex pt="6" gap="2">
+      <Flex pt="6" gap="2" direction={smallScreenWidth ? "column" : "row"}>
         {/* Disable preview invoice button if the forms haven't been filled */}
         <Box>
           {!showPreviewComponent ? (
@@ -135,6 +136,7 @@ const InvoiceApp = () => {
               onClick={handlePreviewData}
               colorScheme="blue"
               type="submit"
+              width={smallScreenWidth ? "100%" : "auto"}
               disabled
             >
               {" "}
@@ -148,6 +150,7 @@ const InvoiceApp = () => {
               onClick={handlePreviewData}
               colorScheme="blue"
               type="submit"
+              width={smallScreenWidth ? "100%" : "auto"}
             >
               {" "}
               {showPreviewComponent && (
@@ -158,13 +161,17 @@ const InvoiceApp = () => {
         </Box>
         <Box>
           {/* Eventually this should show only the submit */}
-          <Button onClick={handleInvoiceSubmit} colorScheme="blue">
+          <Button
+            onClick={handleInvoiceSubmit}
+            colorScheme="blue"
+            width={smallScreenWidth ? "100%" : "auto"}
+          >
             Save to Invoice History
           </Button>
         </Box>
         <Box>
           {/* View all invoice */}
-          <Button colorScheme="blue">
+          <Button colorScheme="blue" width={smallScreenWidth ? "100%" : "auto"}>
             <Link to="/invoice-history">View all Invoice</Link>
           </Button>
         </Box>
