@@ -18,6 +18,7 @@ import Error from "./components/Error";
 import AlertComponent from "./components/AlertComponent";
 
 function App() {
+  const smallScreenWidth = window.innerWidth < 700;
   const { showPreviewComponent, showAllInvoice } = useGlobalContext();
 
   return (
@@ -25,12 +26,17 @@ function App() {
       <Tabs
         variant="soft-rounded"
         colorScheme="blue"
-        ml={{ base: "0", md: "60", lg: "96" }}
+        ml={{ base: "0", md: "60", lg: "35%" }}
       >
-        <TabList mt="4" mb="4">
+        <TabList
+          mt="4"
+          mb="4"
+          flexDirection={smallScreenWidth ? "column" : "row"}
+        >
           <Tab>
             <Link to="/">Home</Link>
           </Tab>
+
           <Tab>
             <Link to="/form-preview">Form Preview</Link>
           </Tab>
