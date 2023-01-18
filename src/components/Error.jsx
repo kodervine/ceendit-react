@@ -1,28 +1,38 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Box, Text, Flex } from "@chakra-ui/react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Flex, Box, Text, Image } from "@chakra-ui/react";
+import errorImg from "../assets/error-img.svg";
 
 const Error = () => {
+  const smallScreenWidth = window.innerWidth < 700;
   return (
-    <section className="mainbox">
-      <Flex>
-        <Text class="err" coli>
-          4
-        </Text>
-        <FontAwesomeIcon icon="fa fa-question-circle fa-spin" />
-        {/* <FontAwesomeIcon icon="fa-regular fa-circle-question" /> */}
-        <Text class="err2">4</Text>
-      </Flex>
+    <Flex direction="column" justifyContent="center" alignItems="center">
+      <Image
+        src={errorImg}
+        width={smallScreenWidth ? "100%" : "80%"}
+        height="400px"
+      />
 
-      <Box>
-        Maybe this page moved? Got deleted? Is hiding out in quarantine? Never
-        existed in the first place?
-        <Text>
-          Let's go <Link to="/">home</Link> and try from there.
+      <Box
+        color="blue.900"
+        fontWeight="bold"
+        textAlign="center"
+        display="flex"
+        justifyContent="center"
+      >
+        <Text
+          fontSize={smallScreenWidth ? "md" : "2xl"}
+          width={smallScreenWidth ? "100%" : "50%"}
+        >
+          Maybe this page moved? Got deleted? Is hiding out in quarantine? Never
+          existed in the first place? Let's go{" "}
+          <Link to="/" className="error-link">
+            home
+          </Link>{" "}
+          and try from there.
         </Text>
       </Box>
-    </section>
+    </Flex>
   );
 };
 
