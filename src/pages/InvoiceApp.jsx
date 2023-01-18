@@ -29,7 +29,6 @@ const InvoiceApp = () => {
   } = useGlobalContext();
 
   const smallScreenWidth = window.innerWidth < 700;
-  console.log(smallScreenWidth);
 
   console.log(allInvoiceData);
   console.log(invoiceFormData);
@@ -52,7 +51,7 @@ const InvoiceApp = () => {
         </Box>
       </Flex>
       {/* Input -  Sending and receiving dateInput rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the dateInput component */}
-      <Flex>
+      <Flex direction={smallScreenWidth ? "column" : "row"}>
         <DateInput
           text="Date Created"
           nameOfDateInput="dateCreated"
