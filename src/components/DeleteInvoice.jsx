@@ -4,6 +4,7 @@ import { useGlobalContext } from "../context";
 
 // Id parameter is the index of each of invoice mapped from the invoiceHistory page.
 const DeleteInvoice = ({ id }) => {
+  const smallScreenWidth = window.innerWidth < 700;
   const { handleDeleteInvoice } = useGlobalContext();
   return (
     // The handleGenerateInvoicePdf frpm the useContext is executed here and rendered on the App.js
@@ -21,6 +22,7 @@ const DeleteInvoice = ({ id }) => {
         colorScheme="blue"
         borderColor="gray.200"
         boxShadow="lg"
+        width={smallScreenWidth ? "100%" : "auto"}
       >
         Delete Invoice
       </Button>

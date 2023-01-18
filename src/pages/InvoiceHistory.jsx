@@ -23,6 +23,7 @@ import DeleteInvoice from "../components/DeleteInvoice";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
+  const smallScreenWidth = window.innerWidth < 700;
   const {
     allInvoiceData,
     handlePrint,
@@ -129,20 +130,19 @@ const InvoiceHistory = () => {
             </TableContainer>
 
             {/* Buttons  */}
-            <Flex>
+            <Flex direction={smallScreenWidth ? "column" : "row"}>
               <Button
                 onClick={() => handlePrint(index)}
                 colorScheme="blue"
                 mt="10px"
+                width={smallScreenWidth ? "100%" : "auto"}
+                maxW="960px"
               >
                 <Text>Download</Text>
               </Button>
 
-              <Box>
-                {/* same id from the map from firestore */}
-                <DeleteInvoice id={invoiceFirestore} />
-                {/* {console.log(invoiceFirestore.id)} */}
-              </Box>
+              {/* same id from the map from firestore */}
+              <DeleteInvoice id={invoiceFirestore} />
             </Flex>
           </Stack>
         );
