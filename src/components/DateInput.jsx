@@ -18,7 +18,7 @@ const DateInput = ({
       <Input
         placeholder="Select Date and Time"
         size="md"
-        type="datetime-local"
+        type="date"
         name={nameOfDateInput}
         id="date-input"
         onChange={onHandleChange}
