@@ -24,12 +24,7 @@ import DeleteInvoice from "../components/DeleteInvoice";
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
   const smallScreenWidth = window.innerWidth < 700;
-  const {
-    allInvoiceData,
-    handlePrint,
-    handlePreviewInvoicePdf,
-    EachDownloadRef,
-  } = useGlobalContext();
+  const { allInvoiceData, handlePrint, EachDownloadRef } = useGlobalContext();
 
   return (
     <div>
@@ -47,7 +42,8 @@ const InvoiceHistory = () => {
             boxShadow="dark-lg"
             rounded="md"
             bg="white"
-            ref={EachDownloadRef.current[index]}
+            ref={handlePrint}
+            // ref={EachDownloadRef.current[index]}
           >
             <Flex alignItems="center" justifyContent="space-between">
               <Image src={logo} />
@@ -132,7 +128,7 @@ const InvoiceHistory = () => {
             {/* Buttons  */}
             <Flex direction={smallScreenWidth ? "column" : "row"}>
               <Button
-                onClick={() => handlePrint(index)}
+                onClick={() => handlePrint(invoice, index)}
                 colorScheme="blue"
                 mt="10px"
                 width={smallScreenWidth ? "100%" : "auto"}

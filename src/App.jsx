@@ -58,8 +58,6 @@ function App() {
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>
-
-      {/* {showPreviewComponent && <InvoiceToPdf />} */}
     </Router>
   );
 }
