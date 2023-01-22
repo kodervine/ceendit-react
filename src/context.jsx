@@ -51,7 +51,6 @@ const AppProvider = ({ children }) => {
         id: doc.id,
       }));
       setAllInvoiceData(newInvoiceData);
-      console.log(newInvoiceData);
     });
   };
 
@@ -92,7 +91,6 @@ const AppProvider = ({ children }) => {
       const docRef = await addDoc(collection(db, "invoiceData"), {
         invoice: invoiceFormData,
       });
-      console.log("document saved", docRef.id);
     } catch (e) {
       console.log(e);
     }
@@ -118,7 +116,6 @@ const AppProvider = ({ children }) => {
       };
     });
   };
-  console.log(allInvoiceData);
 
   // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = async (invoice) => {
@@ -129,6 +126,7 @@ const AppProvider = ({ children }) => {
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
   const EachDownloadRef = useRef([]);
   EachDownloadRef.current = [];
+
   const handlePrint = (el, index) => {
     if (el && !EachDownloadRef.current.includes(el)) {
       EachDownloadRef.current.push(el);

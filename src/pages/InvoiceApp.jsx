@@ -29,9 +29,8 @@ const InvoiceApp = () => {
   } = useGlobalContext();
 
   const smallScreenWidth = window.innerWidth < 700;
-
   console.log(allInvoiceData);
-  console.log(invoiceFormData);
+
   return (
     <FormControl
       onSubmit={handleInvoiceSubmit}
