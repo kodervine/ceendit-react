@@ -120,13 +120,13 @@ const AppProvider = ({ children }) => {
   };
   console.log(allInvoiceData);
 
-  // Deletes each invoice when it Checks if the index of the clicked array in the allInvoiceData and return only the ones that don't match it, then update the state. Sent this to DeleteInvoice component and InvoiceHistory page.
+  // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = async (invoice) => {
     await deleteDoc(doc(db, "invoiceData", invoice.id));
     fetchInvoiceData();
   };
 
-  // handle each individual download with jspdf.
+  // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
   const EachDownloadRef = useRef([]);
   EachDownloadRef.current = [];
   const handlePrint = (el, index) => {
@@ -148,30 +148,6 @@ const AppProvider = ({ children }) => {
       margin: -20,
     });
   };
-  // const handlePrint = useCallback((id) => {
-  //   if (allInvoiceData.length > 0 && allInvoiceData[id]) {
-  //     const content = EachDownloadRef.current[id].current.innerHTML;
-  //     const doc = new jsPDF("p", "pt", [800, 800]);
-  //     doc.setFontSize(12);
-  //     doc.html(content, {
-  //       callback: function (doc) {
-  //         doc.save("document");
-  //       },
-  //       x: 20,
-  //       y: 20,
-  //       width: 800,
-  //       windowWidth: 800,
-  //       margin: -20,
-  //     });
-  //   }
-  // }, []);
-
-  // useEffect(() => {
-  //   const refs = Array(allInvoiceData.length)
-  //     .fill()
-  //     .map(() => useRef(null));
-  //   EachDownloadRef.current = refs;
-  // }, []);
 
   // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
   const FormPreviewRef = useRef();
