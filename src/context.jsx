@@ -1,12 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  useEffect,
-  useMemo,
-  useRef,
-  useCallback,
-} from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import jsPDF from "jspdf";
 import {
   collection,
@@ -14,7 +6,6 @@ import {
   serverTimestamp,
   getDocs,
   query,
-  onSnapshot,
   orderBy,
   getFirestore,
   doc,
@@ -22,7 +13,6 @@ import {
   where,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
-import { nanoid } from "nanoid";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
