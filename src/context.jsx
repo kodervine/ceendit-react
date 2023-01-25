@@ -11,10 +11,15 @@ import jsPDF from "jspdf";
 import {
   collection,
   addDoc,
+  serverTimestamp,
   getDocs,
+  query,
+  onSnapshot,
+  orderBy,
   getFirestore,
   doc,
   deleteDoc,
+  where,
 } from "firebase/firestore";
 import { db } from "./firebase-config";
 import { nanoid } from "nanoid";
@@ -45,7 +50,11 @@ const AppProvider = ({ children }) => {
   const [allInvoiceData, setAllInvoiceData] = useState([]);
 
   const fetchInvoiceData = async () => {
-    await getDocs(collection(db, "invoiceData")).then((invoiceQuery) => {
+    const queryMessage = query(
+      collection(db, "invoiceData"),
+      orderBy("createdAt")
+    );
+    await getDocs(queryMessage).then((invoiceQuery) => {
       const newInvoiceData = invoiceQuery.docs.map((doc) => ({
         ...doc.data(),
         id: doc.id,
@@ -57,7 +66,6 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     fetchInvoiceData();
   }, []);
-
   // This function ensures that the input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -90,6 +98,7 @@ const AppProvider = ({ children }) => {
     try {
       const docRef = await addDoc(collection(db, "invoiceData"), {
         invoice: invoiceFormData,
+        createdAt: serverTimestamp(),
       });
     } catch (e) {
       console.log(e);
