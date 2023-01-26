@@ -30,7 +30,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 export default app;
 const auth = getAuth(app);
-export const db = getFirestore(app);
+const db = getFirestore(app);
 
 // Google Sign in
 const gmailProvider = new GoogleAuthProvider();
@@ -46,6 +46,8 @@ const signInWithGoogle = async () => {
         name: user.displayName,
         authProvider: "google",
         email: user.email,
+        password: "",
+        invoiceData: [],
       });
     }
   } catch (e) {

@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { signInWithGoogle } from "../firebase-config";
 import {
   Flex,
   Heading,
@@ -22,8 +24,15 @@ const CFaLock = chakra(FaLock);
 
 const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
-
   const handleShowClick = () => setShowPassword(!showPassword);
+
+  const handleRegisterUser = async () => {
+    try {
+      await signInWithGoogle();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Flex
@@ -98,7 +107,7 @@ const SignInPage = () => {
       </Stack>
       <Box>
         New to us?{" "}
-        <Link color="blue.500" href="#">
+        <Link color="blue.500" onClick={handleRegisterUser}>
           Sign Up
         </Link>
       </Box>
