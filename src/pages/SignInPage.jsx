@@ -26,9 +26,11 @@ const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
+  const navigateUser = useNavigate();
   const handleRegisterUser = async () => {
     try {
       await signInWithGoogle();
+      await navigateUser("/");
     } catch (e) {
       console.log(e);
     }

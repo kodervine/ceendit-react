@@ -12,6 +12,7 @@ import {
   collection,
   addDoc,
   getDocs,
+  serverTimestamp,
 } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -43,12 +44,14 @@ const signInWithGoogle = async () => {
     if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
         uid: user.uid,
+        createdAt: serverTimestamp(),
         name: user.displayName,
         authProvider: "google",
         email: user.email,
         password: "",
         invoiceData: [],
       });
+      console.log("user created");
     }
   } catch (e) {
     console.log(e);

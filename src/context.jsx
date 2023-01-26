@@ -38,7 +38,6 @@ const AppProvider = ({ children }) => {
 
   // Save all the invoices for the invoiceHistory page and get data from firebase store
   const [allInvoiceData, setAllInvoiceData] = useState([]);
-
   const fetchInvoiceData = async () => {
     const queryMessage = query(
       collection(db, "invoiceData"),
@@ -85,14 +84,26 @@ const AppProvider = ({ children }) => {
     }
 
     // Save to firestore and fetch the updated data
+    // try {
+    //   const docRef = await addDoc(collection(db, "invoiceData"), {
+    //     invoice: invoiceFormData,
+    //     createdAt: serverTimestamp(),
+    //   });
+    // } catch (e) {
+    //   console.log(e);
+    // }
+
     try {
-      const docRef = await addDoc(collection(db, "invoiceData"), {
+      const userDocRef = db.collection("users").doc("uid");
+      const invoiceDataRef = userDocRef.collection("invoiceData");
+      const docRef = await invoiceDataRef.add({
         invoice: invoiceFormData,
-        createdAt: serverTimestamp(),
+        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       });
     } catch (e) {
       console.log(e);
     }
+
     fetchInvoiceData();
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
