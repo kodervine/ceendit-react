@@ -16,6 +16,7 @@ import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
 import AlertComponent from "./components/AlertComponent";
+import SignInPage from "./pages/SignInPage";
 
 function App() {
   const smallScreenWidth = window.innerWidth < 700;
@@ -49,7 +50,7 @@ function App() {
       {showAllInvoice && <AlertComponent />}
       <Routes>
         <Route exact path="/" element={<InvoiceApp />} />
-
+        <Route path="/signin" element={<SignInPage />} />
         {/* <Route path="/form-preview" element={<FormPreview />} /> */}
         <Route
           path="/form-preview"
