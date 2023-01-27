@@ -5,14 +5,16 @@ import {
   addDoc,
   serverTimestamp,
   getDocs,
+  setDoc,
   query,
   orderBy,
   getFirestore,
   doc,
   deleteDoc,
   where,
+  updateDoc,
 } from "firebase/firestore";
-import { db } from "./firebase-config";
+import { db, auth } from "./firebase-config";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -46,8 +48,10 @@ const AppProvider = ({ children }) => {
     await getDocs(queryMessage).then((invoiceQuery) => {
       const newInvoiceData = invoiceQuery.docs.map((doc) => ({
         ...doc.data(),
+
         id: doc.id,
       }));
+
       setAllInvoiceData(newInvoiceData);
     });
   };
@@ -93,13 +97,13 @@ const AppProvider = ({ children }) => {
     //   console.log(e);
     // }
 
+    const userId = auth.currentUser.uid;
+
     try {
-      const userDocRef = db.collection("users").doc("uid");
-      const invoiceDataRef = userDocRef.collection("invoiceData");
-      const docRef = await invoiceDataRef.add({
-        invoice: invoiceFormData,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      });
+      // const docRef = await setDoc(doc(db, "users", userId), invoiceFormData);
+      // const res = await db.collection("users").doc(userId);
+      const userRef = doc(db, "users", "ugkv6ABFEnSokVLBFYnx");
+      updateDoc(userRef, { invoiceData: invoiceFormData });
     } catch (e) {
       console.log(e);
     }

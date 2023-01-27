@@ -62,4 +62,14 @@ const logOutUser = () => {
   signOut(auth);
 };
 
+const getInvoiceFromUser = async () => {
+  try {
+    const inv = await getDocs(collection(db, "users"));
+  } catch (e) {
+    console.log(e);
+  }
+};
+
+getInvoiceFromUser();
+
 export { auth, db, signInWithGoogle, logOutUser };
