@@ -102,19 +102,14 @@ const AppProvider = ({ children }) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         console.log(doc.id, " =>", doc.data().invoiceData);
-
-        updateDoc(doc.id, { invoiceData: invoiceFormData });
       });
     } catch (e) {
       console.log(e);
     }
 
     const userId = auth.currentUser.uid;
-    const userIden = auth.currentUser;
 
     try {
-      // const docRef = await setDoc(doc(db, "users", userId), invoiceFormData);
-      // const res = await db.collection("users").doc(userId);
       const userRef = doc(db, "users", "ugkv6ABFEnSokVLBFYnx");
       updateDoc(userRef, { invoiceData: invoiceFormData });
     } catch (e) {
