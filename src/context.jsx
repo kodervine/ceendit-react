@@ -97,7 +97,20 @@ const AppProvider = ({ children }) => {
     //   console.log(e);
     // }
 
+    try {
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        console.log(doc.id, " =>", doc.data().invoiceData);
+
+        updateDoc(doc.id, { invoiceData: invoiceFormData });
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
     const userId = auth.currentUser.uid;
+    const userIden = auth.currentUser;
 
     try {
       // const docRef = await setDoc(doc(db, "users", userId), invoiceFormData);
