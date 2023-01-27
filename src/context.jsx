@@ -79,6 +79,7 @@ const AppProvider = ({ children }) => {
   };
 
   // Handles each invoice submit and pushes it to the `allInvoice` array state. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
+  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] = useState([]);
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormData);
@@ -87,6 +88,9 @@ const AppProvider = ({ children }) => {
       return;
     }
 
+    setFirebaseAllInvoiceArray((prevdata) => {
+      return [...prevdata, invoiceFormData];
+    });
     // Save to firestore and fetch the updated data
     // try {
     //   const docRef = await addDoc(collection(db, "invoiceData"), {
@@ -100,22 +104,15 @@ const AppProvider = ({ children }) => {
     try {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((doc) => {
-        console.log(doc.id, " =>", doc.data().invoiceData);
+      querySnapshot.forEach((document) => {
+        console.log(document.id, " =>", document.data().invoiceData);
+        // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
+        const userRef = doc(db, "users", document.id);
+        updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
       });
     } catch (e) {
       console.log(e);
     }
-
-    const userId = auth.currentUser.uid;
-
-    try {
-      const userRef = doc(db, "users", "ugkv6ABFEnSokVLBFYnx");
-      updateDoc(userRef, { invoiceData: invoiceFormData });
-    } catch (e) {
-      console.log(e);
-    }
-
     fetchInvoiceData();
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
