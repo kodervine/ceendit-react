@@ -48,7 +48,6 @@ const AppProvider = ({ children }) => {
     await getDocs(queryMessage).then((invoiceQuery) => {
       const newInvoiceData = invoiceQuery.docs.map((doc) => ({
         ...doc.data(),
-
         id: doc.id,
       }));
 
@@ -92,15 +91,6 @@ const AppProvider = ({ children }) => {
       return [...prevdata, invoiceFormData];
     });
     // Save to firestore and fetch the updated data
-    // try {
-    //   const docRef = await addDoc(collection(db, "invoiceData"), {
-    //     invoice: invoiceFormData,
-    //     createdAt: serverTimestamp(),
-    //   });
-    // } catch (e) {
-    //   console.log(e);
-    // }
-
     try {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
