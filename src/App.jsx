@@ -1,5 +1,11 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import {
   Box,
   Flex,
@@ -17,13 +23,20 @@ import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
 import AlertComponent from "./components/AlertComponent";
 import SignInPage from "./pages/SignInPage";
-
+import { logOutUser } from "./firebase-config";
 function App() {
   const smallScreenWidth = window.innerWidth < 700;
   const { showPreviewComponent, showAllInvoice } = useGlobalContext();
 
+  const navigateUser = useNavigate();
+  const loggingOutUser = () => {
+    logOutUser();
+    navigateUser("/signin");
+  };
+
   return (
-    <Router>
+    // <Router>
+    <div>
       <Tabs
         variant="soft-rounded"
         colorScheme="blue"
@@ -44,10 +57,11 @@ function App() {
           <Tab>
             <Link to="/invoice-history">See all Invoice</Link>
           </Tab>
+          <Tab onClick={loggingOutUser}>Log out</Tab>
         </TabList>
       </Tabs>
-
       {showAllInvoice && <AlertComponent />}
+
       <Routes>
         <Route exact path="/" element={<InvoiceApp />} />
         <Route path="/signin" element={<SignInPage />} />
@@ -59,7 +73,8 @@ function App() {
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </Router>
+      {/* </Router> */}
+    </div>
   );
 }
 
