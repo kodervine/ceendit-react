@@ -21,7 +21,8 @@ const AppProvider = ({ children }) => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("state = definitely signed in");
-        setCurrentUserId(user.id);
+        setCurrentUserId(user.uid);
+        console.log(user.uid);
       } else {
         console.log("state = definitely signed out");
       }
