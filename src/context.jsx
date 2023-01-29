@@ -5,19 +5,30 @@ import {
   addDoc,
   serverTimestamp,
   getDocs,
-  setDoc,
   query,
-  orderBy,
-  getFirestore,
   doc,
   deleteDoc,
-  where,
   updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "./firebase-config";
+import { onAuthStateChanged } from "firebase/auth";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
+  // Get current user
+  const [currentUserId, setCurrentUserId] = useState("");
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        console.log(user.uid);
+        setCurrentUserId(user.uid);
+      } else {
+        console.log("user is not signed n");
+      }
+    });
+  }, []);
+
+  // Form data to be updated to be previewed, and concatated to firestore
   const [invoiceFormData, setInvoiceFormData] = useState({
     dateCreated: "",
     dateDue: "",
@@ -34,7 +45,6 @@ const AppProvider = ({ children }) => {
     itemQty: "",
     itemPrice: "",
   });
-
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
@@ -59,7 +69,6 @@ const AppProvider = ({ children }) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((document) => {
         const newInvoiceData = document.data().invoiceData;
-        console.log(newInvoiceData);
         setAllInvoiceData(newInvoiceData);
       });
     } catch (e) {
@@ -107,10 +116,13 @@ const AppProvider = ({ children }) => {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((document) => {
-        console.log(document.id, " =>", document.data().invoiceData);
+        const userInfoInFirebase = document.data();
+        console.log(document.id, " =>", userInfoInFirebase.invoiceData);
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
-        updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
+        if (userInfoInFirebase.uid == currentUserId) {
+          updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
+        }
       });
     } catch (e) {
       console.log(e);

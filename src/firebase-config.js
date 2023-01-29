@@ -41,17 +41,16 @@ const signInWithGoogle = async () => {
     const user = res.user;
     const q = query(collection(db, "users"));
     const docs = await getDocs(q);
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        createdAt: serverTimestamp(),
-        name: user.displayName,
-        authProvider: "google",
-        email: user.email,
-        password: "",
-        invoiceData: [],
-      });
-      console.log("user created");
-
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      createdAt: serverTimestamp(),
+      name: user.displayName,
+      authProvider: "google",
+      email: user.email,
+      password: "",
+      invoiceData: [],
+    });
+    console.log("user created");
   } catch (e) {
     console.log(e);
   }
@@ -60,15 +59,5 @@ const signInWithGoogle = async () => {
 const logOutUser = () => {
   signOut(auth);
 };
-
-const getInvoiceFromUser = async () => {
-  try {
-    const inv = await getDocs(collection(db, "users"));
-  } catch (e) {
-    console.log(e);
-  }
-};
-
-getInvoiceFromUser();
 
 export { auth, db, signInWithGoogle, logOutUser };
