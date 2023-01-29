@@ -20,10 +20,10 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(user.uid);
-        setCurrentUserId(user.uid);
+        console.log("state = definitely signed in");
+        setCurrentUserId(user.id);
       } else {
-        console.log("user is not signed n");
+        console.log("state = definitely signed out");
       }
     });
   }, []);
@@ -68,8 +68,12 @@ const AppProvider = ({ children }) => {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((document) => {
-        const newInvoiceData = document.data().invoiceData;
-        setAllInvoiceData(newInvoiceData);
+        const userInfoInFirebase = document.data();
+        if (userInfoInFirebase.uid == currentUserId) {
+          const newInvoiceData = document.data().invoiceData;
+          setAllInvoiceData(newInvoiceData);
+          console.log(newInvoiceData);
+        }
       });
     } catch (e) {
       console.log(e);
