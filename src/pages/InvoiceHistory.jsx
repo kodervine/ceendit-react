@@ -29,8 +29,6 @@ const InvoiceHistory = () => {
   return (
     <div>
       {allInvoiceData.map((invoiceFirestore, index) => {
-        const { invoice, id } = invoiceFirestore;
-
         return (
           <Stack
             key={nanoid()}
@@ -54,30 +52,30 @@ const InvoiceHistory = () => {
 
             {/* Date */}
             <Box>
-              <Heading size="md">{invoice.billFromName}</Heading>
-              <Text>{invoice.billFromPhoneNumber}</Text>
-              <Text>{invoice.billFromEmail}</Text>
+              <Heading size="md">{invoiceFirestore.billFromName}</Heading>
+              <Text>{invoiceFirestore.billFromPhoneNumber}</Text>
+              <Text>{invoiceFirestore.billFromEmail}</Text>
             </Box>
 
             {/* Invoice date and due date */}
             <Flex>
               <Box>
                 <Heading size="sm">Invoice date</Heading>
-                <Text>{invoice.dateCreated}</Text>
+                <Text>{invoiceFirestore.dateCreated}</Text>
               </Box>
               <Spacer />
               <Box>
                 <Heading size="sm">Due date</Heading>
-                <Text>{invoice.dateDue}</Text>
+                <Text>{invoiceFirestore.dateDue}</Text>
               </Box>
             </Flex>
 
             {/* Billed to */}
             <Box>
               <Heading size="sm">Billed to</Heading>
-              <Text>{invoice.billToName}</Text>
-              <Text>{invoice.billToPhoneNumber}</Text>
-              <Text>{invoice.billToEmail}</Text>
+              <Text>{invoiceFirestore.billToName}</Text>
+              <Text>{invoiceFirestore.billToPhoneNumber}</Text>
+              <Text>{invoiceFirestore.billToEmail}</Text>
             </Box>
 
             {/* Bank details */}
@@ -93,9 +91,9 @@ const InvoiceHistory = () => {
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>{invoice.bankName}</Td>
-                    <Td>{invoice.accountName}</Td>
-                    <Td isNumeric>{invoice.bankAccount}</Td>
+                    <Td>{invoiceFirestore.bankName}</Td>
+                    <Td>{invoiceFirestore.accountName}</Td>
+                    <Td isNumeric>{invoiceFirestore.bankAccount}</Td>
                   </Tr>
                 </Tbody>
               </Table>
@@ -114,11 +112,14 @@ const InvoiceHistory = () => {
                 </Thead>
                 <Tbody>
                   <Tr>
-                    <Td>{invoice.itemContent}</Td>
-                    <Td isNumeric>{invoice.itemQty}</Td>
-                    <Td isNumeric>{invoice.itemPrice}</Td>
+                    <Td>{invoiceFirestore.itemContent}</Td>
+                    <Td isNumeric>{invoiceFirestore.itemQty}</Td>
+                    <Td isNumeric>{invoiceFirestore.itemPrice}</Td>
                     <Td isNumeric>
-                      #{parseInt(invoice.itemQty * invoice.itemPrice)}
+                      #
+                      {parseInt(
+                        invoiceFirestore.itemQty * invoiceFirestore.itemPrice
+                      )}
                     </Td>
                   </Tr>
                 </Tbody>
