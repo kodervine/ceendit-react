@@ -129,7 +129,7 @@ const InvoiceHistory = () => {
             {/* Buttons  */}
             <Flex direction={smallScreenWidth ? "column" : "row"}>
               <Button
-                onClick={() => handlePrint(invoice, index)}
+                onClick={() => handlePrint(invoiceFirestore, index)}
                 colorScheme="blue"
                 mt="10px"
                 width={smallScreenWidth ? "100%" : "auto"}
