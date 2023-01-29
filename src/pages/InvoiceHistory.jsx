@@ -27,7 +27,7 @@ const InvoiceHistory = () => {
   const { allInvoiceData, handlePrint, EachDownloadRef } = useGlobalContext();
 
   return (
-    <div>
+    <Box>
       {allInvoiceData.map((invoiceFirestore, index) => {
         return (
           <Stack
@@ -144,7 +144,7 @@ const InvoiceHistory = () => {
           </Stack>
         );
       })}
-    </div>
+    </Box>
   );
 };
 

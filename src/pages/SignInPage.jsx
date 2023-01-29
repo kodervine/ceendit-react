@@ -23,6 +23,7 @@ const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const SignInPage = () => {
+  // Handle form and showing of password
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
@@ -41,7 +42,7 @@ const SignInPage = () => {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundColor="blue.100"
+      backgroundColor="white"
       justifyContent="center"
       alignItems="center"
     >
@@ -52,14 +53,16 @@ const SignInPage = () => {
         alignItems="center"
         backgroundColor="white"
         width={{ base: "80vw", md: "468px" }}
-        padding="50px 10px"
+        padding="50px 10px 30px 10px"
+        boxShadow="2xl"
+        borderRadius="20px"
       >
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome</Heading>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form>
             <Stack
-              spacing={4}
+              spacing={5}
               p="1rem"
               backgroundColor="whiteAlpha.900"
               boxShadow="md"
@@ -106,13 +109,13 @@ const SignInPage = () => {
             </Stack>
           </form>
         </Box>
+        <Box>
+          New to us?{" "}
+          <Link color="blue.500" onClick={handleRegisterUser}>
+            Sign Up
+          </Link>
+        </Box>
       </Stack>
-      <Box>
-        New to us?{" "}
-        <Link color="blue.500" onClick={handleRegisterUser}>
-          Sign Up
-        </Link>
-      </Box>
     </Flex>
   );
 };

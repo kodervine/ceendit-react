@@ -28,7 +28,7 @@ function App() {
   };
 
   return (
-    <div>
+    <Box>
       {currentUser && (
         <Tabs
           variant="soft-rounded"
@@ -55,6 +55,7 @@ function App() {
         </Tabs>
       )}
 
+      {/* Display when invoice is saved successfully */}
       {showAllInvoice && <AlertComponent />}
 
       <Routes>
@@ -68,7 +69,7 @@ function App() {
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>
-    </div>
+    </Box>
   );
 }
 
