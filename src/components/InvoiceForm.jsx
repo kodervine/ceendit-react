@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Input,
-  Stack,
-  Heading,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/react";
+import { Input, Stack, Heading } from "@chakra-ui/react";
 
 // Props for the input are gotten from InvoiceApp page, with data from the iseState declared on the useContext component
 const InvoiceForm = ({
@@ -24,7 +16,6 @@ const InvoiceForm = ({
   return (
     <section>
       <Stack spacing={3}>
-        {" "}
         <Heading as="h3" size="md" pt="10px">
           {recipient}
         </Heading>

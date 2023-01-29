@@ -1,13 +1,5 @@
 import React from "react";
-import {
-  Input,
-  Stack,
-  Heading,
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  FormHelperText,
-} from "@chakra-ui/react";
+import { Input, Stack, Heading } from "@chakra-ui/react";
 
 // Props for the input are gotten from InvoiceApp page, with data from the iseState declared on the useContext component
 const InvoiceBankDetails = ({
