@@ -18,7 +18,8 @@ import { logOutUser } from "./firebase-config";
 
 function App() {
   const smallScreenWidth = window.innerWidth < 700;
-  const { showPreviewComponent, showAllInvoice } = useGlobalContext();
+  const { showPreviewComponent, showAllInvoice, currentUser } =
+    useGlobalContext();
 
   const navigateUser = useNavigate();
   const loggingOutUser = () => {
@@ -28,29 +29,32 @@ function App() {
 
   return (
     <div>
-      <Tabs
-        variant="soft-rounded"
-        colorScheme="blue"
-        ml={{ base: "0", md: "60", lg: "15%" }}
-      >
-        <TabList
-          mt="4"
-          mb="4"
-          flexDirection={smallScreenWidth ? "column" : "row"}
+      {currentUser && (
+        <Tabs
+          variant="soft-rounded"
+          colorScheme="blue"
+          ml={{ base: "0", md: "60", lg: "15%" }}
         >
-          <Tab>
-            <Link to="/">Home</Link>
-          </Tab>
+          <TabList
+            mt="4"
+            mb="4"
+            flexDirection={smallScreenWidth ? "column" : "row"}
+          >
+            <Tab>
+              <Link to="/">Home</Link>
+            </Tab>
 
-          <Tab>
-            <Link to="/form-preview">Form Preview</Link>
-          </Tab>
-          <Tab>
-            <Link to="/invoice-history">See all Invoice</Link>
-          </Tab>
-          <Tab onClick={loggingOutUser}>Log out</Tab>
-        </TabList>
-      </Tabs>
+            <Tab>
+              <Link to="/form-preview">Form Preview</Link>
+            </Tab>
+            <Tab>
+              <Link to="/invoice-history">See all Invoice</Link>
+            </Tab>
+            <Tab onClick={loggingOutUser}>Log out</Tab>
+          </TabList>
+        </Tabs>
+      )}
+
       {showAllInvoice && <AlertComponent />}
 
       <Routes>

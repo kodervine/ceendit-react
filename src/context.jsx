@@ -17,11 +17,13 @@ const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
   // Get current user
   const [currentUserId, setCurrentUserId] = useState("");
+  const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log("state = definitely signed in");
         setCurrentUserId(user.uid);
+        setCurrentUser(user);
         console.log(user.uid);
       } else {
         console.log("state = definitely signed out");
@@ -207,6 +209,7 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
+        currentUser,
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
