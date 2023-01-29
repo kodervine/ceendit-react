@@ -6,24 +6,16 @@ import {
   Link,
   useNavigate,
 } from "react-router-dom";
-import {
-  Box,
-  Flex,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
-} from "@chakra-ui/react";
+import { Box, Flex, Tabs, TabList, Tab } from "@chakra-ui/react";
 import { useGlobalContext } from "./context";
 import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
-import InvoiceToPdf from "./components/InvoiceToPdf";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
 import AlertComponent from "./components/AlertComponent";
 import SignInPage from "./pages/SignInPage";
 import { logOutUser } from "./firebase-config";
+
 function App() {
   const smallScreenWidth = window.innerWidth < 700;
   const { showPreviewComponent, showAllInvoice } = useGlobalContext();
@@ -35,7 +27,6 @@ function App() {
   };
 
   return (
-    // <Router>
     <div>
       <Tabs
         variant="soft-rounded"
@@ -73,7 +64,6 @@ function App() {
         <Route path="/invoice-history" element={<InvoiceHistory />} />
         <Route path="*" element={<Error />} />
       </Routes>
-      {/* </Router> */}
     </div>
   );
 }

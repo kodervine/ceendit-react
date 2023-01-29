@@ -41,7 +41,6 @@ const signInWithGoogle = async () => {
     const user = res.user;
     const q = query(collection(db, "users"));
     const docs = await getDocs(q);
-    if (docs.docs.length === 0) {
       await addDoc(collection(db, "users"), {
         uid: user.uid,
         createdAt: serverTimestamp(),
@@ -52,7 +51,7 @@ const signInWithGoogle = async () => {
         invoiceData: [],
       });
       console.log("user created");
-    }
+
   } catch (e) {
     console.log(e);
   }
