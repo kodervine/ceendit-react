@@ -41,6 +41,14 @@ const signInWithGoogle = async () => {
     const user = res.user;
     const q = query(collection(db, "users"));
     const docs = await getDocs(q);
+    // confirm if users email already exists in the collection but not properly working yet
+    docs.forEach((items) => {
+      if (items.data().email == user.email) {
+        alert("Email already exists");
+        return;
+      }
+    });
+
     await addDoc(collection(db, "users"), {
       uid: user.uid,
       createdAt: serverTimestamp(),
