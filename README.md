@@ -25,7 +25,9 @@ Demo link - https://ceendit.netlify.app/
 
 ## Current Features
 
-- User sign up and login
+- User authentication
+  - Google sign up
+  - Email and Password sign up and log in
 - Various form inputs
 - Error & validation
 - Download invoice as pdf files

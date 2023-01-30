@@ -13,6 +13,7 @@ import FormPreview from "./pages/FormPreview";
 import InvoiceHistory from "./pages/InvoiceHistory";
 import Error from "./components/Error";
 import AlertComponent from "./components/AlertComponent";
+import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import { logOutUser } from "./firebase-config";
@@ -60,7 +61,8 @@ function App() {
       {showAllInvoice && <AlertComponent />}
 
       <Routes>
-        <Route exact path="/" element={<InvoiceApp />} />
+        <Route path="/" element={<HomePage />} />
+        <Route path="/create-invoice" element={<InvoiceApp />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/create-account" element={<SignUpPage />} />
         {/* <Route path="/form-preview" element={<FormPreview />} /> */}
