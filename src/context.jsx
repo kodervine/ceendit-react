@@ -24,7 +24,6 @@ const AppProvider = ({ children }) => {
         console.log("state = definitely signed in");
         setCurrentUserId(user.uid);
         setCurrentUser(user);
-        console.log(user.uid);
       } else {
         console.log("state = definitely signed out");
       }

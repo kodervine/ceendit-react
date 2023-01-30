@@ -14,6 +14,7 @@ Demo link - https://ceendit.netlify.app/
 - Chakra UI
 - Firebase
 - React Hooks
+- Netlify
 
 ### Learned to use
 
@@ -22,10 +23,14 @@ Demo link - https://ceendit.netlify.app/
 - React router
 - Protected routes
 - React hooks including custom hooks
+- Netlify redirects
 
 ## Current Features
 
-- User sign up and login
+- Landing Page
+- User authentication
+  - Google sign up
+  - Email and Password sign up and log in
 - Various form inputs
 - Error & validation
 - Download invoice as pdf files

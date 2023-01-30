@@ -62,7 +62,7 @@ const SignUpPage = () => {
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    await navigateUser("/");
+    await navigateUser("/create-invoice");
   };
 
   return (
