@@ -102,17 +102,6 @@ const handleCreateUserWithEmailAndPassword = async (
         console.log("user created");
       }
     });
-
-    // await addDoc(collection(db, "users"), {
-    //   uid: user.uid,
-    //   createdAt: serverTimestamp(),
-    //   name,
-    //   authProvider: "local",
-    //   email,
-    //   password,
-    //   invoiceData: [],
-    // });
-    // console.log("user created");
   } catch (error) {
     if (error.code == "auth/email-already-in-use") {
       alert("The email address is already in use");
@@ -126,6 +115,17 @@ const handleCreateUserWithEmailAndPassword = async (
   }
 };
 
+// signInWithEmailAndPassword(auth, email, password)
+//   .then((userCredential) => {
+//     // Signed in
+//     const user = userCredential.user;
+//     // ...
+//   })
+//   .catch((error) => {
+//     const errorCode = error.code;
+//     const errorMessage = error.message;
+//   });
+
 const logOutUser = () => {
   signOut(auth);
 };
@@ -136,4 +136,5 @@ export {
   signInWithGoogle,
   handleCreateUserWithEmailAndPassword,
   logOutUser,
+  signInWithEmailAndPassword,
 };

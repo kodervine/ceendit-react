@@ -28,7 +28,7 @@ import { FaUserAlt, FaLock } from "react-icons/fa";
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
-const SignInPage = () => {
+const SignUpPage = () => {
   // Handle form and showing of password
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
@@ -87,7 +87,7 @@ const SignInPage = () => {
         borderRadius="20px"
       >
         <Avatar bg="blue.500" />
-        <Heading color="blue.400">Welcome back</Heading>
+        <Heading color="blue.400">Welcome</Heading>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form onSubmit={handleSignUpFormSubmit}>
             <Stack
@@ -131,9 +131,6 @@ const SignInPage = () => {
                     </Button>
                   </InputRightElement>
                 </InputGroup>
-                <FormHelperText textAlign="right">
-                  <Link>forgot password?</Link>
-                </FormHelperText>
               </FormControl>
               <Button
                 borderRadius="50px"
@@ -142,13 +139,13 @@ const SignInPage = () => {
                 colorScheme="blue"
                 width="full"
               >
-                Login
+                Sign up
               </Button>
             </Stack>
           </form>
         </Box>
         <Box>
-          New to us?{" "}
+          Sign up with Google instead?{" "}
           <Link color="blue.500" onClick={handleRegisterUser}>
             Sign Up
           </Link>
@@ -158,4 +155,4 @@ const SignInPage = () => {
   );
 };
 
-export default SignInPage;
+export default SignUpPage;
