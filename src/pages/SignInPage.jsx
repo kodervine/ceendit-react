@@ -54,14 +54,13 @@ const SignInPage = () => {
     });
   };
 
-  const handleSignUpFormSubmit = (e) => {
+  const handleSignUpFormSubmit = async (e) => {
     e.preventDefault();
-    handleCreateUserWithEmailAndPassword(
-      auth,
-      userSignUpForm.email,
-      userSignUpForm.password
+    await handleCreateUserWithEmailAndPassword(
+      userSignUpForm.signupEmail,
+      userSignUpForm.signupPassword
     );
-    navigateUser("/");
+    await navigateUser("/");
   };
 
   return (
