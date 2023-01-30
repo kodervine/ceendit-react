@@ -24,16 +24,12 @@ const Hero = () => {
       alignItems="center"
       w="full"
       px={isLargerThan62 ? "16" : "6"}
-      py="16"
+      py="4"
       minHeight="90vh"
       justifyContent="space-between"
       flexDirection={isLargerThan62 ? "row" : "column"}
     >
-      <Box
-        mr={isLargerThan62 ? "6" : "0"}
-        w={isLargerThan62 ? "60%" : "full"}
-        flex="4"
-      >
+      <Box mr={isLargerThan62 ? "6" : "0"} w={isLargerThan62 ? "60%" : "full"}>
         <Text
           fontSize={isLargerThan62 ? "4xl" : "3xl"}
           fontWeight="bold"
