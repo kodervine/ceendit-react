@@ -27,6 +27,7 @@ Demo link - https://ceendit.netlify.app/
 
 ## Current Features
 
+- Landing Page
 - User authentication
   - Google sign up
   - Email and Password sign up and log in
