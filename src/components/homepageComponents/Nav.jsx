@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import logo from "../../assets/logo.png";
 import {
   Text,
   Flex,
+  Image,
   Spacer,
   IconButton,
   useColorMode,
@@ -27,7 +29,7 @@ const Nav = ({ onOpen, ref }) => {
 
   return (
     <Flex
-      h="10vh"
+      h="12vh"
       alignItems="center"
       p="6"
       boxShadow={scroll ? "base" : "none"}
@@ -37,9 +39,7 @@ const Nav = ({ onOpen, ref }) => {
       w="full"
       bg={navBg}
     >
-      <Text fontSize="xl" fontWeight="bold">
-        Ceendit
-      </Text>
+      <Image src={logo} alt="ceendit logo" />
 
       <Spacer />
 
