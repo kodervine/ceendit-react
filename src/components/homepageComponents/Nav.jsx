@@ -53,7 +53,7 @@ const Nav = ({ onOpen, ref }) => {
             <Text fontSize="md" mr="10">
               About
             </Text>
-            <Text fontSize="md">More Apps</Text>
+            <Text fontSize="md">Features</Text>
           </>
         ) : (
           // ------ The ref and OnOpen function is added -----

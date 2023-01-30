@@ -1,4 +1,6 @@
+import React from "react";
 import { useNavigate } from "react-router-dom";
+import heroImage from "../../assets/hero-image.svg";
 import {
   Box,
   Button,
@@ -8,7 +10,6 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
-import React from "react";
 
 const Hero = () => {
   const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
@@ -28,7 +29,11 @@ const Hero = () => {
       justifyContent="space-between"
       flexDirection={isLargerThan62 ? "row" : "column"}
     >
-      <Box mr={isLargerThan62 ? "6" : "0"} w={isLargerThan62 ? "60%" : "full"}>
+      <Box
+        mr={isLargerThan62 ? "6" : "0"}
+        w={isLargerThan62 ? "60%" : "full"}
+        flex="4"
+      >
         <Text
           fontSize={isLargerThan62 ? "4xl" : "3xl"}
           fontWeight="bold"
@@ -59,11 +64,12 @@ const Hero = () => {
       <Spacer />
 
       <Flex
-        w={isLargerThan62 ? "40%" : "full"}
+        w={isLargerThan62 ? "50%" : "full"}
         alignItems="center"
         justifyContent="center"
       >
-        <Image src="" alt="Chakra UI" />
+        <Image src={heroImage} alt="Hero illustration" />
+        {/* <a href="https://storyset.com/work">Work illustrations by Storyset</a> */}
       </Flex>
     </Flex>
   );

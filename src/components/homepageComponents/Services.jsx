@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import aboutUsImage from "../../assets/aboutus-image.svg";
 import {
   Flex,
   Spacer,
@@ -61,7 +62,11 @@ const Services = () => {
         alignItems="center"
         justifyContent="center"
       >
-        <Image src="" alt="Chakra Team" w="full" />
+        <Image
+          src={aboutUsImage}
+          alt="Illustration of invoice woman typing away"
+          w="full"
+        />
       </Flex>
 
       <Spacer />

@@ -5,6 +5,7 @@ import { nanoid } from "nanoid";
 
 const AboutUs = () => {
   const [isLargerThan48] = useMediaQuery("(min-width: 48em)");
+  const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
 
   const array = [
     {
@@ -25,41 +26,52 @@ const AboutUs = () => {
   ];
 
   return (
-    <Flex
-      minH="70vh"
-      alignItems="center"
-      justifyContent="space-between"
-      w="full"
-      py="16"
-      px={isLargerThan48 ? "16" : "6"}
-      flexWrap="wrap"
-      flexDirection={isLargerThan48 ? "row" : "column"}
-    >
-      {array.map((arr) => (
-        <>
-          <Flex
-            height="300px"
-            bg="blackAlpha.200"
-            width={isLargerThan48 ? "32%" : "full"}
-            shadow="md"
-            p="6"
-            alignItems="center"
-            justifyContent="center"
-            borderRadius="md"
-            flexDirection="column"
-            textAlign="center"
-            mb={isLargerThan48 ? "0" : "4"}
-            border="1px solid #C4DDFF"
-            key={nanoid}
-          >
-            <Icon as={arr.icon} boxSize={14} color="blue.600" mb="5" />
-            <Text>{arr.text}</Text>
-          </Flex>
+    <>
+      <Text
+        fontSize={isLargerThan62 ? "4xl" : "2xl"}
+        fontWeight="bold"
+        mb="4"
+        textAlign="center"
+      >
+        Who we Are
+      </Text>
 
-          <Spacer />
-        </>
-      ))}
-    </Flex>
+      <Flex
+        minH="70vh"
+        alignItems="center"
+        justifyContent="space-between"
+        w="full"
+        py="6"
+        px={isLargerThan48 ? "16" : "6"}
+        flexWrap="wrap"
+        flexDirection={isLargerThan48 ? "row" : "column"}
+      >
+        {array.map((arr) => (
+          <>
+            <Flex
+              height="300px"
+              bg="blackAlpha.200"
+              width={isLargerThan48 ? "32%" : "full"}
+              shadow="md"
+              p="6"
+              alignItems="center"
+              justifyContent="center"
+              borderRadius="md"
+              flexDirection="column"
+              textAlign="center"
+              mb={isLargerThan48 ? "0" : "4"}
+              border="1px solid #C4DDFF"
+              key={nanoid}
+            >
+              <Icon as={arr.icon} boxSize={14} color="blue.600" mb="5" />
+              <Text>{arr.text}</Text>
+            </Flex>
+
+            <Spacer />
+          </>
+        ))}
+      </Flex>
+    </>
   );
 };
 
