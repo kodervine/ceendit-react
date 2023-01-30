@@ -48,21 +48,29 @@ const signInWithGoogle = async () => {
       if (items.data().email == user.email) {
         alert("Email already exists");
         return;
+      } else {
+        addDoc(collection(db, "users"), {
+          uid: user.uid,
+          createdAt: serverTimestamp(),
+          name: user.displayName,
+          authProvider: "google",
+          email: user.email,
+          password: "",
+          invoiceData: [],
+        });
+        console.log("user created");
       }
     });
-
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      createdAt: serverTimestamp(),
-      name: user.displayName,
-      authProvider: "google",
-      email: user.email,
-      password: "",
-      invoiceData: [],
-    });
-    console.log("user created");
   } catch (e) {
-    console.log(e);
+    if (error.code == "auth/email-already-in-use") {
+      alert("The email address is already in use");
+    } else if (error.code == "auth/invalid-email") {
+      alert("The email address is not valid.");
+    } else if (error.code == "auth/operation-not-allowed") {
+      alert("Operation not allowed.");
+    } else if (error.code == "auth/weak-password") {
+      alert("The password is too weak.");
+    }
   }
 };
 
@@ -81,21 +89,40 @@ const handleCreateUserWithEmailAndPassword = async (
       if (items.data().email == user.email) {
         alert("Email already exists");
         return;
+      } else {
+        addDoc(collection(db, "users"), {
+          uid: user.uid,
+          createdAt: serverTimestamp(),
+          name,
+          authProvider: "local",
+          email,
+          password,
+          invoiceData: [],
+        });
+        console.log("user created");
       }
     });
 
-    await addDoc(collection(db, "users"), {
-      uid: user.uid,
-      createdAt: serverTimestamp(),
-      name,
-      authProvider: "local",
-      email,
-      password,
-      invoiceData: [],
-    });
-    console.log("user created");
-  } catch (e) {
-    console.log(e);
+    // await addDoc(collection(db, "users"), {
+    //   uid: user.uid,
+    //   createdAt: serverTimestamp(),
+    //   name,
+    //   authProvider: "local",
+    //   email,
+    //   password,
+    //   invoiceData: [],
+    // });
+    // console.log("user created");
+  } catch (error) {
+    if (error.code == "auth/email-already-in-use") {
+      alert("The email address is already in use");
+    } else if (error.code == "auth/invalid-email") {
+      alert("The email address is not valid.");
+    } else if (error.code == "auth/operation-not-allowed") {
+      alert("Operation not allowed.");
+    } else if (error.code == "auth/weak-password") {
+      alert("The password is too weak.");
+    }
   }
 };
 
