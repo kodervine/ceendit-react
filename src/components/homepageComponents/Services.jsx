@@ -1,3 +1,5 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Flex,
   Spacer,
@@ -6,10 +8,37 @@ import {
   Button,
   useMediaQuery,
 } from "@chakra-ui/react";
-import React from "react";
 
 const Services = () => {
   const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
+
+  const array = [
+    {
+      text: "Generate professional PDF invoices to download or print",
+      icon: FaTools,
+    },
+    {
+      text: "Save time and increase efficiency",
+      icon: FaHandshake,
+    },
+    {
+      text: "Reduce the risk of errors and missed payments.",
+      icon: FaStar,
+    },
+    {
+      text: "Improve your cash flow and get paid faster.",
+      icon: FaStar,
+    },
+    {
+      text: "Impress your clients with professional invoices.",
+      icon: FaStar,
+    },
+  ];
+
+  const navigateUser = useNavigate();
+  const handleNavigateUser = () => {
+    navigateUser("/signin");
+  };
 
   return (
     <Flex
@@ -38,15 +67,32 @@ const Services = () => {
         ml={isLargerThan62 ? "7" : "0"}
       >
         <Text fontSize={isLargerThan62 ? "5xl" : "4xl"} fontWeight="bold">
-          We build, We revive
+          Easily create and send invoices in seconds
         </Text>
 
         <Text mb="6" opacity="0.8">
-          Your business needs to be .. [truncated]
+          Generate professional PDF invoices to download or print
+        </Text>
+        <Text mb="6" opacity="0.8">
+          Save time and increase efficiency
+        </Text>
+        <Text mb="6" opacity="0.8">
+          Reduce the risk of errors and missed payments
+        </Text>
+        <Text mb="6" opacity="0.8">
+          Improve your cash flow and get paid faster
+        </Text>
+        <Text mb="6" opacity="0.8">
+          Impress your clients with professional invoices
         </Text>
 
-        <Button width="200px" size="lg" colorScheme="blue">
-          CONTACT US
+        <Button
+          width="200px"
+          size="lg"
+          colorScheme="blue"
+          onClick={handleNavigateUser}
+        >
+          Create your Invoice
         </Button>
       </Flex>
     </Flex>

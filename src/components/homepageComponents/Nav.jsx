@@ -38,7 +38,7 @@ const Nav = ({ onOpen, ref }) => {
       bg={navBg}
     >
       <Text fontSize="xl" fontWeight="bold">
-        Chakra Sample
+        Ceendit
       </Text>
 
       <Spacer />

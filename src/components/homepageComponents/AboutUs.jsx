@@ -9,17 +9,17 @@ const AboutUs = () => {
   const array = [
     {
       id: 1,
-      text: " Solving world ... [truncated]",
+      text: "We understand the pain of manual invoicing and the hassle of keeping track of payments. That's why we created Ceendit. Our mission is to simplify the invoicing process for businesses of all sizes, allowing them to focus on what they do best.",
       icon: FaTools,
     },
     {
       id: 2,
-      text: "Through team work, ... [truncated]",
+      text: "Our team is comprised of experienced professionals who are passionate about technology and dedicated to delivering a high-quality product. We believe in transparency, simplicity, and providing exceptional customer support.",
       icon: FaHandshake,
     },
     {
       id: 3,
-      text: "Five star service with ... [truncated]",
+      text: "Effortlessly create invoices with just a few clicks. Easily manage your payment history and stay on top of your finances. Join us on our mission to revolutionize invoicing and take control of your payment process. Sign up for free today and see the difference for yourself.",
       icon: FaStar,
     },
   ];

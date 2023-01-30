@@ -30,17 +30,17 @@ const Hero = () => {
     >
       <Box mr={isLargerThan62 ? "6" : "0"} w={isLargerThan62 ? "60%" : "full"}>
         <Text
-          fontSize={isLargerThan62 ? "5xl" : "4xl"}
+          fontSize={isLargerThan62 ? "4xl" : "3xl"}
           fontWeight="bold"
           mb="4"
         >
-          {" "}
-          Ceendit Invoice Generator
+          Streamline Your Invoicing with Our App
         </Text>
 
         <Text mb="6" fontSize={isLargerThan62 ? "lg" : "base"} opacity={0.7}>
-          Create a professional invoice in pdf format for your clients in less
-          than a minute
+          Say goodbye to manual invoicing and hello to effortless payment
+          processing. Create professional invoices in pdf format for your
+          clients in less than a minute
         </Text>
 
         <Button

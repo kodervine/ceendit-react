@@ -43,7 +43,7 @@ function App() {
             flexDirection={smallScreenWidth ? "column" : "row"}
           >
             <Tab>
-              <Link to="/">Home</Link>
+              <Link to="create-invoice">Create Invoice</Link>
             </Tab>
 
             <Tab>
