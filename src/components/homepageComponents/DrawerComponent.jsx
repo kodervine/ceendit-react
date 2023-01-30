@@ -23,12 +23,12 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
 
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader>Chakra</DrawerHeader>
+        <DrawerHeader>Ceendit</DrawerHeader>
 
         <DrawerBody>
           <Flex flexDirection="column">
             <Link mb="5">About</Link>
-            <Link>More Apps</Link>
+            <Link color="blue.500">Log in</Link>
           </Flex>
         </DrawerBody>
       </DrawerContent>

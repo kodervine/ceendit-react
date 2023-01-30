@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Button,
@@ -11,6 +12,11 @@ import React from "react";
 
 const Hero = () => {
   const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
+
+  const navigateUser = useNavigate();
+  const handleNavigateUser = () => {
+    navigateUser("/signin");
+  };
 
   return (
     <Flex
@@ -29,11 +35,12 @@ const Hero = () => {
           mb="4"
         >
           {" "}
-          Let's scale your business
+          Ceendit Invoice Generator
         </Text>
 
         <Text mb="6" fontSize={isLargerThan62 ? "lg" : "base"} opacity={0.7}>
-          Hire professionals who will help your business make 10X
+          Create a professional invoice in pdf format for your clients in less
+          than a minute
         </Text>
 
         <Button
@@ -43,8 +50,9 @@ const Hero = () => {
           h="50px"
           size={isLargerThan62 ? "lg" : "md"}
           mb={isLargerThan62 ? "0" : "10"}
+          onClick={handleNavigateUser}
         >
-          HIRE US
+          Get started
         </Button>
       </Box>
 
