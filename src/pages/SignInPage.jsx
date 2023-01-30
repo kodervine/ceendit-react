@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signInWithGoogle } from "../firebase-config";
+import {
+  auth,
+  signInWithGoogle,
+  handleCreateUserWithEmailAndPassword,
+} from "../firebase-config";
 import {
   Flex,
   Heading,
@@ -37,6 +41,29 @@ const SignInPage = () => {
     }
   };
 
+  const [userSignUpForm, setUserSignUpForm] = useState({
+    signupEmail: "",
+    signupPassword: "",
+  });
+
+  const handleSignUpFormChange = (e) => {
+    const { name, value } = e.target;
+    setUserSignUpForm({
+      ...userSignUpForm,
+      [name]: value,
+    });
+  };
+
+  const handleSignUpFormSubmit = (e) => {
+    e.preventDefault();
+    handleCreateUserWithEmailAndPassword(
+      auth,
+      userSignUpForm.email,
+      userSignUpForm.password
+    );
+    navigateUser("/");
+  };
+
   return (
     <Flex
       flexDirection="column"
@@ -60,7 +87,7 @@ const SignInPage = () => {
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome</Heading>
         <Box minW={{ base: "100%", md: "468px" }}>
-          <form>
+          <form onSubmit={handleSignUpFormSubmit}>
             <Stack
               spacing={5}
               p="1rem"
@@ -73,7 +100,13 @@ const SignInPage = () => {
                     pointerEvents="none"
                     children={<CFaUserAlt color="gray.300" />}
                   />
-                  <Input type="email" placeholder="email address" />
+                  <Input
+                    type="email"
+                    placeholder="email address"
+                    name="signupEmail"
+                    value={userSignUpForm.email}
+                    onChange={handleSignUpFormChange}
+                  />
                 </InputGroup>
               </FormControl>
               <FormControl>
@@ -86,6 +119,9 @@ const SignInPage = () => {
                   <Input
                     type={showPassword ? "text" : "password"}
                     placeholder="Password"
+                    name="signupPassword"
+                    value={userSignUpForm.password}
+                    onChange={handleSignUpFormChange}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>

@@ -5,6 +5,8 @@ import {
   GoogleAuthProvider,
   signOut,
   signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
 } from "firebase/auth";
 import {
   getFirestore,
@@ -64,8 +66,43 @@ const signInWithGoogle = async () => {
   }
 };
 
+const handleCreateUserWithEmailAndPassword = async (auth, email, password) => {
+  try {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    const user = res.user;
+    const q = query(collection(db, "users"));
+    const docs = await getDocs(q);
+    // confirm if users email already exists in the collection but not properly working yet
+    docs.forEach((items) => {
+      if (items.data().email == user.email) {
+        alert("Email already exists");
+        return;
+      }
+    });
+
+    await addDoc(collection(db, "users"), {
+      uid: user.uid,
+      createdAt: serverTimestamp(),
+      name: user.displayName,
+      authProvider: "google",
+      email: user.email,
+      password: "",
+      invoiceData: [],
+    });
+    console.log("user created");
+  } catch (e) {
+    console.log(e);
+  }
+};
+
 const logOutUser = () => {
   signOut(auth);
 };
 
-export { auth, db, signInWithGoogle, logOutUser };
+export {
+  auth,
+  db,
+  signInWithGoogle,
+  handleCreateUserWithEmailAndPassword,
+  logOutUser,
+};
