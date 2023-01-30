@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
   auth,
   signInWithGoogle,
   handleCreateUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
+  handleUserLogInWithEmailAndPassword,
 } from "../firebase-config";
 import {
   Flex,
@@ -17,7 +17,6 @@ import {
   InputLeftElement,
   chakra,
   Box,
-  Link,
   Avatar,
   FormControl,
   FormHelperText,
@@ -59,7 +58,7 @@ const SignInPage = () => {
 
   const handleSignUpFormSubmit = async (e) => {
     e.preventDefault();
-    await handleCreateUserWithEmailAndPassword(
+    await handleUserLogInWithEmailAndPassword(
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
@@ -142,14 +141,14 @@ const SignInPage = () => {
                 colorScheme="blue"
                 width="full"
               >
-                Login
+                Log in
               </Button>
             </Stack>
           </form>
         </Box>
-        <Box>
+        <Box textDecoration="underline">
           New to us?{" "}
-          <Link color="blue.500" onClick={handleRegisterUser}>
+          <Link to="/create-account" color="blue.500">
             Sign Up
           </Link>
         </Box>

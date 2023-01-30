@@ -5,7 +5,6 @@ import {
   auth,
   signInWithGoogle,
   handleCreateUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
 } from "../firebase-config";
 import {
   Flex,
@@ -145,9 +144,9 @@ const SignUpPage = () => {
           </form>
         </Box>
         <Box>
-          Sign up with Google instead?{" "}
+          Register with Google instead?{" "}
           <Link color="blue.500" onClick={handleRegisterUser}>
-            Sign Up
+            Click here
           </Link>
         </Box>
       </Stack>
