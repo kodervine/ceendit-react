@@ -80,7 +80,7 @@ const SignInPage = () => {
         justifyContent="center"
         alignItems="center"
         backgroundColor="white"
-        width={{ base: "80vw", md: "468px" }}
+        width={{ base: "90vw", md: "468px" }}
         padding="50px 10px 30px 10px"
         boxShadow="2xl"
         borderRadius="20px"
