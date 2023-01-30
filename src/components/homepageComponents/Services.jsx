@@ -8,30 +8,35 @@ import {
   Button,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { AiFillFilePdf } from "react-icons/ai";
+import { BsHourglassSplit, BsShieldCheck } from "react-icons/bs";
+import { GiReceiveMoney } from "react-icons/gi";
+import { FaBriefcase } from "react-icons/fa";
+import { nanoid } from "nanoid";
 
 const Services = () => {
   const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
 
-  const array = [
+  const servicesPageArray = [
     {
       text: "Generate professional PDF invoices to download or print",
-      icon: FaTools,
+      icon: <AiFillFilePdf />,
     },
     {
       text: "Save time and increase efficiency",
-      icon: FaHandshake,
+      icon: <BsHourglassSplit />,
     },
     {
       text: "Reduce the risk of errors and missed payments.",
-      icon: FaStar,
+      icon: <BsShieldCheck />,
     },
     {
       text: "Improve your cash flow and get paid faster.",
-      icon: FaStar,
+      icon: <GiReceiveMoney />,
     },
     {
       text: "Impress your clients with professional invoices.",
-      icon: FaStar,
+      icon: <FaBriefcase />,
     },
   ];
 
@@ -66,25 +71,28 @@ const Services = () => {
         flexDirection="column"
         ml={isLargerThan62 ? "7" : "0"}
       >
-        <Text fontSize={isLargerThan62 ? "5xl" : "4xl"} fontWeight="bold">
+        <Text
+          fontSize={isLargerThan62 ? "4xl" : "2xl"}
+          fontWeight="bold"
+          mb="4"
+        >
           Easily create and send invoices in seconds
         </Text>
 
-        <Text mb="6" opacity="0.8">
-          Generate professional PDF invoices to download or print
-        </Text>
-        <Text mb="6" opacity="0.8">
-          Save time and increase efficiency
-        </Text>
-        <Text mb="6" opacity="0.8">
-          Reduce the risk of errors and missed payments
-        </Text>
-        <Text mb="6" opacity="0.8">
-          Improve your cash flow and get paid faster
-        </Text>
-        <Text mb="6" opacity="0.8">
-          Impress your clients with professional invoices
-        </Text>
+        {servicesPageArray.map((services) => {
+          const { text, icon } = services;
+          return (
+            <Flex
+              gap="2"
+              alignItems="center"
+              mb="6"
+              opacity="0.8"
+              key={nanoid()}
+            >
+              {icon} {text}
+            </Flex>
+          );
+        })}
 
         <Button
           width="200px"

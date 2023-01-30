@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Drawer,
   DrawerBody,
@@ -11,6 +12,11 @@ import {
 } from "@chakra-ui/react";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
+  const navigateUser = useNavigate();
+  const handleNavigateUser = () => {
+    navigateUser("/signin");
+  };
+
   return (
     <Drawer
       isOpen={isOpen}
@@ -28,7 +34,9 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
         <DrawerBody>
           <Flex flexDirection="column">
             <Link mb="5">About</Link>
-            <Link color="blue.500">Log in</Link>
+            <Link color="blue.500" onClick={handleNavigateUser}>
+              Log in
+            </Link>
           </Flex>
         </DrawerBody>
       </DrawerContent>

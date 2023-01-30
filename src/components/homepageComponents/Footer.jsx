@@ -14,11 +14,14 @@ const Footer = () => {
     >
       <Text mb="3">
         Provided by{" "}
-        <Link href="https://appseed.us" isExternal color="blue.500">
-          AppSeed
+        <Link
+          href="https://github.com/kodervine/ceendit-react"
+          isExternal
+          color="blue.500"
+        >
+          Chinenye Anikwenze
         </Link>
       </Text>
-      <Text opacity="0.5">Open-Source Sample - Buit with Chakra UI</Text>
     </Flex>
   );
 };
