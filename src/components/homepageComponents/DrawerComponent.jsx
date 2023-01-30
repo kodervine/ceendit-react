@@ -31,12 +31,15 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
         <DrawerCloseButton />
         <DrawerHeader>Ceendit</DrawerHeader>
 
-        <DrawerBody>
-          <Flex flexDirection="column">
-            <Link mb="5">About</Link>
+        <DrawerBody mb="4">
+          <Flex flexDirection="column" gap="3">
+            <Link>About</Link>
             <Link color="blue.500" onClick={handleNavigateUser}>
               Log in
             </Link>
+            <Link to="create-invoice">Create Invoice</Link>
+            <Link to="/form-preview">Form Preview</Link>
+            <Link to="/invoice-history">See all Invoice</Link>
           </Flex>
         </DrawerBody>
       </DrawerContent>

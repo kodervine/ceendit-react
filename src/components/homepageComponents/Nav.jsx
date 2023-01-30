@@ -39,7 +39,10 @@ const Nav = ({ onOpen, ref }) => {
       w="full"
       bg={navBg}
     >
-      <Image src={logo} alt="ceendit logo" />
+      {/* <Image src={logo} alt="ceendit logo" /> */}
+      <Text fontSize="xl" fontWeight="bold">
+        Ceendit
+      </Text>
 
       <Spacer />
 
