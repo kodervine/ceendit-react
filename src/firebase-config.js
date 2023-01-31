@@ -60,7 +60,7 @@ const signInWithGoogle = async () => {
       });
       console.log("user created");
     });
-  } catch (e) {
+  } catch (error) {
     if (error.code == "auth/email-already-in-use") {
       alert("The email address is already in use");
     } else if (error.code == "auth/invalid-email") {
@@ -119,7 +119,7 @@ const handleUserLogInWithEmailAndPassword = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (error) {
     if (error.code == "auth/wrong-password") {
-      alert("The email address is not passworded");
+      alert("This is a wrong email/password");
     }
   }
 };

@@ -56,13 +56,13 @@ const SignInPage = () => {
     });
   };
 
-  const handleSignUpFormSubmit = async (e) => {
+  const handleLogInFormSubmit = async (e) => {
     e.preventDefault();
     await handleUserLogInWithEmailAndPassword(
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    currentUser && navigateUser("/");
+    currentUser && navigateUser("/create-invoice");
   };
 
   return (
@@ -87,7 +87,7 @@ const SignInPage = () => {
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome back</Heading>
         <Box minW={{ base: "100%", md: "468px" }}>
-          <form onSubmit={handleSignUpFormSubmit}>
+          <form onSubmit={handleLogInFormSubmit}>
             <Stack spacing={5} p="1rem" boxShadow="md">
               <FormControl>
                 <InputGroup>
