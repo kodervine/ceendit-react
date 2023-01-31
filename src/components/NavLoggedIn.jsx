@@ -23,7 +23,7 @@ const NavLoggedIn = () => {
           flexDirection={smallScreenWidth ? "column" : "row"}
         >
           <Tab>
-            <Link to="create-invoice">Create Invoice</Link>
+            <Link to="/create-invoice">Create Invoice</Link>
           </Tab>
 
           <Tab>
