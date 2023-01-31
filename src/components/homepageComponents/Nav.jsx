@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../context";
-import { logOutUser } from "../../firebase-config";
 import {
   Text,
   Flex,
-  // Link,
-  Box,
   Spacer,
   IconButton,
   useColorMode,
@@ -16,19 +13,10 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaAlignJustify } from "react-icons/fa";
+import NavLoggedIn from "../NavLoggedIn";
 
 const Nav = ({ onOpen, btnRef }) => {
   const { currentUser } = useGlobalContext();
-
-  const navigateUser = useNavigate();
-  const handleNavigateUser = () => {
-    navigateUser("/signin");
-  };
-
-  const loggingOutUser = () => {
-    logOutUser();
-    navigateUser("/signin");
-  };
 
   const [scroll, setScroll] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
@@ -69,15 +57,7 @@ const Nav = ({ onOpen, btnRef }) => {
         {isLargerThan48 ? (
           <>
             {currentUser ? (
-              <Flex gap="5" fontWeight="bold">
-                <Link to="/create-invoice">Create Invoice</Link>
-                <Link to="/form-preview">Form Preview</Link>
-                <Link to="/invoice-history">See all Invoice</Link>
-                <Text color="blue.500" onClick={loggingOutUser}>
-                  {" "}
-                  Log Out
-                </Text>
-              </Flex>
+              <NavLoggedIn />
             ) : (
               <>
                 <Text fontSize="md" mr="10">

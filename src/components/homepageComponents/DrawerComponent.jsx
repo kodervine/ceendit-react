@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context";
 import {
   Drawer,
   DrawerBody,
@@ -13,6 +14,7 @@ import {
 import NavLoggedIn from "../NavLoggedIn";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
+  const { currentUser } = useGlobalContext();
   const navigateUser = useNavigate();
   const handleNavigateUser = () => {
     navigateUser("/signin");
@@ -34,11 +36,16 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
 
         <DrawerBody mb="4">
           <Flex flexDirection="column" gap="3">
-            <Link>About</Link>
-            <Link color="blue.500" onClick={handleNavigateUser}>
-              Log in
-            </Link>
-            <NavLoggedIn />
+            {currentUser ? (
+              <NavLoggedIn />
+            ) : (
+              <>
+                <Link>About</Link>
+                <Link color="blue.500" onClick={handleNavigateUser}>
+                  Log in
+                </Link>
+              </>
+            )}
           </Flex>
         </DrawerBody>
       </DrawerContent>
