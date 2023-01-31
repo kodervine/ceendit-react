@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context";
+import { logOutUser } from "../../firebase-config";
 import {
   Text,
   Flex,
@@ -15,8 +17,15 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaAlignJustify } from "react-icons/fa";
 
 const Nav = ({ onOpen, btnRef }) => {
+  const { currentUser } = useGlobalContext();
+
   const navigateUser = useNavigate();
   const handleNavigateUser = () => {
+    navigateUser("/signin");
+  };
+
+  const loggingOutUser = () => {
+    logOutUser();
     navigateUser("/signin");
   };
 
@@ -64,9 +73,15 @@ const Nav = ({ onOpen, btnRef }) => {
             <Text fontSize="md" mr="10">
               Features
             </Text>
-            <Link color="blue.500" onClick={handleNavigateUser}>
-              Log in
-            </Link>
+            {currentUser ? (
+              <Link color="blue.500" onClick={loggingOutUser}>
+                Log Out
+              </Link>
+            ) : (
+              <Link color="blue.500" onClick={handleNavigateUser}>
+                Log in
+              </Link>
+            )}
           </>
         ) : (
           // ------ The ref and OnOpen function is added -----

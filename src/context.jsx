@@ -74,6 +74,7 @@ const AppProvider = ({ children }) => {
         if (userInfoInFirebase.uid == currentUserId) {
           const newInvoiceData = document.data().invoiceData;
           setAllInvoiceData(newInvoiceData);
+          console.log(newInvoiceData);
         }
       });
     } catch (e) {
