@@ -10,6 +10,7 @@ import {
   Link,
   Flex,
 } from "@chakra-ui/react";
+import NavLoggedIn from "../NavLoggedIn";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
   const navigateUser = useNavigate();
@@ -37,9 +38,7 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
             <Link color="blue.500" onClick={handleNavigateUser}>
               Log in
             </Link>
-            <Link to="create-invoice">Create Invoice</Link>
-            <Link to="/form-preview">Form Preview</Link>
-            <Link to="/invoice-history">See all Invoice</Link>
+            <NavLoggedIn />
           </Flex>
         </DrawerBody>
       </DrawerContent>

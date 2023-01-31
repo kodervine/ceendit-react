@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import logo from "../assets/logo.png";
 import {
   Box,
@@ -16,18 +16,27 @@ import {
   Th,
   Td,
   TableContainer,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
 import { useGlobalContext } from "../context";
 import DeleteInvoice from "../components/DeleteInvoice";
+import Nav from "../components/homepageComponents/Nav";
+import DrawerComponent from "../components/homepageComponents/DrawerComponent";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {
+  // For drawer component
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
+
   const smallScreenWidth = window.innerWidth < 700;
   const { allInvoiceData, handlePrint, EachDownloadRef } = useGlobalContext();
 
   return (
     <Box>
+      <Nav ref={btnRef} onOpen={onOpen} />
+      <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       {allInvoiceData.map((invoiceFirestore, index) => {
         return (
           <Stack

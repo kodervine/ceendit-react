@@ -1,9 +1,10 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import {
   Text,
   Flex,
-  Image,
+  Link,
   Spacer,
   IconButton,
   useColorMode,
@@ -15,6 +16,11 @@ import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaAlignJustify } from "react-icons/fa";
 
 const Nav = ({ onOpen, ref }) => {
+  const navigateUser = useNavigate();
+  const handleNavigateUser = () => {
+    navigateUser("/signin");
+  };
+
   const [scroll, setScroll] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const navBg = useColorModeValue("white", "blackAlpha.200");
@@ -56,7 +62,12 @@ const Nav = ({ onOpen, ref }) => {
             <Text fontSize="md" mr="10">
               About
             </Text>
-            <Text fontSize="md">Features</Text>
+            <Text fontSize="md" mr="10">
+              Features
+            </Text>
+            <Link color="blue.500" onClick={handleNavigateUser}>
+              Log in
+            </Link>
           </>
         ) : (
           // ------ The ref and OnOpen function is added -----
