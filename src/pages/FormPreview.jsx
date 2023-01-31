@@ -19,6 +19,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import DrawerComponent from "../components/homepageComponents/DrawerComponent";
+import Nav from "../components/homepageComponents/Nav";
 import InvoiceToPdf from "../components/InvoiceToPdf";
 import { useGlobalContext } from "../context";
 
