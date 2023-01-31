@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useGlobalContext } from "../../context";
 import { logOutUser } from "../../firebase-config";
 import {
   Text,
   Flex,
-  Link,
+  // Link,
+  Box,
   Spacer,
   IconButton,
   useColorMode,
@@ -67,20 +68,28 @@ const Nav = ({ onOpen, btnRef }) => {
 
         {isLargerThan48 ? (
           <>
-            <Text fontSize="md" mr="10">
-              About
-            </Text>
-            <Text fontSize="md" mr="10">
-              Features
-            </Text>
             {currentUser ? (
-              <Link color="blue.500" onClick={loggingOutUser}>
-                Log Out
-              </Link>
+              <Flex gap="5" fontWeight="bold">
+                <Link to="/create-invoice">Create Invoice</Link>
+                <Link to="/form-preview">Form Preview</Link>
+                <Link to="/invoice-history">See all Invoice</Link>
+                <Text color="blue.500" onClick={loggingOutUser}>
+                  {" "}
+                  Log Out
+                </Text>
+              </Flex>
             ) : (
-              <Link color="blue.500" onClick={handleNavigateUser}>
-                Log in
-              </Link>
+              <>
+                <Text fontSize="md" mr="10">
+                  About
+                </Text>
+                <Text fontSize="md" mr="10">
+                  Features
+                </Text>
+                <Link color="blue.500" to="/signin">
+                  Log in
+                </Link>
+              </>
             )}
           </>
         ) : (
