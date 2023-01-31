@@ -70,7 +70,6 @@ const SignUpPage = () => {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundColor="white"
       justifyContent="center"
       alignItems="center"
     >
@@ -79,7 +78,6 @@ const SignUpPage = () => {
         mb="2"
         justifyContent="center"
         alignItems="center"
-        backgroundColor="white"
         width={{ base: "90vw", md: "468px" }}
         padding="50px 10px 30px 10px"
         boxShadow="2xl"
@@ -89,12 +87,7 @@ const SignUpPage = () => {
         <Heading color="blue.400">Welcome</Heading>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form onSubmit={handleSignUpFormSubmit}>
-            <Stack
-              spacing={5}
-              p="1rem"
-              backgroundColor="whiteAlpha.900"
-              boxShadow="md"
-            >
+            <Stack spacing={5} p="1rem" boxShadow="md">
               <FormControl>
                 <InputGroup>
                   <InputLeftElement
