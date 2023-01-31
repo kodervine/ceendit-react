@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { useGlobalContext } from "../../context";
 import {
   Text,
   Flex,
@@ -11,8 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaAlignJustify } from "react-icons/fa";
+import NavLoggedIn from "../NavLoggedIn";
 
-const Nav = ({ onOpen, ref }) => {
+const Nav = ({ onOpen, btnRef }) => {
+  const { currentUser } = useGlobalContext();
+
   const [scroll, setScroll] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
   const navBg = useColorModeValue("white", "blackAlpha.200");
@@ -27,7 +32,7 @@ const Nav = ({ onOpen, ref }) => {
 
   return (
     <Flex
-      h="10vh"
+      h="12vh"
       alignItems="center"
       p="6"
       boxShadow={scroll ? "base" : "none"}
@@ -37,6 +42,7 @@ const Nav = ({ onOpen, ref }) => {
       w="full"
       bg={navBg}
     >
+      {/* <Image src={logo} alt="ceendit logo" /> */}
       <Text fontSize="xl" fontWeight="bold">
         Ceendit
       </Text>
@@ -50,14 +56,25 @@ const Nav = ({ onOpen, ref }) => {
 
         {isLargerThan48 ? (
           <>
-            <Text fontSize="md" mr="10">
-              About
-            </Text>
-            <Text fontSize="md">Features</Text>
+            {currentUser ? (
+              <NavLoggedIn />
+            ) : (
+              <>
+                <Text fontSize="md" mr="10">
+                  About
+                </Text>
+                <Text fontSize="md" mr="10">
+                  Features
+                </Text>
+                <Link color="blue.500" to="/signin">
+                  Log in
+                </Link>
+              </>
+            )}
           </>
         ) : (
           // ------ The ref and OnOpen function is added -----
-          <IconButton ref={ref} onClick={onOpen}>
+          <IconButton ref={btnRef} onClick={onOpen}>
             <Icon as={FaAlignJustify} />
           </IconButton>
         )}

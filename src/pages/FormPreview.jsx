@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import logo from "../assets/logo.png";
 import {
   Flex,
@@ -16,11 +16,18 @@ import {
   Td,
   TableContainer,
   Button,
+  useDisclosure,
 } from "@chakra-ui/react";
+import DrawerComponent from "../components/homepageComponents/DrawerComponent";
+import Nav from "../components/homepageComponents/Nav";
 import InvoiceToPdf from "../components/InvoiceToPdf";
 import { useGlobalContext } from "../context";
 
 const FormPreview = () => {
+  // For drawer component
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
+
   const smallScreenWidth = window.innerWidth < 700;
   const {
     invoiceFormData,
@@ -30,16 +37,11 @@ const FormPreview = () => {
     showPreviewComponent,
   } = useGlobalContext();
 
-  // const handleEdit = () => {
-  //   setInvoiceFormData((prev) => {
-  //     return {...invoiceFormData,
-  //     invoiceFormData.tot
-  //     }
-  //   })
-  // };
-  // <Box ref={FormPreviewRef}>{showPreviewComponent && <FormPreview />}</Box>;
   return (
     <Box id="form-input">
+      <Nav btnRef={btnRef} onOpen={onOpen} />
+      <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
+
       <Stack
         ref={FormPreviewRef}
         width={{ base: "100%", md: "90%", lg: "70%" }}

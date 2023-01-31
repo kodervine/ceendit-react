@@ -37,7 +37,7 @@ const SignUpPage = () => {
   const handleRegisterUser = async () => {
     try {
       await signInWithGoogle();
-      await navigateUser("/");
+      await navigateUser("/create-invoice");
     } catch (e) {
       console.log(e);
     }

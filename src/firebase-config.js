@@ -45,21 +45,20 @@ const signInWithGoogle = async () => {
     const docs = await getDocs(q);
     // confirm if users email already exists in the collection but not properly working yet
     docs.forEach((items) => {
-      if (items.data().email == user.email) {
-        alert("Email already exists");
-        return;
-      } else {
-        addDoc(collection(db, "users"), {
-          uid: user.uid,
-          createdAt: serverTimestamp(),
-          name: user.displayName,
-          authProvider: "google",
-          email: user.email,
-          password: "",
-          invoiceData: [],
-        });
-        console.log("user created");
-      }
+      // if (items.data().email == user.email) {
+      //   alert("Email already exists");
+      //   return;
+      // }
+      addDoc(collection(db, "users"), {
+        uid: user.uid,
+        createdAt: serverTimestamp(),
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+        password: "",
+        invoiceData: [],
+      });
+      console.log("user created");
     });
   } catch (e) {
     if (error.code == "auth/email-already-in-use") {
