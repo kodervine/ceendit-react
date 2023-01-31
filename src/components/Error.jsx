@@ -13,7 +13,7 @@ const Error = () => {
   const smallScreenWidth = window.innerWidth < 700;
   return (
     <>
-      <Nav ref={btnRef} onOpen={onOpen} />
+      <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       <Flex direction="column" justifyContent="center" alignItems="center">
         <Image

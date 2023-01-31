@@ -74,7 +74,6 @@ const AppProvider = ({ children }) => {
         if (userInfoInFirebase.uid == currentUserId) {
           const newInvoiceData = document.data().invoiceData;
           setAllInvoiceData(newInvoiceData);
-          console.log(newInvoiceData);
         }
       });
     } catch (e) {
@@ -117,13 +116,15 @@ const AppProvider = ({ children }) => {
     setFirebaseAllInvoiceArray((prevdata) => {
       return [...prevdata, invoiceFormData];
     });
+    console.log(firebaseAllInvoiceArray);
+
     // Save to firestore and fetch the updated data
     try {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((document) => {
         const userInfoInFirebase = document.data();
-        console.log(document.id, " =>", userInfoInFirebase.invoiceData);
+        // console.log(document.id, " =>", userInfoInFirebase.invoiceData);
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         if (userInfoInFirebase.uid == currentUserId) {
@@ -156,10 +157,33 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
-  const handleDeleteInvoice = async (invoice) => {
-    await deleteDoc(doc(db, "invoiceData", invoice.id));
+  const handleUpdateDataInFirebase = async () => {
+    try {
+      const q = query(collection(db, "users"));
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((document) => {
+        const userInfoInFirebase = document.data();
+        // console.log(document.id, " =>", userInfoInFirebase.invoiceData);
+        // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
+        const userRef = doc(db, "users", document.id);
+        if (userInfoInFirebase.uid == currentUserId) {
+          updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
+        }
+      });
+    } catch (e) {
+      console.log(e);
+    }
     fetchInvoiceData();
+  };
+
+  // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
+  const handleDeleteInvoice = (invoice) => {
+    setAllInvoiceData((prevItems) =>
+      prevItems.filter((item) => item.id !== invoice)
+    );
+    handleUpdateDataInFirebase();
+    fetchInvoiceData();
+    // await deleteDoc(doc(db, "invoiceData", invoice.id));
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
@@ -170,7 +194,7 @@ const AppProvider = ({ children }) => {
     if (el && !EachDownloadRef.current.includes(el)) {
       EachDownloadRef.current.push(el);
     }
-    console.log(EachDownloadRef.current);
+    // console.log(EachDownloadRef.current);
     const content = EachDownloadRef.current[index];
     const doc = new jsPDF("p", "pt", [800, 800]);
     doc.setFontSize(12);

@@ -34,8 +34,6 @@ const InvoiceApp = () => {
   const btnRef = useRef();
   const smallScreenWidth = window.innerWidth < 700;
 
-  console.log(allInvoiceData);
-
   return (
     <>
       <Nav btnRef={btnRef} onOpen={onOpen} />
