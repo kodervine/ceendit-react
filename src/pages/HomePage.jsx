@@ -13,7 +13,7 @@ function HomePage() {
 
   return (
     <div>
-      <Nav ref={btnRef} onOpen={onOpen} />
+      <Nav btnRef={btnRef} onOpen={onOpen} />
       <Hero />
       <AboutUs />
       <Services />

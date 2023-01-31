@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
 import {
   Text,
   Flex,
@@ -15,7 +14,7 @@ import {
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaAlignJustify } from "react-icons/fa";
 
-const Nav = ({ onOpen, ref }) => {
+const Nav = ({ onOpen, btnRef }) => {
   const navigateUser = useNavigate();
   const handleNavigateUser = () => {
     navigateUser("/signin");
@@ -71,7 +70,7 @@ const Nav = ({ onOpen, ref }) => {
           </>
         ) : (
           // ------ The ref and OnOpen function is added -----
-          <IconButton ref={ref} onClick={onOpen}>
+          <IconButton ref={btnRef} onClick={onOpen}>
             <Icon as={FaAlignJustify} />
           </IconButton>
         )}

@@ -38,7 +38,7 @@ const InvoiceApp = () => {
 
   return (
     <>
-      <Nav ref={btnRef} onOpen={onOpen} />
+      <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
 
       <FormControl

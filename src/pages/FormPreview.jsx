@@ -38,7 +38,7 @@ const FormPreview = () => {
 
   return (
     <Box id="form-input">
-      <Nav ref={btnRef} onOpen={onOpen} />
+      <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
 
       <Stack

@@ -35,7 +35,7 @@ const InvoiceHistory = () => {
 
   return (
     <Box>
-      <Nav ref={btnRef} onOpen={onOpen} />
+      <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       {allInvoiceData.map((invoiceFirestore, index) => {
         return (
