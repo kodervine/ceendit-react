@@ -10,7 +10,7 @@ const DateInput = ({
   valueofDateInput,
 }) => {
   return (
-    <Stack bg="white">
+    <Stack>
       <Heading as="h3" size="sm" pt="10px" pb="10px">
         {text}
       </Heading>
