@@ -25,6 +25,7 @@ const AppProvider = ({ children }) => {
     navigateUser(`/${link}`);
   };
 
+  // Create user
   const handleCreateUserWithEmailAndPassword = async (
     email,
     password,
@@ -33,28 +34,17 @@ const AppProvider = ({ children }) => {
     try {
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
-      // confirm if users email already exists in the collection but not properly working yet
-      const q = query(collection(db, "users"));
-      const docs = await getDocs(q);
-      docs.forEach((items) => {
-        if (items.data().email == user.email) {
-          alert("Email already exists, log in instead");
-          handleNavigateUser(signin);
-          // return;
-        } else {
-          addDoc(collection(db, "users"), {
-            uid: user.uid,
-            createdAt: serverTimestamp(),
-            name,
-            authProvider: "local",
-            email,
-            password,
-            invoiceData: [],
-          });
-          console.log("user created");
-          handleNavigateUser("create-invoice");
-        }
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        createdAt: serverTimestamp(),
+        name,
+        authProvider: "local",
+        email,
+        password,
+        invoiceData: [],
       });
+      alert("Account created successfully");
+      handleNavigateUser("create-invoice");
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
         alert("The email address is already in use, log in instead");

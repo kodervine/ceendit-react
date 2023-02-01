@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
 import { Link } from "react-router-dom";
-import {
-  auth,
-  signInWithGoogle,
-  handleUserLogInWithEmailAndPassword,
-} from "../firebase-config";
+import { auth, signInWithGoogle } from "../firebase-config";
 import {
   Flex,
   Heading,
@@ -138,10 +134,10 @@ const SignInPage = () => {
             </Stack>
           </form>
         </Box>
-        <Box textDecoration="underline">
+        <Box>
           New to us?{" "}
           <Link to="/create-account" color="blue.500">
-            Sign Up
+            Sign Up here
           </Link>
         </Box>
       </Stack>
