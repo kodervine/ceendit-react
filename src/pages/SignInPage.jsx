@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
 import { Link } from "react-router-dom";
-import { auth, signInWithGoogle } from "../firebase-config";
 import {
   Flex,
   Text,
