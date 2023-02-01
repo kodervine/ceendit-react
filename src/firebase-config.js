@@ -73,46 +73,46 @@ const signInWithGoogle = async () => {
   }
 };
 
-const handleCreateUserWithEmailAndPassword = async (
-  email,
-  password,
-  name = "username"
-) => {
-  try {
-    const res = await createUserWithEmailAndPassword(auth, email, password);
-    const user = res.user;
-    // confirm if users email already exists in the collection but not properly working yet
-    const q = query(collection(db, "users"));
-    const docs = await getDocs(q);
-    docs.forEach((items) => {
-      if (items.data().email == user.email) {
-        alert("Email already exists");
-        return;
-      } else {
-        addDoc(collection(db, "users"), {
-          uid: user.uid,
-          createdAt: serverTimestamp(),
-          name,
-          authProvider: "local",
-          email,
-          password,
-          invoiceData: [],
-        });
-        console.log("user created");
-      }
-    });
-  } catch (error) {
-    if (error.code == "auth/email-already-in-use") {
-      alert("The email address is already in use");
-    } else if (error.code == "auth/invalid-email") {
-      alert("The email address is not valid.");
-    } else if (error.code == "auth/operation-not-allowed") {
-      alert("Operation not allowed.");
-    } else if (error.code == "auth/weak-password") {
-      alert("The password is too weak.");
-    }
-  }
-};
+// const handleCreateUserWithEmailAndPassword = async (
+//   email,
+//   password,
+//   name = "username"
+// ) => {
+//   try {
+//     const res = await createUserWithEmailAndPassword(auth, email, password);
+//     const user = res.user;
+//     // confirm if users email already exists in the collection but not properly working yet
+//     const q = query(collection(db, "users"));
+//     const docs = await getDocs(q);
+//     docs.forEach((items) => {
+//       if (items.data().email == user.email) {
+//         alert("Email already exists");
+//         return;
+//       } else {
+//         addDoc(collection(db, "users"), {
+//           uid: user.uid,
+//           createdAt: serverTimestamp(),
+//           name,
+//           authProvider: "local",
+//           email,
+//           password,
+//           invoiceData: [],
+//         });
+//         console.log("user created");
+//       }
+//     });
+//   } catch (error) {
+//     if (error.code == "auth/email-already-in-use") {
+//       alert("The email address is already in use");
+//     } else if (error.code == "auth/invalid-email") {
+//       alert("The email address is not valid.");
+//     } else if (error.code == "auth/operation-not-allowed") {
+//       alert("Operation not allowed.");
+//     } else if (error.code == "auth/weak-password") {
+//       alert("The password is too weak.");
+//     }
+//   }
+// };
 
 const handleUserLogInWithEmailAndPassword = async (email, password) => {
   try {
@@ -132,7 +132,7 @@ export {
   auth,
   db,
   signInWithGoogle,
-  handleCreateUserWithEmailAndPassword,
+  // handleCreateUserWithEmailAndPassword,
   handleUserLogInWithEmailAndPassword,
   logOutUser,
 };

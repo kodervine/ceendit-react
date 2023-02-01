@@ -4,7 +4,6 @@ import { useNavigate, Link } from "react-router-dom";
 import {
   auth,
   signInWithGoogle,
-  handleCreateUserWithEmailAndPassword,
   handleUserLogInWithEmailAndPassword,
 } from "../firebase-config";
 import {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import {
   auth,
   signInWithGoogle,
-  handleCreateUserWithEmailAndPassword,
+  // handleCreateUserWithEmailAndPassword,
 } from "../firebase-config";
 import {
   Flex,
@@ -33,7 +33,8 @@ const SignUpPage = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
 
   const navigateUser = useNavigate();
-  const { currentUser } = useGlobalContext();
+  const { currentUser, handleCreateUserWithEmailAndPassword } =
+    useGlobalContext();
   const handleRegisterUser = async () => {
     try {
       await signInWithGoogle();
@@ -62,7 +63,6 @@ const SignUpPage = () => {
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    await navigateUser("/create-invoice");
   };
 
   return (

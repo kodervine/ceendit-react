@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import {
   collection,
@@ -11,10 +12,62 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "./firebase-config";
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
+  // Create user
+  const navigateUser = useNavigate();
+  const handleNavigateUser = (link) => {
+    navigateUser(`/${link}`);
+  };
+
+  const handleCreateUserWithEmailAndPassword = async (
+    email,
+    password,
+    name = "username"
+  ) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      // confirm if users email already exists in the collection but not properly working yet
+      const q = query(collection(db, "users"));
+      const docs = await getDocs(q);
+      docs.forEach((items) => {
+        if (items.data().email == user.email) {
+          alert("Email already exists, log in instead");
+          handleNavigateUser(signin);
+          // return;
+        } else {
+          addDoc(collection(db, "users"), {
+            uid: user.uid,
+            createdAt: serverTimestamp(),
+            name,
+            authProvider: "local",
+            email,
+            password,
+            invoiceData: [],
+          });
+          console.log("user created");
+        }
+      });
+    } catch (error) {
+      if (error.code == "auth/email-already-in-use") {
+        alert("The email address is already in use, log in instead");
+        handleNavigateUser("signin");
+      } else if (error.code == "auth/invalid-email") {
+        alert("The email address is not valid.");
+      } else if (error.code == "auth/operation-not-allowed") {
+        alert("Operation not allowed.");
+      } else if (error.code == "auth/weak-password") {
+        alert("The password is too weak.");
+      }
+    }
+  };
+
   // Know the current user on the site
   const [currentUserId, setCurrentUserId] = useState("");
   const [currentUser, setCurrentUser] = useState("");
@@ -236,6 +289,7 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         currentUser,
+        handleCreateUserWithEmailAndPassword,
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
