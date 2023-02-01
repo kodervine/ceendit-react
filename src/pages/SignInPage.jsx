@@ -32,11 +32,15 @@ const SignInPage = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
 
   const navigateUser = useNavigate();
-  const { currentUser } = useGlobalContext();
-  const handleRegisterUser = async () => {
+  const {
+    currentUser,
+    handleNavigateUser,
+    handleUserLogInWithEmailAndPassword,
+  } = useGlobalContext();
+  const handleLoginExisitingGoogleUser = async () => {
     try {
       await signInWithGoogle();
-      await navigateUser("/create-invoice");
+      handleNavigateUser("/create-invoice");
     } catch (e) {
       console.log(e);
     }
@@ -47,7 +51,7 @@ const SignInPage = () => {
     signupPassword: "",
   });
 
-  const handleSignUpFormChange = (e) => {
+  const handleLogInFormChange = (e) => {
     const { name, value } = e.target;
     setUserSignUpForm({
       ...userSignUpForm,
@@ -61,7 +65,7 @@ const SignInPage = () => {
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    currentUser && navigateUser("/create-invoice");
+    // currentUser && navigateUser("/create-invoice");
   };
 
   return (
@@ -99,7 +103,7 @@ const SignInPage = () => {
                     placeholder="email address"
                     name="signupEmail"
                     value={userSignUpForm.email}
-                    onChange={handleSignUpFormChange}
+                    onChange={handleLogInFormChange}
                   />
                 </InputGroup>
               </FormControl>
@@ -115,7 +119,7 @@ const SignInPage = () => {
                     placeholder="Password"
                     name="signupPassword"
                     value={userSignUpForm.password}
-                    onChange={handleSignUpFormChange}
+                    onChange={handleLogInFormChange}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>

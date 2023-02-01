@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context";
 import heroImage from "../../assets/hero-image.svg";
 import {
   Box,
@@ -12,12 +12,8 @@ import {
 } from "@chakra-ui/react";
 
 const Hero = () => {
+  const { handleNavigateUser } = useGlobalContext();
   const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
-
-  const navigateUser = useNavigate();
-  const handleNavigateUser = () => {
-    navigateUser("/signin");
-  };
 
   return (
     <Flex
@@ -51,7 +47,9 @@ const Hero = () => {
           h="50px"
           size={isLargerThan62 ? "lg" : "md"}
           mb={isLargerThan62 ? "0" : "10"}
-          onClick={handleNavigateUser}
+          onClick={() => {
+            handleNavigateUser("signin");
+          }}
         >
           Get started
         </Button>

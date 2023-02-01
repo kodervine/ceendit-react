@@ -15,11 +15,12 @@ import { db, auth } from "./firebase-config";
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
 } from "firebase/auth";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
-  // Create user
+  // Create user with email and password
   const navigateUser = useNavigate();
   const handleNavigateUser = (link) => {
     navigateUser(`/${link}`);
@@ -52,6 +53,7 @@ const AppProvider = ({ children }) => {
             invoiceData: [],
           });
           console.log("user created");
+          handleNavigateUser("create-invoice");
         }
       });
     } catch (error) {
@@ -64,6 +66,18 @@ const AppProvider = ({ children }) => {
         alert("Operation not allowed.");
       } else if (error.code == "auth/weak-password") {
         alert("The password is too weak.");
+      }
+    }
+  };
+
+  // Handle log in users with email and password
+  const handleUserLogInWithEmailAndPassword = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      handleNavigateUser("create-invoice");
+    } catch (error) {
+      if (error.code == "auth/wrong-password") {
+        alert("This is a wrong email/password");
       }
     }
   };
@@ -289,7 +303,9 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         currentUser,
+        handleNavigateUser,
         handleCreateUserWithEmailAndPassword,
+        handleUserLogInWithEmailAndPassword,
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
