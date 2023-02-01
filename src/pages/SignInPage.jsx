@@ -81,7 +81,7 @@ const SignInPage = () => {
       >
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome back</Heading>
-        <Text>Pick Up Where Left Off</Text>
+        <Text>Pick Up where you Left Off</Text>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form onSubmit={handleLogInFormSubmit}>
             <Stack spacing={5} p="1rem" boxShadow="md">

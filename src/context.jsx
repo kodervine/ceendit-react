@@ -13,9 +13,11 @@ import {
 } from "firebase/firestore";
 import { db, auth } from "./firebase-config";
 import {
+  GoogleAuthProvider,
   onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signInWithPopup,
 } from "firebase/auth";
 
 const AppContext = React.createContext();
@@ -67,6 +69,36 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       if (error.code == "auth/wrong-password") {
         alert("This is a wrong email/password");
+      }
+    }
+  };
+
+  // Google Sign up
+  const gmailProvider = new GoogleAuthProvider();
+  const handleUserSignUpWithGoogle = async () => {
+    try {
+      const res = await signInWithPopup(auth, gmailProvider);
+      const user = res.user;
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        createdAt: serverTimestamp(),
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+        password: "",
+        invoiceData: [],
+      });
+      alert("Account created successfully");
+      handleNavigateUser("create-invoice");
+    } catch (error) {
+      if (error.code == "auth/email-already-in-use") {
+        alert("The email address is already in use");
+      } else if (error.code == "auth/invalid-email") {
+        alert("The email address is not valid.");
+      } else if (error.code == "auth/operation-not-allowed") {
+        alert("Operation not allowed.");
+      } else if (error.code == "auth/weak-password") {
+        alert("The password is too weak.");
       }
     }
   };
@@ -295,6 +327,7 @@ const AppProvider = ({ children }) => {
         handleNavigateUser,
         handleCreateUserWithEmailAndPassword,
         handleUserLogInWithEmailAndPassword,
+        handleUserSignUpWithGoogle,
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,

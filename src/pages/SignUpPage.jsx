@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { signInWithGoogle } from "../firebase-config";
 import {
   Text,
   Flex,
@@ -27,17 +26,13 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const { currentUser, handleCreateUserWithEmailAndPassword } =
-    useGlobalContext();
-  const handleRegisterUser = async () => {
-    try {
-      await signInWithGoogle();
-      // await navigateUser("/create-invoice");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const {
+    currentUser,
+    handleCreateUserWithEmailAndPassword,
+    handleUserSignUpWithGoogle,
+  } = useGlobalContext();
 
+  // User sign up with email and password
   const [userSignUpForm, setUserSignUpForm] = useState({
     signupEmail: "",
     signupPassword: "",
@@ -133,7 +128,7 @@ const SignUpPage = () => {
         </Box>
         <Box>
           Join with Google instead?{" "}
-          <Link color="blue.500" onClick={handleRegisterUser}>
+          <Link color="blue.500" onClick={handleUserSignUpWithGoogle}>
             Click here
           </Link>
         </Box>
