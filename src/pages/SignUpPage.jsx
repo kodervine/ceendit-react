@@ -1,11 +1,8 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
+import { signInWithGoogle } from "../firebase-config";
 import {
-  auth,
-  signInWithGoogle,
-  // handleCreateUserWithEmailAndPassword,
-} from "../firebase-config";
-import {
+  Text,
   Flex,
   Heading,
   Input,
@@ -18,7 +15,6 @@ import {
   Link,
   Avatar,
   FormControl,
-  FormHelperText,
   InputRightElement,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -83,6 +79,7 @@ const SignUpPage = () => {
       >
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome</Heading>
+        <Text>Create your account here</Text>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form onSubmit={handleSignUpFormSubmit}>
             <Stack spacing={5} p="1rem" boxShadow="md">
@@ -135,7 +132,7 @@ const SignUpPage = () => {
           </form>
         </Box>
         <Box>
-          Register with Google instead?{" "}
+          Join with Google instead?{" "}
           <Link color="blue.500" onClick={handleRegisterUser}>
             Click here
           </Link>

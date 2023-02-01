@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { auth, signInWithGoogle } from "../firebase-config";
 import {
   Flex,
+  Text,
   Heading,
   Input,
   Button,
@@ -80,6 +81,7 @@ const SignInPage = () => {
       >
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome back</Heading>
+        <Text>Pick Up Where Left Off</Text>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form onSubmit={handleLogInFormSubmit}>
             <Stack spacing={5} p="1rem" boxShadow="md">
@@ -136,8 +138,9 @@ const SignInPage = () => {
         </Box>
         <Box>
           New to us?{" "}
-          <Link to="/create-account" color="blue.500">
-            Sign Up here
+          <Link to="/create-account">
+            {" "}
+            <span style={{ color: "blue" }}>Sign Up here</span>
           </Link>
         </Box>
       </Stack>
