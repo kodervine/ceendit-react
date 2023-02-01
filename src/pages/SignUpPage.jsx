@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { useNavigate } from "react-router-dom";
 import {
   auth,
   signInWithGoogle,
@@ -32,13 +31,12 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const navigateUser = useNavigate();
   const { currentUser, handleCreateUserWithEmailAndPassword } =
     useGlobalContext();
   const handleRegisterUser = async () => {
     try {
       await signInWithGoogle();
-      await navigateUser("/create-invoice");
+      // await navigateUser("/create-invoice");
     } catch (e) {
       console.log(e);
     }
@@ -150,7 +148,7 @@ const SignUpPage = () => {
 export default SignUpPage;
 
 // What this page does
-// The component uses the state hook useState to keep track of whether the password input should show the password or hide it. The component also uses the React Router DOM useNavigate hook to navigate the user after successful sign-up.
+// The component uses the state hook useState to keep track of whether the password input should show the password or hide it. The component also uses the React Router DOM navigate hook to navigate the user after successful sign-up.
 
 // The form has two inputs: email and password, with email and password change handlers. Upon submit, the form data is passed to the handleCreateUserWithEmailAndPassword function from Firebase, which creates the user and logs them in. The user is then navigated to the "create-invoice" page.
 

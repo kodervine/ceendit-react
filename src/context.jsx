@@ -20,7 +20,6 @@ import {
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
-  // Create user with email and password
   const navigateUser = useNavigate();
   const handleNavigateUser = (link) => {
     navigateUser(`/${link}`);

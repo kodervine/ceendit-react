@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   auth,
   signInWithGoogle,
@@ -31,12 +31,8 @@ const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const navigateUser = useNavigate();
-  const {
-    currentUser,
-    handleNavigateUser,
-    handleUserLogInWithEmailAndPassword,
-  } = useGlobalContext();
+  const { handleNavigateUser, handleUserLogInWithEmailAndPassword } =
+    useGlobalContext();
   const handleLoginExisitingGoogleUser = async () => {
     try {
       await signInWithGoogle();
@@ -65,7 +61,6 @@ const SignInPage = () => {
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    // currentUser && navigateUser("/create-invoice");
   };
 
   return (
