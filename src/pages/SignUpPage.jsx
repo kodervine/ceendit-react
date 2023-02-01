@@ -1,12 +1,7 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { useNavigate } from "react-router-dom";
 import {
-  auth,
-  signInWithGoogle,
-  handleCreateUserWithEmailAndPassword,
-} from "../firebase-config";
-import {
+  Text,
   Flex,
   Heading,
   Input,
@@ -19,7 +14,6 @@ import {
   Link,
   Avatar,
   FormControl,
-  FormHelperText,
   InputRightElement,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
@@ -32,17 +26,13 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const navigateUser = useNavigate();
-  const { currentUser } = useGlobalContext();
-  const handleRegisterUser = async () => {
-    try {
-      await signInWithGoogle();
-      await navigateUser("/create-invoice");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const {
+    currentUser,
+    handleCreateUserWithEmailAndPassword,
+    handleUserSignUpWithGoogle,
+  } = useGlobalContext();
 
+  // User sign up with email and password
   const [userSignUpForm, setUserSignUpForm] = useState({
     signupEmail: "",
     signupPassword: "",
@@ -62,7 +52,6 @@ const SignUpPage = () => {
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    await navigateUser("/create-invoice");
   };
 
   return (
@@ -85,6 +74,7 @@ const SignUpPage = () => {
       >
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome</Heading>
+        <Text>Create your account here</Text>
         <Box minW={{ base: "100%", md: "468px" }}>
           <form onSubmit={handleSignUpFormSubmit}>
             <Stack spacing={5} p="1rem" boxShadow="md">
@@ -137,8 +127,8 @@ const SignUpPage = () => {
           </form>
         </Box>
         <Box>
-          Register with Google instead?{" "}
-          <Link color="blue.500" onClick={handleRegisterUser}>
+          Join with Google instead?{" "}
+          <Link color="blue.500" onClick={handleUserSignUpWithGoogle}>
             Click here
           </Link>
         </Box>
@@ -148,3 +138,10 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
+
+// What this page does
+// The component uses the state hook useState to keep track of whether the password input should show the password or hide it. The component also uses the React Router DOM navigate hook to navigate the user after successful sign-up.
+
+// The form has two inputs: email and password, with email and password change handlers. Upon submit, the form data is passed to the handleCreateUserWithEmailAndPassword function from Firebase, which creates the user and logs them in. The user is then navigated to the "create-invoice" page.
+
+// There is also a secondary sign-up option using Google by clicking the "Click here" link, which invokes the signInWithGoogle function from Firebase.

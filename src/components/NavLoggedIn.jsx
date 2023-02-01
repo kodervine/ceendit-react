@@ -1,13 +1,14 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useGlobalContext } from "../context";
 import { Text, Flex, useMediaQuery } from "@chakra-ui/react";
 import { logOutUser } from "../firebase-config";
 
 const NavLoggedIn = () => {
-  const navigateUser = useNavigate();
+  const { handleNavigateUser } = useGlobalContext();
   const loggingOutUser = () => {
     logOutUser();
-    navigateUser("/signin");
+    handleNavigateUser("signin");
   };
 
   const [isLargerThan48] = useMediaQuery("(min-width: 48em)");

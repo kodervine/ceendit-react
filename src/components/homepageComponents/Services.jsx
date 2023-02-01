@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useGlobalContext } from "../../context";
 import aboutUsImage from "../../assets/aboutus-image.svg";
 import {
   Flex,
@@ -16,6 +16,7 @@ import { FaBriefcase } from "react-icons/fa";
 import { nanoid } from "nanoid";
 
 const Services = () => {
+  const { handleNavigateUser } = useGlobalContext();
   const [isLargerThan62] = useMediaQuery("(min-width: 62em)");
 
   const servicesPageArray = [
@@ -40,11 +41,6 @@ const Services = () => {
       icon: <FaBriefcase />,
     },
   ];
-
-  const navigateUser = useNavigate();
-  const handleNavigateUser = () => {
-    navigateUser("/signin");
-  };
 
   return (
     <Flex
@@ -103,7 +99,9 @@ const Services = () => {
           width="200px"
           size="lg"
           colorScheme="blue"
-          onClick={handleNavigateUser}
+          onClick={() => {
+            handleNavigateUser("signin");
+          }}
         >
           Create your Invoice
         </Button>

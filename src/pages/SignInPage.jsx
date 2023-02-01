@@ -1,14 +1,10 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
-import { useNavigate, Link } from "react-router-dom";
-import {
-  auth,
-  signInWithGoogle,
-  handleCreateUserWithEmailAndPassword,
-  handleUserLogInWithEmailAndPassword,
-} from "../firebase-config";
+import { Link } from "react-router-dom";
+import { auth, signInWithGoogle } from "../firebase-config";
 import {
   Flex,
+  Text,
   Heading,
   Input,
   Button,
@@ -32,12 +28,12 @@ const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const navigateUser = useNavigate();
-  const { currentUser } = useGlobalContext();
-  const handleRegisterUser = async () => {
+  const { handleNavigateUser, handleUserLogInWithEmailAndPassword } =
+    useGlobalContext();
+  const handleLoginExisitingGoogleUser = async () => {
     try {
       await signInWithGoogle();
-      await navigateUser("/create-invoice");
+      handleNavigateUser("/create-invoice");
     } catch (e) {
       console.log(e);
     }
@@ -48,7 +44,7 @@ const SignInPage = () => {
     signupPassword: "",
   });
 
-  const handleSignUpFormChange = (e) => {
+  const handleLogInFormChange = (e) => {
     const { name, value } = e.target;
     setUserSignUpForm({
       ...userSignUpForm,
@@ -56,13 +52,12 @@ const SignInPage = () => {
     });
   };
 
-  const handleSignUpFormSubmit = async (e) => {
+  const handleLogInFormSubmit = async (e) => {
     e.preventDefault();
     await handleUserLogInWithEmailAndPassword(
       userSignUpForm.signupEmail,
       userSignUpForm.signupPassword
     );
-    currentUser && navigateUser("/");
   };
 
   return (
@@ -86,8 +81,9 @@ const SignInPage = () => {
       >
         <Avatar bg="blue.500" />
         <Heading color="blue.400">Welcome back</Heading>
+        <Text>Pick Up where you Left Off</Text>
         <Box minW={{ base: "100%", md: "468px" }}>
-          <form onSubmit={handleSignUpFormSubmit}>
+          <form onSubmit={handleLogInFormSubmit}>
             <Stack spacing={5} p="1rem" boxShadow="md">
               <FormControl>
                 <InputGroup>
@@ -100,7 +96,7 @@ const SignInPage = () => {
                     placeholder="email address"
                     name="signupEmail"
                     value={userSignUpForm.email}
-                    onChange={handleSignUpFormChange}
+                    onChange={handleLogInFormChange}
                   />
                 </InputGroup>
               </FormControl>
@@ -116,7 +112,7 @@ const SignInPage = () => {
                     placeholder="Password"
                     name="signupPassword"
                     value={userSignUpForm.password}
-                    onChange={handleSignUpFormChange}
+                    onChange={handleLogInFormChange}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -140,10 +136,11 @@ const SignInPage = () => {
             </Stack>
           </form>
         </Box>
-        <Box textDecoration="underline">
+        <Box>
           New to us?{" "}
-          <Link to="/create-account" color="blue.500">
-            Sign Up
+          <Link to="/create-account">
+            {" "}
+            <span style={{ color: "blue" }}>Sign Up here</span>
           </Link>
         </Box>
       </Stack>

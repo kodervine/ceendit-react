@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link } from "react-router-dom";
 import {
   Image,
   Text,

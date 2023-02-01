@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect, useRef } from "react";
+import { useNavigate, Link } from "react-router-dom";
 import jsPDF from "jspdf";
 import {
   collection,
@@ -11,11 +12,98 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db, auth } from "./firebase-config";
-import { onAuthStateChanged } from "firebase/auth";
+import {
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
-  // Get current user
+  const navigateUser = useNavigate();
+  const handleNavigateUser = (link) => {
+    navigateUser(`/${link}`);
+  };
+
+  // Create user
+  const handleCreateUserWithEmailAndPassword = async (
+    email,
+    password,
+    name = "username"
+  ) => {
+    try {
+      const res = await createUserWithEmailAndPassword(auth, email, password);
+      const user = res.user;
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        createdAt: serverTimestamp(),
+        name,
+        authProvider: "local",
+        email,
+        password,
+        invoiceData: [],
+      });
+      alert("Account created successfully");
+      handleNavigateUser("create-invoice");
+    } catch (error) {
+      if (error.code == "auth/email-already-in-use") {
+        alert("The email address is already in use, log in instead");
+        handleNavigateUser("signin");
+      } else if (error.code == "auth/invalid-email") {
+        alert("The email address is not valid.");
+      } else if (error.code == "auth/operation-not-allowed") {
+        alert("Operation not allowed.");
+      } else if (error.code == "auth/weak-password") {
+        alert("The password is too weak.");
+      }
+    }
+  };
+
+  // Handle log in users with email and password
+  const handleUserLogInWithEmailAndPassword = async (email, password) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      handleNavigateUser("create-invoice");
+    } catch (error) {
+      if (error.code == "auth/wrong-password") {
+        alert("This is a wrong email/password");
+      }
+    }
+  };
+
+  // Google Sign up
+  const gmailProvider = new GoogleAuthProvider();
+  const handleUserSignUpWithGoogle = async () => {
+    try {
+      const res = await signInWithPopup(auth, gmailProvider);
+      const user = res.user;
+      await addDoc(collection(db, "users"), {
+        uid: user.uid,
+        createdAt: serverTimestamp(),
+        name: user.displayName,
+        authProvider: "google",
+        email: user.email,
+        password: "",
+        invoiceData: [],
+      });
+      alert("Account created successfully");
+      handleNavigateUser("create-invoice");
+    } catch (error) {
+      if (error.code == "auth/email-already-in-use") {
+        alert("The email address is already in use");
+      } else if (error.code == "auth/invalid-email") {
+        alert("The email address is not valid.");
+      } else if (error.code == "auth/operation-not-allowed") {
+        alert("Operation not allowed.");
+      } else if (error.code == "auth/weak-password") {
+        alert("The password is too weak.");
+      }
+    }
+  };
+
+  // Know the current user on the site
   const [currentUserId, setCurrentUserId] = useState("");
   const [currentUser, setCurrentUser] = useState("");
   useEffect(() => {
@@ -30,7 +118,7 @@ const AppProvider = ({ children }) => {
     });
   }, []);
 
-  // Form data to be updated to be previewed, and concatated to firestore
+  // Form data to be updated to be previewed, and concanated to the state pushed to firestore
   const [invoiceFormData, setInvoiceFormData] = useState({
     dateCreated: "",
     dateDue: "",
@@ -85,7 +173,8 @@ const AppProvider = ({ children }) => {
   useEffect(() => {
     fetchInvoiceData();
   }, []);
-  // This function ensures that the input values on the forms are saved to the invoiceFormData state
+
+  // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setInvoiceFormData({
@@ -104,7 +193,7 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // Handles each invoice submit and pushes it to the `allInvoice` array state. The goal is to have access to each invoice in memory in case they want to get the older form and download again.
+  // Handles each invoice submit and pushes it to be stored in firestore
   const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] = useState([]);
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
@@ -125,9 +214,10 @@ const AppProvider = ({ children }) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((document) => {
         const userInfoInFirebase = document.data();
-        // console.log(document.id, " =>", userInfoInFirebase.invoiceData);
+
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
+        // current user Id is gotten from the onAuthChanged state above.
         if (userInfoInFirebase.uid == currentUserId) {
           updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
         }
@@ -164,7 +254,7 @@ const AppProvider = ({ children }) => {
       const querySnapshot = await getDocs(q);
       querySnapshot.forEach((document) => {
         const userInfoInFirebase = document.data();
-        // console.log(document.id, " =>", userInfoInFirebase.invoiceData);
+
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         if (userInfoInFirebase.uid == currentUserId) {
@@ -234,6 +324,10 @@ const AppProvider = ({ children }) => {
     <AppContext.Provider
       value={{
         currentUser,
+        handleNavigateUser,
+        handleCreateUserWithEmailAndPassword,
+        handleUserLogInWithEmailAndPassword,
+        handleUserSignUpWithGoogle,
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,
@@ -261,3 +355,40 @@ export const useGlobalContext = () => {
 };
 
 export { AppContext, AppProvider };
+
+/*
+context.jsx - This file serves as the state management of the application.
+It includes functionalities like getting the current user, setting up the form data,
+handling input change, handling form preview and submitting invoices to Firebase.
+
+Imports:
+1. React - core library for building UI components
+2. jsPDF - a library for generating PDF documents
+3. Firebase functions - for connecting and performing CRUD operations on the database
+
+AppContext & AppProvider:
+- creates the context object and a component that provides the context value
+- the context holds the following state values:
+* currentUserId & currentUser: holds the ID and user object of the current user
+* invoiceFormData: holds the data for the invoice form
+* showPreviewComponent: determines if the FormPreview component should be displayed
+* showAllInvoice: determines if the InvoiceHistory component should be displayed
+* allInvoiceData: holds all the invoice data retrieved from the database
+
+handleInputChange:
+- updates the invoiceFormData state with the values from the input fields
+
+handlePreviewData:
+- checks if all the input fields have values
+- if any field is empty, shows an alert message
+
+handleInvoiceSubmit:
+- prevents the default submit behavior
+- checks if all the input fields have values
+- if any field is empty, shows an alert message
+- adds the invoice data to Firebase and updates the allInvoiceData state
+- resets the invoiceFormData state
+
+fetchInvoiceData:
+- retrieves the invoice data from Firebase for the current user and updates the allInvoiceData state
+*/
