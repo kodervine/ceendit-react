@@ -103,20 +103,20 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  // Know the current user on the site
-  const [currentUserId, setCurrentUserId] = useState("");
+  // Know the current user on the site to be used to fetch the invoicedata from firestore subsequently
   const [currentUser, setCurrentUser] = useState("");
+  const [userUpdated, setUserUpdated] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("state = definitely signed in");
-        setCurrentUserId(user.uid);
+        console.log("note: user is signed in");
         setCurrentUser(user);
+        setUserUpdated(true);
       } else {
-        console.log("state = definitely signed out");
+        console.log("note: user is signed out");
       }
     });
-  }, []);
+  }, [auth, currentUser]);
 
   // Form data to be updated to be previewed, and concanated to the state pushed to firestore
   const [invoiceFormData, setInvoiceFormData] = useState({
@@ -141,38 +141,28 @@ const AppProvider = ({ children }) => {
   // Save all the invoices for the invoiceHistory page and get data from firebase store
   const [allInvoiceData, setAllInvoiceData] = useState([]);
   const fetchInvoiceData = async () => {
-    // const queryMessage = query(
-    //   collection(db, "invoiceData"),
-    //   orderBy("createdAt")
-    // );
-    // await getDocs(queryMessage).then((invoiceQuery) => {
-    //   const newInvoiceData = invoiceQuery.docs.map((doc) => ({
-    //     ...doc.data(),
-    //     id: doc.id,
-    //   }));
-
-    //   setAllInvoiceData(newInvoiceData);
-    // });
-
-    try {
-      const q = query(collection(db, "users"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((document) => {
-        const userInfoInFirebase = document.data();
-        if (userInfoInFirebase.uid == currentUserId) {
-          const newInvoiceData = document.data().invoiceData;
-          setAllInvoiceData(newInvoiceData);
-          console.log(newInvoiceData);
-        }
-      });
-    } catch (e) {
-      console.log(e);
+    if (userUpdated) {
+      try {
+        const q = query(collection(db, "users"));
+        const querySnapshot = await getDocs(q);
+        querySnapshot.forEach((document) => {
+          const userInfoInFirebase = document.data();
+          if (userInfoInFirebase.uid == currentUser.uid) {
+            const newInvoiceData = document.data().invoiceData;
+            setAllInvoiceData(newInvoiceData);
+          }
+        });
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
   useEffect(() => {
-    fetchInvoiceData();
-  }, []);
+    if (currentUser) {
+      fetchInvoiceData();
+    }
+  }, [currentUser]);
 
   // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
@@ -257,7 +247,7 @@ const AppProvider = ({ children }) => {
 
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
-        if (userInfoInFirebase.uid == currentUserId) {
+        if (userInfoInFirebase.uid == currentUser.uid) {
           updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
         }
       });
@@ -269,10 +259,11 @@ const AppProvider = ({ children }) => {
 
   // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (invoice) => {
+    console.log(invoice);
     setAllInvoiceData((prevItems) =>
       prevItems.filter((item) => item.id !== invoice)
     );
-    handleUpdateDataInFirebase();
+    // handleUpdateDataInFirebase();
     fetchInvoiceData();
     // await deleteDoc(doc(db, "invoiceData", invoice.id));
   };
