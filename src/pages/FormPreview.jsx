@@ -16,6 +16,7 @@ import {
   Td,
   TableContainer,
   Button,
+  useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
 import DrawerComponent from "../components/homepageComponents/DrawerComponent";
@@ -29,9 +30,10 @@ const FormPreview = () => {
   const btnRef = useRef();
 
   const smallScreenWidth = window.innerWidth < 700;
+  const { colorMode, toggleColorMode } = useColorMode();
+
   const {
     invoiceFormData,
-    setInvoiceFormData,
     FormPreviewRef,
     handleInvoiceSubmit,
     showPreviewComponent,
@@ -52,7 +54,6 @@ const FormPreview = () => {
         p="6"
         boxShadow="dark-lg"
         rounded="md"
-        bg="white"
       >
         {/* Logo header */}
         <Flex alignItems="center" justifyContent="space-between">
@@ -96,10 +97,19 @@ const FormPreview = () => {
         <TableContainer>
           <Table variant="simple">
             <Thead>
-              <Tr bg="gray.100">
-                <Th>Bank Name</Th>
-                <Th>Account Name</Th>
-                <Th isNumeric>Account Number</Th>
+              <Tr bg={colorMode === "light" ? "gray.100" : "blue.100"}>
+                <Th color={colorMode === "light" ? "auto" : "blue.900"}>
+                  Bank Name
+                </Th>
+                <Th color={colorMode === "light" ? "auto" : "blue.900"}>
+                  Account Name
+                </Th>
+                <Th
+                  color={colorMode === "light" ? "auto" : "blue.900"}
+                  isNumeric
+                >
+                  Account Number
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -116,12 +126,29 @@ const FormPreview = () => {
         <TableContainer>
           <Table variant="simple">
             <Thead>
-              <Tr bg="gray.100">
-                <Th>Item Name</Th>
-                <Th isNumeric>Qty</Th>
-                <Th isNumeric>Price</Th>
+              <Tr bg={colorMode === "light" ? "gray.100" : "blue.100"}>
+                <Th color={colorMode === "light" ? "auto" : "blue.900"}>
+                  Item Name
+                </Th>
+                <Th
+                  color={colorMode === "light" ? "auto" : "blue.900"}
+                  isNumeric
+                >
+                  Qty
+                </Th>
+                <Th
+                  color={colorMode === "light" ? "auto" : "blue.900"}
+                  isNumeric
+                >
+                  Price
+                </Th>
 
-                <Th isNumeric>Total Amount</Th>
+                <Th
+                  color={colorMode === "light" ? "auto" : "blue.900"}
+                  isNumeric
+                >
+                  Total Amount
+                </Th>
               </Tr>
             </Thead>
             <Tbody>

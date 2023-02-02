@@ -38,11 +38,11 @@ Demo link - https://ceendit.netlify.app/
 - Preview Invoice page
 - View all Invoice page
 - Delete Invoice
-- Show User authentication fail
 
 ## Goals
 
 - Edit invoices
+- Protected Routes
 - Set Clients' page
 - Verification of bank names with payment APIs
 - Intergrate with twilio or other apps to dynamically send invoices to the clients
