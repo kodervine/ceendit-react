@@ -65,14 +65,7 @@ const SignInPage = () => {
 
   return (
     <>
-      <IconButton
-        mr="10"
-        w={6}
-        h={6}
-        p={5}
-        textAlign="end"
-        onClick={toggleColorMode}
-      >
+      <IconButton mr="10" w={6} h={6} p={5} onClick={toggleColorMode}>
         {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
       </IconButton>
       <Flex

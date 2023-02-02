@@ -1,6 +1,13 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import { Flex, Box, Text, Image, useDisclosure } from "@chakra-ui/react";
+import {
+  Flex,
+  Box,
+  Text,
+  Image,
+  useDisclosure,
+  useColorMode,
+} from "@chakra-ui/react";
 import errorImg from "../assets/error-img.svg";
 import Nav from "./homepageComponents/Nav";
 import DrawerComponent from "./homepageComponents/DrawerComponent";
@@ -11,6 +18,7 @@ const Error = () => {
   const btnRef = useRef();
 
   const smallScreenWidth = window.innerWidth < 700;
+  const { colorMode } = useColorMode();
   return (
     <>
       <Nav btnRef={btnRef} onOpen={onOpen} />
@@ -23,7 +31,7 @@ const Error = () => {
         />
 
         <Box
-          color="blue.900"
+          color={colorMode === "light" ? "blue.900" : "gray.100"}
           fontWeight="bold"
           textAlign="center"
           display="flex"
@@ -33,12 +41,12 @@ const Error = () => {
             fontSize={smallScreenWidth ? "md" : "2xl"}
             width={smallScreenWidth ? "100%" : "50%"}
           >
-            Maybe this page moved? Got deleted? Is hiding out in quarantine?
-            Never existed in the first place? Let's go{" "}
-            <Link to="/" className="error-link">
+            Maybe the data on this page moved? Got deleted? Is hiding out in
+            quarantine? Never existed in the first place? Let's go back to{" "}
+            <Link to="/create-invoice" className="error-link">
               home
             </Link>{" "}
-            and try from there.
+            and try again from there.
           </Text>
         </Box>
       </Flex>
