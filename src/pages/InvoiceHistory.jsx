@@ -16,6 +16,7 @@ import {
   Th,
   Td,
   TableContainer,
+  useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
@@ -31,6 +32,8 @@ const InvoiceHistory = () => {
   const btnRef = useRef();
 
   const smallScreenWidth = window.innerWidth < 700;
+  const { colorMode } = useColorMode();
+  // javascript
   const { allInvoiceData, handlePrint, EachDownloadRef } = useGlobalContext();
 
   return (
@@ -49,7 +52,6 @@ const InvoiceHistory = () => {
             p="6"
             boxShadow="dark-lg"
             rounded="md"
-            bg="white"
             ref={handlePrint}
             // ref={EachDownloadRef.current[index]}
           >
@@ -93,10 +95,19 @@ const InvoiceHistory = () => {
             <TableContainer>
               <Table variant="simple">
                 <Thead>
-                  <Tr bg="gray.100">
-                    <Th>Bank Name</Th>
-                    <Th>Account Name</Th>
-                    <Th isNumeric>Account Number</Th>
+                  <Tr bg={colorMode === "light" ? "gray.100" : "blue.100"}>
+                    <Th color={colorMode === "light" ? "auto" : "blue.900"}>
+                      Bank Name
+                    </Th>
+                    <Th color={colorMode === "light" ? "auto" : "blue.900"}>
+                      Account Name
+                    </Th>
+                    <Th
+                      isNumeric
+                      color={colorMode === "light" ? "auto" : "blue.900"}
+                    >
+                      Account Number
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -113,11 +124,28 @@ const InvoiceHistory = () => {
             <TableContainer>
               <Table variant="simple">
                 <Thead>
-                  <Tr bg="gray.100">
-                    <Th>Item Details</Th>
-                    <Th isNumeric>Qty</Th>
-                    <Th isNumeric>Item Price</Th>
-                    <Th isNumeric>Items Total</Th>
+                  <Tr bg={colorMode === "light" ? "gray.100" : "blue.100"}>
+                    <Th color={colorMode === "light" ? "auto" : "blue.900"}>
+                      Item Details
+                    </Th>
+                    <Th
+                      isNumeric
+                      color={colorMode === "light" ? "auto" : "blue.900"}
+                    >
+                      Qty
+                    </Th>
+                    <Th
+                      isNumeric
+                      color={colorMode === "light" ? "auto" : "blue.900"}
+                    >
+                      Item Price
+                    </Th>
+                    <Th
+                      isNumeric
+                      color={colorMode === "light" ? "auto" : "blue.900"}
+                    >
+                      Items Total
+                    </Th>
                   </Tr>
                 </Thead>
                 <Tbody>

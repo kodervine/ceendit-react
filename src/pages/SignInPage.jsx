@@ -16,6 +16,7 @@ import {
   FormControl,
   FormHelperText,
   InputRightElement,
+  useColorMode,
 } from "@chakra-ui/react";
 import { FaUserAlt, FaLock } from "react-icons/fa";
 
@@ -23,6 +24,7 @@ const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
 
 const SignInPage = () => {
+  const { colorMode } = useColorMode();
   // Handle form and showing of password
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
@@ -64,7 +66,6 @@ const SignInPage = () => {
       flexDirection="column"
       width="100wh"
       height="100vh"
-      backgroundColor="white"
       justifyContent="center"
       alignItems="center"
     >
@@ -75,7 +76,7 @@ const SignInPage = () => {
         alignItems="center"
         width={{ base: "90vw", md: "468px" }}
         padding="50px 10px 30px 10px"
-        boxShadow="2xl"
+        boxShadow={colorMode === "light" ? "2xl" : "dark-lg"}
         borderRadius="20px"
       >
         <Avatar bg="blue.500" />
