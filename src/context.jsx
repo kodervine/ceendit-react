@@ -208,7 +208,7 @@ const AppProvider = ({ children }) => {
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         // current user Id is gotten from the onAuthChanged state above.
-        if (userInfoInFirebase.uid == currentUserId) {
+        if (userInfoInFirebase.uid == currentUser.uid) {
           updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
         }
       });
@@ -238,7 +238,8 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  const handleUpdateDataInFirebase = async () => {
+  // General update the invoiceData fieldset in firebase. Accepts parameter of the updates invoices to update
+  const handleUpdateDataInFirebase = async (updatedInvoice) => {
     try {
       const q = query(collection(db, "users"));
       const querySnapshot = await getDocs(q);
@@ -248,7 +249,7 @@ const AppProvider = ({ children }) => {
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         if (userInfoInFirebase.uid == currentUser.uid) {
-          updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
+          updateDoc(userRef, { invoiceData: updatedInvoice });
         }
       });
     } catch (e) {
@@ -258,14 +259,16 @@ const AppProvider = ({ children }) => {
   };
 
   // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
-  const handleDeleteInvoice = (invoice) => {
-    console.log(invoice);
-    setAllInvoiceData((prevItems) =>
-      prevItems.filter((item) => item.id !== invoice)
-    );
-    // handleUpdateDataInFirebase();
-    fetchInvoiceData();
-    // await deleteDoc(doc(db, "invoiceData", invoice.id));
+  const handleDeleteInvoice = (index) => {
+    const updateDeletedArray = allInvoiceData.filter((item, i) => {
+      console.log(i, index);
+      return i !== index;
+    });
+
+    setAllInvoiceData(updateDeletedArray);
+    console.log(updateDeletedArray);
+    handleUpdateDataInFirebase(updateDeletedArray);
+    console.log(allInvoiceData);
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
