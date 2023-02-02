@@ -198,23 +198,9 @@ const AppProvider = ({ children }) => {
     });
     console.log(firebaseAllInvoiceArray);
 
-    // Save to firestore and fetch the updated data
-    try {
-      const q = query(collection(db, "users"));
-      const querySnapshot = await getDocs(q);
-      querySnapshot.forEach((document) => {
-        const userInfoInFirebase = document.data();
-
-        // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
-        const userRef = doc(db, "users", document.id);
-        // current user Id is gotten from the onAuthChanged state above.
-        if (userInfoInFirebase.uid == currentUser.uid) {
-          updateDoc(userRef, { invoiceData: firebaseAllInvoiceArray });
-        }
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    // Save to firestore and fetch the updated data from function below
+    handleUpdateDataInFirebase(firebaseAllInvoiceArray);
+    // from function above
     fetchInvoiceData();
     setShowAllInvoice(true);
     setInvoiceFormData((data) => {
@@ -248,6 +234,7 @@ const AppProvider = ({ children }) => {
 
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
+        // current user Id is gotten from the onAuthChanged state above.
         if (userInfoInFirebase.uid == currentUser.uid) {
           updateDoc(userRef, { invoiceData: updatedInvoice });
         }
