@@ -22,6 +22,7 @@ Demo link - https://ceendit.netlify.app/
 - Storing user info and data with firebase firestore
 - React router
 - Protected routes
+- React Testing
 - React hooks including custom hooks
 - Netlify redirects
 
