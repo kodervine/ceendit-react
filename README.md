@@ -32,6 +32,7 @@ Demo link - https://ceendit.netlify.app/
 - User authentication
   - Google sign up
   - Email and Password sign up and log in
+- Protected Routes
 - Various form inputs
 - Error & validation
 - Download invoice as pdf files
@@ -42,7 +43,6 @@ Demo link - https://ceendit.netlify.app/
 ## Goals
 
 - Edit invoices
-- Protected Routes
 - Set Clients' page
 - Verification of bank names with payment APIs
 - Intergrate with twilio or other apps to dynamically send invoices to the clients

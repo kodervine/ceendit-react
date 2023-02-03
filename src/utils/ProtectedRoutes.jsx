@@ -1,12 +1,10 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
-import { currentUser } from "../firebase-config";
+import { Outlet, Navigate } from "react-router-dom";
+import { useGlobalContext } from "../context";
 
-const ProtectedRoutes = ({ children }) => {
-  if (!currentUser) {
-    return <Navigate to="/signin" replace />;
-  }
-  return <div>{children}</div>;
+const ProtectedRoutes = () => {
+  const { currentUser } = useGlobalContext();
+  return currentUser ? <Outlet /> : <Navigate to="signin" />;
 };
 
 export default ProtectedRoutes;
