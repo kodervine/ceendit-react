@@ -10,6 +10,7 @@ import AlertComponent from "./components/AlertComponent";
 import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
+import ProtectedRoutes from "./utils/ProtectedRoutes";
 
 function App() {
   // For form preview
@@ -22,16 +23,20 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/create-invoice" element={<InvoiceApp />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/create-account" element={<SignUpPage />} />
-        {/* <Route path="/form-preview" element={<FormPreview />} /> */}
-        <Route
-          path="/form-preview"
-          element={showPreviewComponent ? <FormPreview /> : <Error />}
-        />
-        <Route path="/invoice-history" element={<InvoiceHistory />} />
-        <Route path="*" element={<Error />} />
+
+        <Route element={<ProtectedRoutes />}>
+          <Route path="/create-invoice" element={<InvoiceApp />} />
+
+          {/* <Route path="/form-preview" element={<FormPreview />} /> */}
+          <Route
+            path="/form-preview"
+            element={showPreviewComponent ? <FormPreview /> : <Error />}
+          />
+          <Route path="/invoice-history" element={<InvoiceHistory />} />
+          <Route path="*" element={<Error />} />
+        </Route>
       </Routes>
     </Box>
   );
