@@ -145,10 +145,7 @@ const InvoiceApp = () => {
                 disabled
               >
                 {" "}
-                <Link to="/form-preview" disabled>
-                  {" "}
-                  Preview Invoice
-                </Link>
+                <Link disabled> Preview Invoice</Link>
               </Button>
             ) : (
               <Button
