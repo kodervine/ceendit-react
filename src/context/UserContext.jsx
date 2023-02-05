@@ -7,16 +7,7 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  getDocs,
-  query,
-  doc,
-  deleteDoc,
-  updateDoc,
-} from "firebase/firestore";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useGlobalContext } from "../context";
 
 const UserContext = React.createContext();
