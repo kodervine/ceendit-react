@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useGlobalContext } from "../context";
+import { useAuthUserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 import {
   Flex,
@@ -31,6 +32,8 @@ const SignInPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
+  // Contexts
+  const { handleUserPasswordReset } = useAuthUserContext();
   const { handleNavigateUser, handleUserLogInWithEmailAndPassword } =
     useGlobalContext();
   const handleLoginExisitingGoogleUser = async () => {
@@ -127,7 +130,13 @@ const SignInPage = () => {
                     </InputRightElement>
                   </InputGroup>
                   <FormHelperText textAlign="right">
-                    <Link>forgot password?</Link>
+                    <Link
+                      onClick={() => {
+                        handleUserPasswordReset(userSignUpForm.signupEmail);
+                      }}
+                    >
+                      forgot password?
+                    </Link>
                   </FormHelperText>
                 </FormControl>
                 <Button
