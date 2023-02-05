@@ -22,7 +22,7 @@ import {
 import DrawerComponent from "../components/homepageComponents/DrawerComponent";
 import Nav from "../components/homepageComponents/Nav";
 import InvoiceToPdf from "../components/InvoiceToPdf";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/AppContext";
 
 const FormPreview = () => {
   // For drawer component

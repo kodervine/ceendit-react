@@ -1,7 +1,7 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
-import { useGlobalContext } from "./context";
+import { useGlobalContext } from "./context/AppContext";
 import InvoiceApp from "./pages/InvoiceApp";
 import FormPreview from "./pages/FormPreview";
 import InvoiceHistory from "./pages/InvoiceHistory";

@@ -1,5 +1,5 @@
 import React from "react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/AppContext";
 import { Input, Heading, Stack } from "@chakra-ui/react";
 
 // Deconstructing data gotten from the Invoice App and context.jsx. Date on the invoice page

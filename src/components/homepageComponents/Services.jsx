@@ -1,5 +1,5 @@
 import React from "react";
-import { useGlobalContext } from "../../context";
+import { useGlobalContext } from "../../context/AppContext";
 import aboutUsImage from "../../assets/aboutus-image.svg";
 import {
   Flex,

@@ -10,7 +10,7 @@ import {
   Button,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/AppContext";
 import logo from "../assets/logo.png";
 import DateInput from "../components/DateInput";
 import InvoiceForm from "../components/InvoiceForm";

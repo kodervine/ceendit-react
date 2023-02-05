@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/AppContext";
 import { useAuthUserContext } from "../context/UserContext";
 import { Link } from "react-router-dom";
 import {

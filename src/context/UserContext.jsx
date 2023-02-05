@@ -8,7 +8,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "./AppContext";
 
 const UserContext = React.createContext();
 

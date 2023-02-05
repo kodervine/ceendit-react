@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/AppContext";
 import { Text, Flex, useMediaQuery } from "@chakra-ui/react";
 import { logOutUser } from "../firebase-config";
 

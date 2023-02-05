@@ -20,7 +20,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
-import { useGlobalContext } from "../context";
+import { useGlobalContext } from "../context/AppContext";
 import DeleteInvoice from "../components/DeleteInvoice";
 import Nav from "../components/homepageComponents/Nav";
 import DrawerComponent from "../components/homepageComponents/DrawerComponent";
