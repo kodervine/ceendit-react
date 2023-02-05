@@ -33,9 +33,9 @@ const SignInPage = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
 
   // Contexts
-  const { handleUserPasswordReset } = useAuthUserContext();
-  const { handleNavigateUser, handleUserLogInWithEmailAndPassword } =
-    useGlobalContext();
+  const { handleUserPasswordReset, handleUserLogInWithEmailAndPassword } =
+    useAuthUserContext();
+  const { handleNavigateUser } = useGlobalContext();
   const handleLoginExisitingGoogleUser = async () => {
     try {
       await signInWithGoogle();
