@@ -2,12 +2,21 @@ import React, { useContext } from "react";
 import { db, auth } from "../firebase-config";
 import {
   GoogleAuthProvider,
-  onAuthStateChanged,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
+import {
+  collection,
+  addDoc,
+  serverTimestamp,
+  getDocs,
+  query,
+  doc,
+  deleteDoc,
+  updateDoc,
+} from "firebase/firestore";
 import { useGlobalContext } from "../context";
 
 const UserContext = React.createContext();
