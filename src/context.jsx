@@ -27,81 +27,83 @@ const AppProvider = ({ children }) => {
     navigateUser(`/${link}`);
   };
 
-  // Create user
-  const handleCreateUserWithEmailAndPassword = async (
-    email,
-    password,
-    name = "username"
-  ) => {
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      const user = res.user;
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        createdAt: serverTimestamp(),
-        name,
-        authProvider: "local",
-        email,
-        password,
-        invoiceData: [],
-      });
-      alert("Account created successfully");
-      handleNavigateUser("create-invoice");
-    } catch (error) {
-      if (error.code == "auth/email-already-in-use") {
-        alert("The email address is already in use, log in instead");
-        handleNavigateUser("signin");
-      } else if (error.code == "auth/invalid-email") {
-        alert("The email address is not valid.");
-      } else if (error.code == "auth/operation-not-allowed") {
-        alert("Operation not allowed.");
-      } else if (error.code == "auth/weak-password") {
-        alert("The password is too weak.");
-      }
-    }
-  };
+  // // Create user
+  // const handleCreateUserWithEmailAndPassword = async (
+  //   email,
+  //   password,
+  //   name = "username"
+  // ) => {
+  //   try {
+  //     const res = await createUserWithEmailAndPassword(auth, email, password);
+  //     const user = res.user;
+  //     await addDoc(collection(db, "users"), {
+  //       uid: user.uid,
+  //       createdAt: serverTimestamp(),
+  //       name,
+  //       authProvider: "local",
+  //       email,
+  //       password,
+  //       invoiceData: [],
+  //     });
+  //     alert("Account created successfully");
+  //     handleNavigateUser("create-invoice");
+  //   } catch (error) {
+  //     if (error.code == "auth/email-already-in-use") {
+  //       alert("The email address is already in use, log in instead");
+  //       handleNavigateUser("signin");
+  //     } else if (error.code == "auth/invalid-email") {
+  //       alert("The email address is not valid.");
+  //     } else if (error.code == "auth/operation-not-allowed") {
+  //       alert("Operation not allowed.");
+  //     } else if (error.code == "auth/weak-password") {
+  //       alert("The password is too weak.");
+  //     }
+  //   }
+  // };
 
-  // Handle log in users with email and password
-  const handleUserLogInWithEmailAndPassword = async (email, password) => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      handleNavigateUser("create-invoice");
-    } catch (error) {
-      if (error.code == "auth/wrong-password") {
-        alert("This is a wrong email/password");
-      }
-    }
-  };
+  // // Handle log in users with email and password
+  // const handleUserLogInWithEmailAndPassword = async (email, password) => {
+  //   try {
+  //     await signInWithEmailAndPassword(auth, email, password);
+  //     handleNavigateUser("create-invoice");
+  //   } catch (error) {
+  //     if (error.code == "auth/wrong-password") {
+  //       alert("This is a wrong email/password");
+  //     }
+  //   }
+  // };
 
-  // Google Sign up
-  const gmailProvider = new GoogleAuthProvider();
-  const handleUserSignUpWithGoogle = async () => {
-    try {
-      const res = await signInWithPopup(auth, gmailProvider);
-      const user = res.user;
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        createdAt: serverTimestamp(),
-        name: user.displayName,
-        authProvider: "google",
-        email: user.email,
-        password: "",
-        invoiceData: [],
-      });
-      alert("Account created successfully");
-      handleNavigateUser("create-invoice");
-    } catch (error) {
-      if (error.code == "auth/email-already-in-use") {
-        alert("The email address is already in use");
-      } else if (error.code == "auth/invalid-email") {
-        alert("The email address is not valid.");
-      } else if (error.code == "auth/operation-not-allowed") {
-        alert("Operation not allowed.");
-      } else if (error.code == "auth/weak-password") {
-        alert("The password is too weak.");
-      }
-    }
-  };
+  // // Google Sign up
+  // const gmailProvider = new GoogleAuthProvider();
+  // const handleUserSignUpWithGoogle = async () => {
+  //   try {
+  //     const res = await signInWithPopup(auth, gmailProvider);
+  //     const user = res.user;
+  //     await addDoc(collection(db, "users"), {
+  //       uid: user.uid,
+  //       createdAt: serverTimestamp(),
+  //       name: user.displayName,
+  //       authProvider: "google",
+  //       email: user.email,
+  //       password: "",
+  //       invoiceData: [],
+  //     });
+  //     alert("Account created successfully");
+  //     handleNavigateUser("create-invoice");
+  //   } catch (error) {
+  //     if (error.code == "auth/email-already-in-use") {
+  //       alert("The email address is already in use");
+  //     } else if (error.code == "auth/invalid-email") {
+  //       alert("The email address is not valid.");
+  //     } else if (error.code == "auth/operation-not-allowed") {
+  //       alert("Operation not allowed.");
+  //     } else if (error.code == "auth/weak-password") {
+  //       alert("The password is too weak.");
+  //     }
+  //   }
+  // };
+
+  // Resend user password
 
   // Know the current user on the site to be used to fetch the invoicedata from firestore subsequently
   const [currentUser, setCurrentUser] = useState("");
@@ -306,9 +308,6 @@ const AppProvider = ({ children }) => {
       value={{
         currentUser,
         handleNavigateUser,
-        handleCreateUserWithEmailAndPassword,
-        handleUserLogInWithEmailAndPassword,
-        handleUserSignUpWithGoogle,
         invoiceFormData,
         setInvoiceFormData,
         handleInputChange,

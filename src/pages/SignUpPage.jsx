@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useGlobalContext } from "../context";
+import { useAuthUserContext } from "../context/UserContext";
 import {
   Text,
   Flex,
@@ -31,11 +31,8 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const {
-    currentUser,
-    handleCreateUserWithEmailAndPassword,
-    handleUserSignUpWithGoogle,
-  } = useGlobalContext();
+  const { handleCreateUserWithEmailAndPassword, handleUserSignUpWithGoogle } =
+    useAuthUserContext();
 
   // User sign up with email and password
   const [userSignUpForm, setUserSignUpForm] = useState({
