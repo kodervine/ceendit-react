@@ -94,10 +94,12 @@ const UserProvider = ({ children }) => {
   const handleUserPasswordReset = async (email) => {
     await sendPasswordResetEmail(auth, email)
       .then(() => {
-        console.log("password reset email sent");
+        alert("Password reset email sent. Check your email");
       })
       .catch((error) => {
-        console.log(error.code, error.message);
+        if (error.code == "auth/missing-email") {
+          alert("Fill your email to receive the password reset link");
+        }
       });
   };
 
