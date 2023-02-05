@@ -99,6 +99,10 @@ const UserProvider = ({ children }) => {
       .catch((error) => {
         if (error.code == "auth/missing-email") {
           alert("Fill your email to receive the password reset link");
+        } else if (error.code == "auth/invalid-email") {
+          alert("The email address is not valid.");
+        } else if (error.code == "auth/user-not-found") {
+          alert("User does not exist");
         }
       });
   };
