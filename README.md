@@ -33,6 +33,7 @@ Demo link - https://ceendit.netlify.app/
 - User authentication
   - Google sign up
   - Email and Password sign up and log in
+  - Password reset
 - Protected Routes
 - Various form inputs
 - Error & validation
