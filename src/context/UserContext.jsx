@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { db, auth } from "../firebase-config";
 import {
   GoogleAuthProvider,
@@ -7,7 +7,15 @@ import {
   signInWithPopup,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  doc,
+  query,
+  updateDoc,
+  serverTimestamp,
+} from "firebase/firestore";
 import { useGlobalContext } from "./AppContext";
 
 const UserContext = React.createContext();
@@ -61,22 +69,81 @@ const UserProvider = ({ children }) => {
   };
 
   // Google Sign up
+  // const gmailProvider = new GoogleAuthProvider();
+  // const handleUserSignUpWithGoogle = async () => {
+  //   try {
+  //     const res = await signInWithPopup(auth, gmailProvider);
+  //     const user = res.user;
+
+  //     await addDoc(collection(db, "users"), {
+  //       uid: user.uid,
+  //       createdAt: serverTimestamp(),
+  //       name: user.displayName,
+  //       authProvider: "google",
+  //       email: user.email,
+  //       password: "",
+  //       invoiceData: [],
+  //     });
+  //     alert("Account created successfully");
+  //     handleNavigateUser("create-invoice");
+  //   } catch (error) {
+  //     if (error.code == "auth/email-already-in-use") {
+  //       alert("The email address is already in use");
+  //     } else if (error.code == "auth/invalid-email") {
+  //       alert("The email address is not valid.");
+  //     } else if (error.code == "auth/operation-not-allowed") {
+  //       alert("Operation not allowed.");
+  //     } else if (error.code == "auth/weak-password") {
+  //       alert("The password is too weak.");
+  //     }
+  //   }
+  // };
+
+  //
+  useEffect(() => {}, []);
   const gmailProvider = new GoogleAuthProvider();
-  const handleUserSignUpWithGoogle = async () => {
+  const handleUserSignInWithGoogle = async () => {
     try {
+      // Sign in with Google
       const res = await signInWithPopup(auth, gmailProvider);
-      const user = res.user;
-      await addDoc(collection(db, "users"), {
-        uid: user.uid,
-        createdAt: serverTimestamp(),
-        name: user.displayName,
-        authProvider: "google",
-        email: user.email,
-        password: "",
-        invoiceData: [],
+      const googleUser = res.user;
+
+      // Check if the Google user email is already in use in Firebase
+      const q = query(collection(db, "users"));
+      const docs = await getDocs(q);
+      let existingUser = null;
+      docs.forEach((item) => {
+        if (item.data().email === googleUser.email) {
+          existingUser = item;
+        }
       });
-      alert("Account created successfully");
-      handleNavigateUser("create-invoice");
+
+      // If the Google user email is already in use, merge the two users
+      if (existingUser) {
+        const userRef = doc(db, "users", existingUser.id);
+        updateDoc(userRef, {
+          uid: googleUser.uid,
+          name: googleUser.displayName,
+          authProvider: "google",
+          email: googleUser.email,
+        });
+        alert("LoggedIn successfully");
+        handleNavigateUser("create-invoice");
+      } else {
+        // If the email is not in use, create a new user
+        addDoc(collection(db, "users"), {
+          uid: googleUser.uid,
+          createdAt: serverTimestamp(),
+          name: googleUser.displayName,
+          authProvider: "google",
+          email: googleUser.email,
+          password: "",
+          invoiceData: [],
+        });
+        alert("Account created successfully");
+        handleNavigateUser("create-invoice");
+      }
+      // await
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
         alert("The email address is already in use");
@@ -112,7 +179,7 @@ const UserProvider = ({ children }) => {
       value={{
         handleCreateUserWithEmailAndPassword,
         handleUserLogInWithEmailAndPassword,
-        handleUserSignUpWithGoogle,
+        handleUserSignInWithGoogle,
         handleUserPasswordReset,
       }}
     >

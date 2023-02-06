@@ -33,17 +33,11 @@ const SignInPage = () => {
   const handleShowClick = () => setShowPassword(!showPassword);
 
   // Contexts
-  const { handleUserPasswordReset, handleUserLogInWithEmailAndPassword } =
-    useAuthUserContext();
-  const { handleNavigateUser } = useGlobalContext();
-  const handleLoginExisitingGoogleUser = async () => {
-    try {
-      await signInWithGoogle();
-      handleNavigateUser("/create-invoice");
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const {
+    handleUserPasswordReset,
+    handleUserLogInWithEmailAndPassword,
+    handleUserSignInWithGoogle,
+  } = useAuthUserContext();
 
   const [userSignUpForm, setUserSignUpForm] = useState({
     signupEmail: "",
@@ -148,9 +142,19 @@ const SignInPage = () => {
                 >
                   Log in
                 </Button>
+                <Text
+                  textAlign="center
+                "
+                  textDecoration="underline"
+                  cursor="pointer"
+                  onClick={handleUserSignInWithGoogle}
+                >
+                  Continue with Google Here
+                </Text>
               </Stack>
             </form>
           </Box>
+
           <Box>
             New to us?{" "}
             <Link to="/create-account">

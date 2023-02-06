@@ -31,7 +31,7 @@ const SignUpPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
 
-  const { handleCreateUserWithEmailAndPassword, handleUserSignUpWithGoogle } =
+  const { handleCreateUserWithEmailAndPassword, handleUserSignInWithGoogle } =
     useAuthUserContext();
 
   // User sign up with email and password
@@ -134,7 +134,7 @@ const SignUpPage = () => {
           </Box>
           <Box>
             Join with Google instead?{" "}
-            <Link color="blue.500" onClick={handleUserSignUpWithGoogle}>
+            <Link color="blue.500" onClick={handleUserSignInWithGoogle}>
               Click here
             </Link>
           </Box>
