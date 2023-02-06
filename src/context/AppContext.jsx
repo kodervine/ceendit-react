@@ -93,7 +93,8 @@ const AppProvider = ({ children }) => {
   };
 
   // Handles each invoice submit and pushes it to be stored in firestore
-  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] = useState([]);
+  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] =
+    useState(allInvoiceData);
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormData);
@@ -145,7 +146,9 @@ const AppProvider = ({ children }) => {
         const userRef = doc(db, "users", document.id);
         // current user Id is gotten from the onAuthChanged state above.
         if (userInfoInFirebase.uid == currentUser.uid) {
-          updateDoc(userRef, { invoiceData: updatedInvoice });
+          updateDoc(userRef, {
+            invoiceData: updatedInvoice,
+          });
         }
       });
     } catch (e) {
