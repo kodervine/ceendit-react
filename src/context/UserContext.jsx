@@ -68,39 +68,7 @@ const UserProvider = ({ children }) => {
     }
   };
 
-  // Google Sign up
-  // const gmailProvider = new GoogleAuthProvider();
-  // const handleUserSignUpWithGoogle = async () => {
-  //   try {
-  //     const res = await signInWithPopup(auth, gmailProvider);
-  //     const user = res.user;
-
-  //     await addDoc(collection(db, "users"), {
-  //       uid: user.uid,
-  //       createdAt: serverTimestamp(),
-  //       name: user.displayName,
-  //       authProvider: "google",
-  //       email: user.email,
-  //       password: "",
-  //       invoiceData: [],
-  //     });
-  //     alert("Account created successfully");
-  //     handleNavigateUser("create-invoice");
-  //   } catch (error) {
-  //     if (error.code == "auth/email-already-in-use") {
-  //       alert("The email address is already in use");
-  //     } else if (error.code == "auth/invalid-email") {
-  //       alert("The email address is not valid.");
-  //     } else if (error.code == "auth/operation-not-allowed") {
-  //       alert("Operation not allowed.");
-  //     } else if (error.code == "auth/weak-password") {
-  //       alert("The password is too weak.");
-  //     }
-  //   }
-  // };
-
-  //
-  useEffect(() => {}, []);
+  // Google Sign in
   const gmailProvider = new GoogleAuthProvider();
   const handleUserSignInWithGoogle = async () => {
     try {
@@ -127,7 +95,7 @@ const UserProvider = ({ children }) => {
           authProvider: "google",
           email: googleUser.email,
         });
-        alert("Logged In successful");
+        alert("Login successful");
         handleNavigateUser("create-invoice");
       } else {
         // If the email is not in use, create a new user
