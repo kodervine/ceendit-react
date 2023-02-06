@@ -31,7 +31,7 @@ Demo link - https://ceendit.netlify.app/
 - Landing Page
 - Night mode
 - User authentication
-  - Google sign up
+  - Google sign in
   - Email and Password sign up and log in
   - Password reset
 - Protected Routes
