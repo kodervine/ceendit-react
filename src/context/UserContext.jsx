@@ -127,7 +127,7 @@ const UserProvider = ({ children }) => {
           authProvider: "google",
           email: googleUser.email,
         });
-        alert("LoggedIn successfully");
+        alert("Logged In successful");
         handleNavigateUser("create-invoice");
       } else {
         // If the email is not in use, create a new user
