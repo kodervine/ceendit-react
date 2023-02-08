@@ -5,17 +5,17 @@ import { nanoid } from "nanoid";
 
 const Sidebar = () => {
   return (
-    <aside className="aside-container">
+    <Flex direction="column" boxShadow="2xl" paddingLeft="10px">
       {sidebarData.map((menuItems) => {
         const { title, links } = menuItems;
         return (
-          <Box key={nanoid()} width="283px" background="blue.50">
+          <Box key={nanoid()} width="283px">
             <Heading
               as="h3"
               fontSize="12px"
               textTransform="uppercase"
               fontWeight="bold"
-              padding="10px 30px"
+              padding="10px 0"
             >
               {title}
             </Heading>
@@ -37,7 +37,7 @@ const Sidebar = () => {
           </Box>
         );
       })}
-    </aside>
+    </Flex>
   );
 };
 

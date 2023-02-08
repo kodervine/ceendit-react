@@ -20,17 +20,7 @@ import { RiArrowDropDownLine } from "react-icons/ri";
 
 export const sidebarData = [
   {
-    title: "",
-    links: [
-      {
-        name: "Switch Organisation",
-        icon: <HiBriefcase />,
-        arrow: <RiArrowDropDownLine />,
-      },
-    ],
-  },
-  {
-    title: "",
+    title: "Home",
     links: [
       {
         name: "Dashboard",

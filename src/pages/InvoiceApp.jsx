@@ -40,7 +40,7 @@ const InvoiceApp = () => {
       <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       <Flex>
-        {smallScreenWidth ? "" : <Sidebar />}
+        {!smallScreenWidth && <Sidebar />}
         <FormControl
           onSubmit={handleInvoiceSubmit}
           width={{ base: "100%", md: "90%", lg: "70%" }}
