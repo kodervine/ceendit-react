@@ -5,12 +5,13 @@ import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 const Sidebar = () => {
+  const midScreenWidth = window.innerWidth < 1000;
   return (
     <Flex direction="column" boxShadow="2xl" paddingLeft="10px">
       {sidebarData.map((menuItems) => {
         const { title, links } = menuItems;
         return (
-          <Box key={nanoid()} width="283px">
+          <Box key={nanoid()} width={midScreenWidth ? "200px" : "283px"}>
             <Heading
               as="h3"
               fontSize="12px"
