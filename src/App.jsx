@@ -11,6 +11,7 @@ import HomePage from "./pages/HomePage";
 import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   // For form preview
@@ -27,6 +28,7 @@ function App() {
         <Route path="/create-account" element={<SignUpPage />} />
 
         <Route element={<ProtectedRoutes />}>
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/create-invoice" element={<InvoiceApp />} />
           <Route
             path="/form-preview"
