@@ -1,22 +1,8 @@
-import { HiUsers, HiBriefcase } from "react-icons/hi";
-import {
-  BsFillPersonCheckFill,
-  BsFillPersonXFill,
-  BsFillPersonPlusFill,
-  BsPiggyBank,
-  BsBank,
-} from "react-icons/bs";
-import { GiReceiveMoney, GiTakeMyMoney, GiWaxSeal } from "react-icons/gi";
-import { FaChartBar, FaCoins, FaHandshake, FaScroll } from "react-icons/fa";
-import { GoHome } from "react-icons/go";
-import {
-  MdMiscellaneousServices,
-  MdPersonSearch,
-  MdPhoneAndroid,
-} from "react-icons/md";
-import { TbAdjustmentsHorizontal } from "react-icons/tb";
-import { AiOutlineAudit } from "react-icons/ai";
-import { RiArrowDropDownLine } from "react-icons/ri";
+import { HiUsers, HiViewGrid } from "react-icons/hi";
+import { GoHome, GoSignOut } from "react-icons/go";
+import { FaFileInvoiceDollar, FaUserCheck } from "react-icons/fa";
+import { MdPreview } from "react-icons/md";
+import { AiOutlineSetting } from "react-icons/ai";
 
 export const sidebarData = [
   {
@@ -25,103 +11,43 @@ export const sidebarData = [
       {
         name: "Dashboard",
         icon: <GoHome />,
+        link: "/dashboard",
       },
-    ],
-  },
-  {
-    title: "Customers",
-    links: [
       {
-        name: "Users",
+        name: "Create Invoice",
+        icon: <FaFileInvoiceDollar />,
+        link: "/create-invoice",
+      },
+      {
+        name: "Preview Invoice",
+        icon: <MdPreview />,
+        link: "/form-preview",
+      },
+      {
+        name: "See All Invoice",
+        icon: <HiViewGrid />,
+        link: "/invoice-history",
+      },
+      {
+        name: "My clients",
         icon: <HiUsers />,
       },
-      {
-        name: "Guarantors",
-        icon: <BsFillPersonCheckFill />,
-      },
-      {
-        name: "Loans",
-        icon: <GiTakeMyMoney />,
-      },
-      {
-        name: "Decison Models",
-        icon: <FaHandshake />,
-      },
-      {
-        name: "Savings",
-        icon: <BsPiggyBank />,
-      },
-      {
-        name: "Loan Requests",
-        icon: <GiReceiveMoney />,
-      },
-      {
-        name: "Whitelist",
-        icon: <BsFillPersonPlusFill />,
-      },
-      {
-        name: "Karma",
-        icon: <BsFillPersonXFill />,
-      },
     ],
   },
   {
-    title: "Business",
+    title: "Others",
     links: [
       {
-        name: "Organization",
-        icon: <HiBriefcase />,
-      },
-
-      {
-        name: "Loans Products",
-        icon: <GiTakeMyMoney />,
+        name: "Settings",
+        icon: <AiOutlineSetting />,
       },
       {
-        name: "Savings Products",
-        icon: <BsBank />,
+        name: "Subscription",
+        icon: <FaUserCheck />,
       },
       {
-        name: "Fees and Charges",
-        icon: <FaCoins />,
-      },
-      {
-        name: "Transactions",
-        icon: <MdPhoneAndroid />,
-      },
-
-      {
-        name: "Services",
-        icon: <MdMiscellaneousServices />,
-      },
-      {
-        name: "Service Account",
-        icon: <MdPersonSearch />,
-      },
-      {
-        name: "Settlements",
-        icon: <FaScroll />,
-      },
-      {
-        name: "Reports",
-        icon: <FaChartBar />,
-      },
-    ],
-  },
-  {
-    title: "Settings",
-    links: [
-      {
-        name: "Preferences",
-        icon: <TbAdjustmentsHorizontal />,
-      },
-      {
-        name: "Fees and Pricing",
-        icon: <GiWaxSeal />,
-      },
-      {
-        name: "Audit Log",
-        icon: <AiOutlineAudit />,
+        name: "Log out",
+        icon: <GoSignOut />,
       },
     ],
   },

@@ -1,6 +1,7 @@
 import React from "react";
 import { sidebarData } from "../data";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
 
 const Sidebar = () => {
@@ -20,17 +21,19 @@ const Sidebar = () => {
               {title}
             </Heading>
             {links.map((item) => {
-              const { name, icon, arrow } = item;
+              const { name, icon, link } = item;
               return (
                 <Flex
-                  key={nanoid}
+                  key={nanoid()}
                   gap="10px"
                   alignItems="center"
                   paddingBottom="5px"
                 >
                   {icon}
-                  <Text cursor="pointer">{name}</Text>
-                  <Text>{arrow}</Text>
+                  <Text cursor="pointer">
+                    {" "}
+                    <Link to={link}>{name}</Link>
+                  </Text>
                 </Flex>
               );
             })}
