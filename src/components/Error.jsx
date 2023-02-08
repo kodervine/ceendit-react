@@ -11,6 +11,7 @@ import {
 import errorImg from "../assets/error-img.svg";
 import Nav from "./homepageComponents/Nav";
 import DrawerComponent from "./homepageComponents/DrawerComponent";
+import Sidebar from "./Sidebar";
 
 const Error = () => {
   // For drawer component
@@ -23,32 +24,35 @@ const Error = () => {
     <>
       <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
-      <Flex direction="column" justifyContent="center" alignItems="center">
-        <Image
-          src={errorImg}
-          width={smallScreenWidth ? "100%" : "80%"}
-          height="400px"
-        />
+      <Flex>
+        {!smallScreenWidth && <Sidebar />}
+        <Flex direction="column" justifyContent="center" alignItems="center">
+          <Image
+            src={errorImg}
+            width={smallScreenWidth ? "100%" : "80%"}
+            height="400px"
+          />
 
-        <Box
-          color={colorMode === "light" ? "blue.900" : "gray.100"}
-          fontWeight="bold"
-          textAlign="center"
-          display="flex"
-          justifyContent="center"
-        >
-          <Text
-            fontSize={smallScreenWidth ? "md" : "2xl"}
-            width={smallScreenWidth ? "100%" : "50%"}
+          <Box
+            color={colorMode === "light" ? "blue.900" : "gray.100"}
+            fontWeight="bold"
+            textAlign="center"
+            display="flex"
+            justifyContent="center"
           >
-            Maybe the data on this page moved? Got deleted? Is hiding out in
-            quarantine? Never existed in the first place? Let's go back to{" "}
-            <Link to="/create-invoice" className="error-link">
-              home
-            </Link>{" "}
-            and try again from there.
-          </Text>
-        </Box>
+            <Text
+              fontSize={smallScreenWidth ? "md" : "2xl"}
+              width={smallScreenWidth ? "100%" : "50%"}
+            >
+              Maybe the data on this page moved? Got deleted? Is hiding out in
+              quarantine? Never existed in the first place? Let's go back to{" "}
+              <Link to="/create-invoice" className="error-link">
+                home
+              </Link>{" "}
+              and try again from there.
+            </Text>
+          </Box>
+        </Flex>
       </Flex>
     </>
   );

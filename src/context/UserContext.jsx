@@ -61,6 +61,9 @@ const UserProvider = ({ children }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       handleNavigateUser("create-invoice");
+      setTimeout(() => {
+        alert("Login successful");
+      }, 500);
     } catch (error) {
       if (error.code == "auth/wrong-password") {
         alert("This is a wrong email/password");
@@ -95,8 +98,10 @@ const UserProvider = ({ children }) => {
           authProvider: "google",
           email: googleUser.email,
         });
-        alert("Login successful");
         handleNavigateUser("create-invoice");
+        setTimeout(() => {
+          alert("Login successful");
+        }, 500);
       } else {
         // If the email is not in use, create a new user
         addDoc(collection(db, "users"), {
