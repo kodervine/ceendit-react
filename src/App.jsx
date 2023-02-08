@@ -28,15 +28,13 @@ function App() {
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/create-invoice" element={<InvoiceApp />} />
-
-          {/* <Route path="/form-preview" element={<FormPreview />} /> */}
           <Route
             path="/form-preview"
             element={showPreviewComponent ? <FormPreview /> : <Error />}
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
-          <Route path="*" element={<Error />} />
         </Route>
+        <Route path="*" element={<Error />} />
       </Routes>
     </Box>
   );
