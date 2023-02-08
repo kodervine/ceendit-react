@@ -4,8 +4,7 @@ import { Outlet, Navigate } from "react-router-dom";
 import { useGlobalContext } from "../context/AppContext";
 
 const ProtectedRoutes = () => {
-  const { currentUser, userUpdated } = useGlobalContext();
-  console.log(userUpdated);
+  const { userUpdated } = useGlobalContext();
   return userUpdated ? <Outlet /> : <Navigate to="signin" />;
 };
 
