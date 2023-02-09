@@ -14,16 +14,18 @@ const AppProvider = ({ children }) => {
 
   // Know the current user on the site to be used to fetch the invoicedata from firestore subsequently
   const [currentUser, setCurrentUser] = useState("");
-  const [userUpdated, setUserUpdated] = useState(true);
+  const [userUpdated, setUserUpdated] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         console.log(`note: user, ${user.email} is signed in`);
         setCurrentUser(user);
         setUserUpdated(true);
+        localStorage.setItem("isUserSignedIn", true);
       } else {
         console.log("note: user is signed out");
         setUserUpdated(false);
+        localStorage.removeItem("isUserSignedIn");
       }
     });
   }, [auth, currentUser]);
