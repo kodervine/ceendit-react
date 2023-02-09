@@ -1,5 +1,6 @@
-import React from "react";
-import { Stack, Input, Textarea, Heading } from "@chakra-ui/react";
+import React, { useState } from "react";
+import { Stack, Input, Textarea, Heading, Button } from "@chakra-ui/react";
+import AddMoreItemsInvoice from "./AddMoreItemsInvoice";
 
 // Props for the input values are gotten from InvoiceApp page rendered with InvoiceItems name, with data from the useState declared on the useContext component
 const InvoiceItems = ({
@@ -13,6 +14,10 @@ const InvoiceItems = ({
   valueOfInvoiceItemTotal,
   onHandleChange,
 }) => {
+  const [addedInvoiceItemsArray, setAddedInvoiceItemsArray] = useState([]);
+  const addNewInvoiceItems = () => {
+    setAddedInvoiceItemsArray([...addedInvoiceItemsArray, "I am here"]);
+  };
   return (
     <div>
       {/* Item name */}
@@ -55,7 +60,15 @@ const InvoiceItems = ({
           value={valueOfInvoiceItemPrice}
           onChange={onHandleChange}
         />
+
+        {addedInvoiceItemsArray.map((items, i) => {
+          return <AddMoreItemsInvoice text={items} />;
+        })}
+
         {/* Total */}
+        <Button colorScheme="blue" onClick={addNewInvoiceItems}>
+          Add more items
+        </Button>
         <Heading as="h4" size="lg">
           Total
         </Heading>
