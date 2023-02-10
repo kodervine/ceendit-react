@@ -26,6 +26,7 @@ const InvoiceItems = ({
   const addNewInvoiceItems = () => {
     setAddedInvoiceItemsArray([...addedInvoiceItemsArray, "I am here"]);
   };
+
   return (
     <div>
       {/* Item name */}
@@ -40,7 +41,7 @@ const InvoiceItems = ({
           name={nameOfInvoiceItemContent}
           type="text"
           id="item-content"
-          placeholder="Content owed to you"
+          placeholder="Work you did"
           value={valueOfInvoiceItemContent}
           onChange={onHandleChange}
         />
@@ -73,7 +74,7 @@ const InvoiceItems = ({
           </Box>
         </Flex>
         {addedInvoiceItemsArray.map((items, i) => {
-          return <AddMoreItemsInvoice text={items} />;
+          return <AddMoreItemsInvoice />;
         })}
 
         {/* Total */}
