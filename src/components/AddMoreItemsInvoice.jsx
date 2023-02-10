@@ -22,11 +22,7 @@ const AddMoreItemsInvoice = () => {
       />
 
       {/* qty */}
-      <Flex
-        alignItems="cen
-      "
-        gap="2"
-      >
+      <Flex alignItems="center" gap="2">
         <Box w="100%">
           <Heading as="h4" size="sm" pb="2">
             Qty
