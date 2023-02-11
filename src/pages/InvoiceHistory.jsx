@@ -153,17 +153,18 @@ const InvoiceHistory = () => {
                     </Tr>
                   </Thead>
                   <Tbody>
-                    <Tr>
-                      <Td>{invoiceFirestore.itemContent}</Td>
-                      <Td isNumeric>{invoiceFirestore.itemQty}</Td>
-                      <Td isNumeric>{invoiceFirestore.itemPrice}</Td>
-                      <Td isNumeric>
-                        #
-                        {parseInt(
-                          invoiceFirestore.itemQty * invoiceFirestore.itemPrice
-                        )}
-                      </Td>
-                    </Tr>
+                    {invoiceFirestore.itemContainer.map((item, index) => {
+                      return (
+                        <Tr>
+                          <Td>{item.itemContent}</Td>
+                          <Td isNumeric>{item.itemQty}</Td>
+                          <Td>{item.itemPrice}</Td>
+                          <Td isNumeric>
+                            #{parseInt(item.itemQty * item.itemPrice)}
+                          </Td>
+                        </Tr>
+                      );
+                    })}
                   </Tbody>
                 </Table>
               </TableContainer>
