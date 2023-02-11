@@ -153,9 +153,6 @@ const InvoiceApp = () => {
                   valueOfInvoiceItemPrice={item.itemPrice}
                   valueOfInvoiceItemContent={item.itemContent}
                   valueOfInvoiceItemQty={item.itemQty}
-                  valueOfInvoiceItemTotal={parseInt(
-                    item.itemQty * item.itemPrice
-                  )}
                   onHandleChange={handleInputChange}
                 />
               );

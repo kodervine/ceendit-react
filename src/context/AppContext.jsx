@@ -84,9 +84,12 @@ const AppProvider = ({ children }) => {
   // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    let index, field;
+
     if (name.includes("itemContainer")) {
-      const [index, field] = name.split(".");
-      if (index < invoiceFormData.itemContainer.length) {
+      [index, field] = name.split(".").slice(-2);
+      index = parseInt(index);
+      if (index >= 0 && index < invoiceFormData.itemContainer.length) {
         const newItemContainer = [...invoiceFormData.itemContainer];
         newItemContainer[index][field] = value;
         setInvoiceFormData({
@@ -100,7 +103,7 @@ const AppProvider = ({ children }) => {
         [name]: value,
       });
     }
-    setShowPreviewComponent(true);
+    // setShowPreviewComponent(true);
   };
 
   // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js

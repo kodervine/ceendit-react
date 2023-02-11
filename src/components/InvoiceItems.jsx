@@ -1,4 +1,5 @@
 import React from "react";
+import { useGlobalContext } from "../context/AppContext";
 import { Stack, Input, Textarea, Heading, Flex, Box } from "@chakra-ui/react";
 
 // Props for the input values are gotten from InvoiceApp page rendered with InvoiceItems name, with data from the useState declared on the useContext component
@@ -11,6 +12,7 @@ const InvoiceItems = ({
   valueOfInvoiceItemQty,
   onHandleChange,
 }) => {
+  const { handleInputChange } = useGlobalContext();
   return (
     <div>
       {/* Item name */}
@@ -27,7 +29,7 @@ const InvoiceItems = ({
           id="item-content"
           placeholder="Work you did"
           value={valueOfInvoiceItemContent}
-          onChange={onHandleChange}
+          onChange={handleInputChange}
         />
         <Flex gap="2" alignItems="center">
           {/* qty */}
@@ -40,7 +42,7 @@ const InvoiceItems = ({
               name={nameOfInvoiceItemQty}
               id="item-qty"
               value={valueOfInvoiceItemQty}
-              onChange={onHandleChange}
+              onChange={handleInputChange}
             />
           </Box>
           <Box>
@@ -53,7 +55,7 @@ const InvoiceItems = ({
               id="item-price"
               placeholder="Item Price"
               value={valueOfInvoiceItemPrice}
-              onChange={onHandleChange}
+              onChange={handleInputChange}
             />{" "}
           </Box>
         </Flex>
