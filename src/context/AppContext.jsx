@@ -86,12 +86,14 @@ const AppProvider = ({ children }) => {
     const { name, value } = e.target;
     if (name.includes("itemContainer")) {
       const [index, field] = name.split(".");
-      const newItemContainer = [...invoiceFormData.itemContainer];
-      newItemContainer[index][field] = value;
-      setInvoiceFormData({
-        ...invoiceFormData,
-        itemContainer: newItemContainer,
-      });
+      if (index < invoiceFormData.itemContainer.length) {
+        const newItemContainer = [...invoiceFormData.itemContainer];
+        newItemContainer[index][field] = value;
+        setInvoiceFormData({
+          ...invoiceFormData,
+          itemContainer: newItemContainer,
+        });
+      }
     } else {
       setInvoiceFormData({
         ...invoiceFormData,
@@ -145,11 +147,13 @@ const AppProvider = ({ children }) => {
         bankName: "",
         accountName: "",
         bankAccount: "",
-        itemsContainer: {
-          itemContent: "",
-          itemQty: "",
-          itemPrice: "",
-        },
+        itemContainer: [
+          {
+            itemContent: "",
+            itemQty: "",
+            itemPrice: "",
+          },
+        ],
       };
     });
   };

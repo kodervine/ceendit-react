@@ -9,6 +9,8 @@ import {
   FormControl,
   Button,
   useDisclosure,
+  Heading,
+  Input,
 } from "@chakra-ui/react";
 import { useGlobalContext } from "../context/AppContext";
 import logo from "../assets/logo.png";
@@ -158,9 +160,24 @@ const InvoiceApp = () => {
                 />
               );
             })}
-            <Button colorScheme="blue" onClick={addNewInvoiceItems}>
+
+            {/* Add more invoice items */}
+            <Button
+              colorScheme="blue"
+              onClick={addNewInvoiceItems}
+              width="100%"
+              marginTop="3"
+              marginBottom="3"
+            >
               Add more items
             </Button>
+            {/* Invoice Total */}
+            <Box>
+              <Heading as="h4" size="lg">
+                Total
+              </Heading>
+              <Input type="number" />
+            </Box>
           </section>
           <Flex pt="6" gap="2" direction={smallScreenWidth ? "column" : "row"}>
             {/* Disable preview invoice button if the forms haven't been filled */}
