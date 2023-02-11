@@ -33,7 +33,7 @@ const InvoiceItems = ({
         />
         <Flex gap="2" alignItems="center">
           {/* qty */}
-          <Box>
+          <Box width="100%">
             <Heading as="h4" size="sm" pb="2">
               Qty
             </Heading>
@@ -45,7 +45,7 @@ const InvoiceItems = ({
               onChange={handleInputChange}
             />
           </Box>
-          <Box>
+          <Box width="100%">
             <Heading as="h4" size="sm" pb="2">
               Price
             </Heading>
