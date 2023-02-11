@@ -142,6 +142,7 @@ const FormPreview = () => {
                   <Th
                     color={colorMode === "light" ? "auto" : "blue.900"}
                     isNumeric
+                    textAlign="center"
                   >
                     Price
                   </Th>
@@ -160,7 +161,7 @@ const FormPreview = () => {
                     <Tr>
                       <Td>{item.itemContent}</Td>
                       <Td isNumeric>{item.itemQty}</Td>
-                      <Td>{item.itemPrice}</Td>
+                      <Td textAlign="center">N {item.itemPrice}</Td>
                       <Td isNumeric>
                         #{parseInt(item.itemQty * item.itemPrice)}
                       </Td>

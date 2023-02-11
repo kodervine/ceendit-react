@@ -103,7 +103,7 @@ const AppProvider = ({ children }) => {
         [name]: value,
       });
     }
-    // setShowPreviewComponent(true);
+    setShowPreviewComponent(true);
   };
 
   // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
