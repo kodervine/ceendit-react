@@ -22,11 +22,6 @@ const InvoiceItems = ({
   valueOfInvoiceItemTotal,
   onHandleChange,
 }) => {
-  const [addedInvoiceItemsArray, setAddedInvoiceItemsArray] = useState([]);
-  const addNewInvoiceItems = () => {
-    setAddedInvoiceItemsArray([...addedInvoiceItemsArray, "I am here"]);
-  };
-
   return (
     <div>
       {/* Item name */}
@@ -73,14 +68,9 @@ const InvoiceItems = ({
             />{" "}
           </Box>
         </Flex>
-        {addedInvoiceItemsArray.map((items, i) => {
-          return <AddMoreItemsInvoice />;
-        })}
 
         {/* Total */}
-        <Button colorScheme="blue" onClick={addNewInvoiceItems}>
-          Add more items
-        </Button>
+
         <Heading as="h4" size="lg">
           Total
         </Heading>

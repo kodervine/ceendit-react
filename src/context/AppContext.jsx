@@ -43,9 +43,13 @@ const AppProvider = ({ children }) => {
     bankName: "",
     accountName: "",
     bankAccount: "",
-    itemContent: "",
-    itemQty: "",
-    itemPrice: "",
+    itemContainer: [
+      {
+        itemContent: "",
+        itemQty: "",
+        itemPrice: "",
+      },
+    ],
   });
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
@@ -80,10 +84,20 @@ const AppProvider = ({ children }) => {
   // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setInvoiceFormData({
-      ...invoiceFormData,
-      [name]: value,
-    });
+    if (name.includes("itemContainer")) {
+      const [index, field] = name.split(".");
+      const newItemContainer = [...invoiceFormData.itemContainer];
+      newItemContainer[index][field] = value;
+      setInvoiceFormData({
+        ...invoiceFormData,
+        itemContainer: newItemContainer,
+      });
+    } else {
+      setInvoiceFormData({
+        ...invoiceFormData,
+        [name]: value,
+      });
+    }
     setShowPreviewComponent(true);
   };
 
@@ -131,9 +145,11 @@ const AppProvider = ({ children }) => {
         bankName: "",
         accountName: "",
         bankAccount: "",
-        itemContent: "",
-        itemQty: "",
-        itemPrice: "",
+        itemsContainer: {
+          itemContent: "",
+          itemQty: "",
+          itemPrice: "",
+        },
       };
     });
   };

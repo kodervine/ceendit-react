@@ -19,10 +19,12 @@ import InvoiceBankDetails from "../components/InvoiceBankDetails";
 import Nav from "../components/homepageComponents/Nav";
 import DrawerComponent from "../components/homepageComponents/DrawerComponent";
 import Sidebar from "../components/Sidebar";
+import { nanoid } from "nanoid";
 
 const InvoiceApp = () => {
   const {
     invoiceFormData,
+    setInvoiceFormData,
     handleInputChange,
     allInvoiceData,
     handleInvoiceSubmit,
@@ -34,6 +36,21 @@ const InvoiceApp = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
   const smallScreenWidth = window.innerWidth < 700;
+
+  // Add extra invoice Data dynamically
+  const addNewInvoiceItems = () => {
+    setInvoiceFormData({
+      ...invoiceFormData,
+      itemContainer: [
+        ...invoiceFormData.itemContainer,
+        {
+          itemContent: "",
+          itemQty: "",
+          itemPrice: "",
+        },
+      ],
+    });
+  };
 
   return (
     <>
@@ -123,19 +140,27 @@ const InvoiceApp = () => {
 
           {/* InvoiceItems rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
           <section>
-            <InvoiceItems
-              nameOfInvoiceItemPrice="itemPrice"
-              nameOfInvoiceItemContent="itemContent"
-              nameOfInvoiceItemQty="itemQty"
-              nameOfInvoiceItemTotal="itemTotal"
-              valueOfInvoiceItemPrice={invoiceFormData.itemPrice}
-              valueOfInvoiceItemContent={invoiceFormData.itemContent}
-              valueOfInvoiceItemQty={invoiceFormData.itemQty}
-              valueOfInvoiceItemTotal={parseInt(
-                invoiceFormData.itemQty * invoiceFormData.itemPrice
-              )}
-              onHandleChange={handleInputChange}
-            />
+            {invoiceFormData.itemContainer.map((item, index) => {
+              return (
+                <InvoiceItems
+                  key={nanoid()}
+                  nameOfInvoiceItemPrice={`itemContainer.${index}.itemPrice`}
+                  nameOfInvoiceItemContent={`itemContainer.${index}.itemContent`}
+                  nameOfInvoiceItemQty={`itemContainer.${index}.itemQty`}
+                  nameOfInvoiceItemTotal="itemTotal"
+                  valueOfInvoiceItemPrice={item.itemPrice}
+                  valueOfInvoiceItemContent={item.itemContent}
+                  valueOfInvoiceItemQty={item.itemQty}
+                  valueOfInvoiceItemTotal={parseInt(
+                    item.itemQty * item.itemPrice
+                  )}
+                  onHandleChange={handleInputChange}
+                />
+              );
+            })}
+            <Button colorScheme="blue" onClick={addNewInvoiceItems}>
+              Add more items
+            </Button>
           </section>
           <Flex pt="6" gap="2" direction={smallScreenWidth ? "column" : "row"}>
             {/* Disable preview invoice button if the forms haven't been filled */}
