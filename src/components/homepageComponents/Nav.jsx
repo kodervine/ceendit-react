@@ -13,10 +13,14 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { FaAlignJustify } from "react-icons/fa";
-import NavLoggedIn from "../NavLoggedIn";
+import { logOutUser } from "../../firebase-config";
 
 const Nav = ({ onOpen, btnRef }) => {
-  const { currentUser } = useGlobalContext();
+  const { currentUser, handleNavigateUser } = useGlobalContext();
+  const loggingOutUser = () => {
+    logOutUser();
+    handleNavigateUser("signin");
+  };
 
   const [scroll, setScroll] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
@@ -56,20 +60,20 @@ const Nav = ({ onOpen, btnRef }) => {
 
         {isLargerThan48 ? (
           <>
+            <Text fontSize="md" mr="10">
+              About
+            </Text>
+            <Text fontSize="md" mr="10">
+              Features
+            </Text>
             {currentUser ? (
-              <NavLoggedIn />
+              <Text onClick={loggingOutUser} cursor="pointer" color="blue.500">
+                Log out
+              </Text>
             ) : (
-              <>
-                <Text fontSize="md" mr="10">
-                  About
-                </Text>
-                <Text fontSize="md" mr="10">
-                  Features
-                </Text>
-                <Link color="blue.500" to="/signin">
-                  Log in
-                </Link>
-              </>
+              <Link color="blue.500" to="/signin">
+                Log in
+              </Link>
             )}
           </>
         ) : (

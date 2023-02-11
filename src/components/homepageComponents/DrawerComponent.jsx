@@ -9,11 +9,16 @@ import {
   DrawerCloseButton,
   Link,
   Flex,
+  Text,
 } from "@chakra-ui/react";
-import NavLoggedIn from "../NavLoggedIn";
+import { logOutUser } from "../../firebase-config";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
   const { currentUser, handleNavigateUser } = useGlobalContext();
+  const loggingOutUser = () => {
+    logOutUser();
+    handleNavigateUser("signin");
+  };
 
   return (
     <Drawer
@@ -32,8 +37,20 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
         <DrawerBody mb="4">
           <Flex flexDirection="column" gap="3">
             {currentUser ? (
-              <NavLoggedIn />
+              <>
+                <Link to="/create-invoice">Create Invoice</Link>
+                <Link to="/form-preview">Form Preview</Link>
+                <Link to="/invoice-history">See all Invoice</Link>
+                <Text
+                  onClick={loggingOutUser}
+                  cursor="pointer"
+                  color="blue.500"
+                >
+                  Log out
+                </Text>
+              </>
             ) : (
+              // <NavLoggedIn />
               <>
                 <Link>About</Link>
                 <Link
