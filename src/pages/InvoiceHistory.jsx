@@ -157,7 +157,7 @@ const InvoiceHistory = () => {
                     <Tbody>
                       {invoiceFirestore.itemContainer.map((item, index) => {
                         return (
-                          <Tr>
+                          <Tr key={nanoid()}>
                             <Td>{item.itemContent}</Td>
                             <Td isNumeric textAlign="center">
                               {item.itemQty}

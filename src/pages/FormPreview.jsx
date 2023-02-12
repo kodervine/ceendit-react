@@ -158,7 +158,7 @@ const FormPreview = () => {
               <Tbody>
                 {invoiceFormData.itemContainer.map((item, index) => {
                   return (
-                    <Tr>
+                    <Tr key={nanoid()}>
                       <Td>{item.itemContent}</Td>
                       <Td isNumeric>{item.itemQty}</Td>
                       <Td textAlign="center">N {item.itemPrice}</Td>
