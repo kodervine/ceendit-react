@@ -54,6 +54,13 @@ const InvoiceApp = () => {
     });
   };
 
+  // Const total from items price and quantity
+  const total = invoiceFormData.itemContainer.reduce(
+    (acc, item) => acc + item.qty * item.price,
+    0
+  );
+  console.log(total);
+
   return (
     <>
       <Nav btnRef={btnRef} onOpen={onOpen} />
@@ -145,7 +152,7 @@ const InvoiceApp = () => {
             {invoiceFormData.itemContainer.map((item, index) => {
               return (
                 <InvoiceItems
-                  key={nanoid()}
+                  key={index}
                   nameOfInvoiceItemPrice={`itemContainer.${index}.itemPrice`}
                   nameOfInvoiceItemContent={`itemContainer.${index}.itemContent`}
                   nameOfInvoiceItemQty={`itemContainer.${index}.itemQty`}
@@ -173,7 +180,13 @@ const InvoiceApp = () => {
               <Heading as="h4" size="lg">
                 Total
               </Heading>
-              <Input type="number" />
+              <Input
+                type="number"
+                value={invoiceFormData.itemContainer.reduce(
+                  (acc, item) => acc + item.qty * item.price,
+                  0
+                )}
+              />
             </Box>
           </section>
           <Flex pt="6" gap="2" direction={smallScreenWidth ? "column" : "row"}>

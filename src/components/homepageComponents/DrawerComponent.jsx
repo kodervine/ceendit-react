@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../context/AppContext";
 import {
   Drawer,
@@ -7,7 +8,6 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
-  Link,
   Flex,
   Text,
 } from "@chakra-ui/react";
@@ -53,12 +53,12 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
               // <NavLoggedIn />
               <>
                 <Link>About</Link>
-                <Link
+                <Text
                   color="blue.500"
                   onClick={() => handleNavigateUser("signin")}
                 >
                   Log in
-                </Link>
+                </Text>
               </>
             )}
           </Flex>

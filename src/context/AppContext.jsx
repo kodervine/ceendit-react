@@ -90,17 +90,21 @@ const AppProvider = ({ children }) => {
       [index, field] = name.split(".").slice(-2);
       index = parseInt(index);
       if (index >= 0 && index < invoiceFormData.itemContainer.length) {
-        const newItemContainer = [...invoiceFormData.itemContainer];
-        newItemContainer[index][field] = value;
-        setInvoiceFormData({
-          ...invoiceFormData,
-          itemContainer: newItemContainer,
+        setInvoiceFormData((prevState) => {
+          const newItemContainer = [...prevState.itemContainer];
+          newItemContainer[index][field] = value;
+          return {
+            ...prevState,
+            itemContainer: newItemContainer,
+          };
         });
       }
     } else {
-      setInvoiceFormData({
-        ...invoiceFormData,
-        [name]: value,
+      setInvoiceFormData((prevState) => {
+        return {
+          ...prevState,
+          [name]: value,
+        };
       });
     }
     setShowPreviewComponent(true);

@@ -26,10 +26,9 @@ const InvoiceItems = ({
           size="sm"
           name={nameOfInvoiceItemContent}
           type="text"
-          id="item-content"
           placeholder="Work you did"
           value={valueOfInvoiceItemContent}
-          onChange={handleInputChange}
+          onChange={onHandleChange}
         />
         <Flex gap="2" alignItems="center">
           {/* qty */}
@@ -39,10 +38,10 @@ const InvoiceItems = ({
             </Heading>
             <Input
               type="number"
+              placeholder="Number of items"
               name={nameOfInvoiceItemQty}
-              id="item-qty"
               value={valueOfInvoiceItemQty}
-              onChange={handleInputChange}
+              onChange={onHandleChange}
             />
           </Box>
           <Box width="100%">
@@ -52,10 +51,9 @@ const InvoiceItems = ({
             <Input
               type="number"
               name={nameOfInvoiceItemPrice}
-              id="item-price"
               placeholder="Item Price"
               value={valueOfInvoiceItemPrice}
-              onChange={handleInputChange}
+              onChange={onHandleChange}
             />{" "}
           </Box>
         </Flex>
