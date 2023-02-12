@@ -142,6 +142,7 @@ const FormPreview = () => {
                   <Th
                     color={colorMode === "light" ? "auto" : "blue.900"}
                     isNumeric
+                    textAlign="center"
                   >
                     Price
                   </Th>
@@ -155,17 +156,18 @@ const FormPreview = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                <Tr>
-                  <Td>{invoiceFormData.itemContent}</Td>
-                  <Td isNumeric>{invoiceFormData.itemQty}</Td>
-                  <Td>{invoiceFormData.itemPrice}</Td>
-                  <Td isNumeric>
-                    #
-                    {parseInt(
-                      invoiceFormData.itemQty * invoiceFormData.itemPrice
-                    )}
-                  </Td>
-                </Tr>
+                {invoiceFormData.itemContainer.map((item, index) => {
+                  return (
+                    <Tr key={nanoid()}>
+                      <Td>{item.itemContent}</Td>
+                      <Td isNumeric>{item.itemQty}</Td>
+                      <Td textAlign="center">N {item.itemPrice}</Td>
+                      <Td isNumeric>
+                        #{parseInt(item.itemQty * item.itemPrice)}
+                      </Td>
+                    </Tr>
+                  );
+                })}
               </Tbody>
             </Table>
           </TableContainer>
