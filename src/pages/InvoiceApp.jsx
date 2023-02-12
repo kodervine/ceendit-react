@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Image,
@@ -55,11 +55,11 @@ const InvoiceApp = () => {
   };
 
   // Const total from items price and quantity
-  const total = invoiceFormData.itemContainer.reduce(
-    (acc, item) => acc + item.qty * item.price,
+  const invoiceItemsTotal = invoiceFormData.itemContainer.reduce(
+    (acc, item) =>
+      acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
     0
   );
-  console.log(total);
 
   return (
     <>
@@ -150,6 +150,14 @@ const InvoiceApp = () => {
           {/* InvoiceItems rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
           <section>
             {invoiceFormData.itemContainer.map((item, index) => {
+              // const formItemsTotal = invoiceFormData.itemContainer.reduce(
+              //   (acc, item) =>
+              //     acc +
+              //     parseFloat(item.itemQty || 0) *
+              //       parseFloat(item.itemPrice || 0),
+              //   0
+              // );
+              // setInvoiceItemsTotal(formItemsTotal);
               return (
                 <InvoiceItems
                   key={index}
@@ -180,13 +188,7 @@ const InvoiceApp = () => {
               <Heading as="h4" size="lg">
                 Total
               </Heading>
-              <Input
-                type="number"
-                value={invoiceFormData.itemContainer.reduce(
-                  (acc, item) => acc + item.qty * item.price,
-                  0
-                )}
-              />
+              <Text>{invoiceItemsTotal}</Text>
             </Box>
           </section>
           <Flex pt="6" gap="2" direction={smallScreenWidth ? "column" : "row"}>
