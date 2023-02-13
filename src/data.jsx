@@ -31,6 +31,12 @@ export const sidebarData = [
       {
         name: "My clients",
         icon: <HiUsers />,
+        link: "/my-clients",
+      },
+      {
+        name: "One client",
+        icon: <HiUsers />,
+        link: "/client",
       },
     ],
   },
@@ -44,10 +50,6 @@ export const sidebarData = [
       {
         name: "Subscription",
         icon: <FaUserCheck />,
-      },
-      {
-        name: "Log out",
-        icon: <GoSignOut />,
       },
     ],
   },
