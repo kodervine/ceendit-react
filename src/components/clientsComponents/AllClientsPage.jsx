@@ -29,6 +29,7 @@ function AllClientsPage() {
       <Nav />
       <Flex>
         <Sidebar />
+
         <Table height="10vh">
           <Thead>
             <Tr>
