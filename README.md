@@ -46,5 +46,6 @@ Demo link - https://ceendit.netlify.app/
 
 - Edit invoices
 - Set Clients' page
+- Create dynamic invoice links
 - Verification of bank names with payment APIs
 - Intergrate with twilio or other apps to dynamically send invoices to the clients

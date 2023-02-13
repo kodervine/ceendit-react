@@ -12,6 +12,8 @@ import SignInPage from "./pages/SignInPage";
 import SignUpPage from "./pages/SignUpPage";
 import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
+import AllClientsPage from "./components/clientsComponents/AllClientsPage";
+import ClientPage from "./pages/ClientPage";
 
 function App() {
   // For form preview
@@ -26,6 +28,8 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/signin" element={<SignInPage />} />
         <Route path="/create-account" element={<SignUpPage />} />
+        <Route path="/my-clients" element={<AllClientsPage />} />
+        <Route path="/client" element={<ClientPage />} />
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<Dashboard />} />
