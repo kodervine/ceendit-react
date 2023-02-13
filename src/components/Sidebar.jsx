@@ -7,7 +7,7 @@ import { nanoid } from "nanoid";
 const Sidebar = () => {
   const midScreenWidth = window.innerWidth < 1000;
   return (
-    <Flex direction="column" boxShadow="2xl" paddingLeft="10px">
+    <Flex direction="column" boxShadow="2xl" paddingLeft="10px" height="100vh">
       {sidebarData.map((menuItems) => {
         const { title, links } = menuItems;
         return (
