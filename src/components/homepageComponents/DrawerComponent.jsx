@@ -41,6 +41,8 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
                 <Link to="/create-invoice">Create Invoice</Link>
                 <Link to="/form-preview">Form Preview</Link>
                 <Link to="/invoice-history">See all Invoice</Link>
+                <Link to="/my-clients">My clients</Link>
+
                 <Text
                   onClick={loggingOutUser}
                   cursor="pointer"
