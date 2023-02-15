@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../context/AppContext";
+import { nanoid } from "nanoid";
 import {
   Drawer,
   DrawerBody,
@@ -12,6 +13,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { logOutUser } from "../../firebase-config";
+import { sidebarData } from "../../data";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
   const { userInitState, handleNavigateUser } = useGlobalContext();
@@ -38,10 +40,17 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
           <Flex flexDirection="column" gap="3">
             {userInitState.currentUser ? (
               <>
-                <Link to="/create-invoice">Create Invoice</Link>
-                <Link to="/form-preview">Form Preview</Link>
-                <Link to="/invoice-history">See all Invoice</Link>
-                <Link to="/my-clients">My clients</Link>
+                {sidebarData.map((menuItems) => {
+                  const { links } = menuItems;
+                  return links.map((links) => {
+                    const { name, link } = links;
+                    return (
+                      <Link to={link} key={nanoid()}>
+                        {name}
+                      </Link>
+                    );
+                  });
+                })}
 
                 <Text
                   onClick={loggingOutUser}
