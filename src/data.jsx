@@ -39,11 +39,11 @@ export const linksData = [
         icon: <HiUsers />,
         link: "/my-clients",
       },
-      {
-        name: "One client",
-        icon: <BsFillPersonPlusFill />,
-        link: "/client",
-      },
+      // {
+      //   name: "One client",
+      //   icon: <BsFillPersonPlusFill />,
+      //   link: "/client",
+      // },
     ],
   },
   {
