@@ -16,7 +16,7 @@ import { FaAlignJustify } from "react-icons/fa";
 import { logOutUser } from "../../firebase-config";
 
 const Nav = ({ onOpen, btnRef }) => {
-  const { currentUser, handleNavigateUser } = useGlobalContext();
+  const { userInitState, handleNavigateUser } = useGlobalContext();
   const loggingOutUser = () => {
     logOutUser();
     handleNavigateUser("signin");
@@ -66,7 +66,7 @@ const Nav = ({ onOpen, btnRef }) => {
             <Text fontSize="md" mr="10">
               Features
             </Text>
-            {currentUser ? (
+            {userInitState.currentUser ? (
               <Text onClick={loggingOutUser} cursor="pointer" color="blue.500">
                 Log out
               </Text>

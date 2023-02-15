@@ -14,7 +14,7 @@ import {
 import { logOutUser } from "../../firebase-config";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
-  const { currentUser, handleNavigateUser } = useGlobalContext();
+  const { userInitState, handleNavigateUser } = useGlobalContext();
   const loggingOutUser = () => {
     logOutUser();
     handleNavigateUser("signin");
@@ -36,7 +36,7 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
 
         <DrawerBody mb="4">
           <Flex flexDirection="column" gap="3">
-            {currentUser ? (
+            {userInitState.currentUser ? (
               <>
                 <Link to="/create-invoice">Create Invoice</Link>
                 <Link to="/form-preview">Form Preview</Link>

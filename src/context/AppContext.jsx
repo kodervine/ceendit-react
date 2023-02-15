@@ -1,9 +1,19 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useReducer,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import { collection, getDocs, query, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import {
+  USER_INITIAL_STATE,
+  authUserReducer,
+} from "../reducers/AuthUserReducer";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -12,23 +22,23 @@ const AppProvider = ({ children }) => {
     navigateUser(`/${link}`);
   };
 
+  const [userInitState, dispatch] = useReducer(
+    authUserReducer,
+    USER_INITIAL_STATE
+  );
+
   // Know the current user on the site to be used to fetch the invoicedata from firestore subsequently
-  const [currentUser, setCurrentUser] = useState("");
-  const [userUpdated, setUserUpdated] = useState(false);
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(`note: user, ${user.email} is signed in`);
-        setCurrentUser(user);
-        setUserUpdated(true);
-        localStorage.setItem("isUserSignedIn", true);
+        dispatch({ type: "USER_LOGGED_IN", payload: user });
+        console.log(`user ${user.email} is logged in`);
       } else {
-        console.log("note: user is signed out");
-        setUserUpdated(false);
-        localStorage.removeItem("isUserSignedIn");
+        console.log("user logged out");
+        dispatch({ type: "USER_LOGGED_OUT", payload: user });
       }
     });
-  }, [auth, currentUser]);
+  }, [auth, userInitState.currentUser]);
 
   // Form data to be updated to be previewed, and concanated to the state pushed to firestore
   const [invoiceFormData, setInvoiceFormData] = useState({
@@ -57,16 +67,16 @@ const AppProvider = ({ children }) => {
   // Save all the invoices for the invoiceHistory page and get data from firebase store
   const [allInvoiceData, setAllInvoiceData] = useState([]);
   const fetchInvoiceData = async () => {
-    if (userUpdated) {
+    if (userInitState.userUpdated) {
       try {
         const q = query(collection(db, "users"));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((document) => {
           const userInfoInFirebase = document.data();
-          if (userInfoInFirebase.uid == currentUser.uid) {
+          if (userInfoInFirebase.uid == userInitState.currentUser.uid) {
             const newInvoiceData = document.data().invoiceData;
             setAllInvoiceData(newInvoiceData);
-            setUserUpdated(true);
+            userInitState.userUpdated;
           }
         });
       } catch (e) {
@@ -76,10 +86,10 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (userInitState.currentUser) {
       fetchInvoiceData();
     }
-  }, [currentUser]);
+  }, [userInitState.currentUser]);
 
   // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
@@ -176,7 +186,7 @@ const AppProvider = ({ children }) => {
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         // current user Id is gotten from the onAuthChanged state above.
-        if (userInfoInFirebase.uid == currentUser.uid) {
+        if (userInfoInFirebase.uid == state.currentUser.uid) {
           updateDoc(userRef, {
             invoiceData: updatedInvoice,
           });
@@ -247,8 +257,7 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        currentUser,
-        userUpdated,
+        userInitState,
         handleNavigateUser,
         invoiceFormData,
         setInvoiceFormData,
