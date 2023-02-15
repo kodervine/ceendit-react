@@ -14,6 +14,7 @@ import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
 import AllClientsPage from "./components/clientsComponents/AllClientsPage";
 import ClientPage from "./pages/ClientPage";
+import ShareInvoicePage from "./pages/ShareInvoicePage";
 
 function App() {
   // For form preview
@@ -39,6 +40,9 @@ function App() {
             element={showPreviewComponent ? <FormPreview /> : <Error />}
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
+          <Route path="/share-invoice" element={<ShareInvoicePage />}>
+            <Route path=":index" element={<ShareInvoicePage />} />
+          </Route>
         </Route>
         <Route path="*" element={<Error />} />
       </Routes>

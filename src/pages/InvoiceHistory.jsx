@@ -35,7 +35,8 @@ const InvoiceHistory = () => {
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
   // javascript
-  const { allInvoiceData, handlePrint, EachDownloadRef } = useGlobalContext();
+  const { allInvoiceData, handlePrint, handleNavigateUser, EachDownloadRef } =
+    useGlobalContext();
 
   return (
     <Box>
@@ -174,7 +175,7 @@ const InvoiceHistory = () => {
                 </TableContainer>
 
                 {/* Buttons  */}
-                <Flex direction={smallScreenWidth ? "column" : "row"}>
+                <Flex direction={smallScreenWidth ? "column" : "row"} gap="4">
                   <Button
                     onClick={() => handlePrint(invoiceFirestore, index)}
                     colorScheme="blue"
@@ -183,6 +184,17 @@ const InvoiceHistory = () => {
                     maxW="960px"
                   >
                     <Text>Download</Text>
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      handleNavigateUser(`/share-invoice/${index}`);
+                    }}
+                    colorScheme="blue"
+                    mt="10px"
+                    width={smallScreenWidth ? "100%" : "auto"}
+                    maxW="960px"
+                  >
+                    <Text>Share Invoice</Text>
                   </Button>
 
                   {/* same id from the map from firestore */}
