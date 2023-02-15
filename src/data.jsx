@@ -48,7 +48,7 @@ export const linksData = [
   },
   {
     title: "Others",
-    links: [
+    linkItems: [
       {
         name: "Settings",
         icon: <AiOutlineSetting />,

@@ -41,7 +41,7 @@ function App() {
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
           <Route path="/share-invoice" element={<ShareInvoicePage />}>
-            <Route path=":index" element={<ShareInvoicePage />} />
+            <Route path=":index" />
           </Route>
         </Route>
         <Route path="*" element={<Error />} />
