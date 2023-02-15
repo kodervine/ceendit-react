@@ -5,10 +5,10 @@ import { MdPreview, MdMobileScreenShare } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { BsFillPersonPlusFill } from "react-icons/bs";
 
-export const sidebarData = [
+export const linksData = [
   {
-    title: "Home",
-    links: [
+    title: "Overview",
+    linkItems: [
       {
         name: "Dashboard",
         icon: <GoHome />,

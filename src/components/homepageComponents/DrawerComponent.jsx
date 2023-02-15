@@ -11,9 +11,10 @@ import {
   DrawerCloseButton,
   Flex,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import { logOutUser } from "../../firebase-config";
-import { sidebarData } from "../../data";
+import { linksData } from "../../data";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
   const { userInitState, handleNavigateUser } = useGlobalContext();
@@ -40,14 +41,21 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
           <Flex flexDirection="column" gap="3">
             {userInitState.currentUser ? (
               <>
-                {sidebarData.map((menuItems) => {
-                  const { links } = menuItems;
-                  return links.map((links) => {
+                {linksData.map((items) => {
+                  const { linkItems } = items;
+                  return linkItems?.map((links) => {
                     const { name, link } = links;
                     return (
-                      <Link to={link} key={nanoid()}>
-                        {name}
-                      </Link>
+                      <Box
+                        py="1"
+                        pl="3"
+                        borderRadius="8px"
+                        _hover={{ bg: "blue.100" }}
+                        _active={{ bg: "blue.100" }}
+                        key={nanoid()}
+                      >
+                        <Link to={link}>{name}</Link>
+                      </Box>
                     );
                   });
                 })}
@@ -56,6 +64,7 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
                   onClick={loggingOutUser}
                   cursor="pointer"
                   color="blue.500"
+                  pl="3"
                 >
                   Log out
                 </Text>
