@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import logo from "../assets/logo.png";
+import { nanoid } from "nanoid";
 import {
   Flex,
   Image,
@@ -34,7 +35,7 @@ const FormPreview = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   const {
-    invoiceFormData,
+    invoiceFormDataDirect,
     FormPreviewRef,
     handleInvoiceSubmit,
     showPreviewComponent,
@@ -63,37 +64,37 @@ const FormPreview = () => {
             <Image src={logo} />
             <Box>
               <Text fontWeight="bold">
-                Invoice No {invoiceFormData.dateCreated}
+                Invoice No {invoiceFormDataDirect.dateCreated}
               </Text>
             </Box>
           </Flex>
 
           {/* Date */}
           <Box>
-            <Heading size="md">{invoiceFormData.billFromName}</Heading>
-            <Text>{invoiceFormData.billFromPhoneNumber}</Text>
-            <Text>{invoiceFormData.billFromEmail}</Text>
+            <Heading size="md">{invoiceFormDataDirect.billFromName}</Heading>
+            <Text>{invoiceFormDataDirect.billFromPhoneNumber}</Text>
+            <Text>{invoiceFormDataDirect.billFromEmail}</Text>
           </Box>
 
           {/* Invoice date and due date */}
           <Flex>
             <Box>
               <Heading size="sm">Invoice date</Heading>
-              <Text>{invoiceFormData.dateCreated}</Text>
+              <Text>{invoiceFormDataDirect.dateCreated}</Text>
             </Box>
             <Spacer />
             <Box>
               <Heading size="sm">Due date</Heading>
-              <Text>{invoiceFormData.dateDue}</Text>
+              <Text>{invoiceFormDataDirect.dateDue}</Text>
             </Box>
           </Flex>
 
           {/* Billed to */}
           <Box>
             <Heading size="sm">Billed to</Heading>
-            <Text>{invoiceFormData.billToName}</Text>
-            <Text>{invoiceFormData.billToPhoneNumber}</Text>
-            <Text>{invoiceFormData.billToEmail}</Text>
+            <Text>{invoiceFormDataDirect.billToName}</Text>
+            <Text>{invoiceFormDataDirect.billToPhoneNumber}</Text>
+            <Text>{invoiceFormDataDirect.billToEmail}</Text>
           </Box>
 
           {/* Bank details */}
@@ -117,9 +118,9 @@ const FormPreview = () => {
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>{invoiceFormData.bankName}</Td>
-                  <Td>{invoiceFormData.accountName}</Td>
-                  <Td isNumeric>{invoiceFormData.bankAccount}</Td>
+                  <Td>{invoiceFormDataDirect.bankName}</Td>
+                  <Td>{invoiceFormDataDirect.accountName}</Td>
+                  <Td isNumeric>{invoiceFormDataDirect.bankAccount}</Td>
                 </Tr>
               </Tbody>
             </Table>
@@ -156,7 +157,7 @@ const FormPreview = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {invoiceFormData.itemContainer.map((item, index) => {
+                {invoiceFormDataDirect.itemContainer.map((item, index) => {
                   return (
                     <Tr key={nanoid()}>
                       <Td>{item.itemContent}</Td>

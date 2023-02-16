@@ -53,7 +53,6 @@ const AppProvider = ({ children }) => {
   // Combined variables to get reducer form proper
   const invoiceFormDataDirect = invoiceFormState.invoiceFormData;
 
-  // console.log(invoiceFormDataDirect);
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
@@ -105,7 +104,7 @@ const AppProvider = ({ children }) => {
 
   // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
   const handlePreviewData = () => {
-    const checkEmptyInput = Object.values(invoiceFormData);
+    const checkEmptyInput = Object.values(invoiceFormDataDirect);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
@@ -114,9 +113,9 @@ const AppProvider = ({ children }) => {
 
   // Handle form reset from InvoiceFormReducer
   const handleInvoiceFormReset = () => {
-    dispatch({
+    formDispatch({
       type: "RESET_FORM",
-      payload: INITIAL_FORM_DATA,
+      payload: INVOICE_INITIAL_STATE,
     });
   };
 
@@ -125,14 +124,14 @@ const AppProvider = ({ children }) => {
     useState(allInvoiceData);
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
-    const checkEmptyInput = Object.values(invoiceFormData);
+    const checkEmptyInput = Object.values(invoiceFormDataDirect);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
     }
 
     setFirebaseAllInvoiceArray((prevdata) => {
-      return [...prevdata, invoiceFormData];
+      return [...prevdata, invoiceFormDataDirect];
     });
     console.log(firebaseAllInvoiceArray);
 
@@ -155,7 +154,7 @@ const AppProvider = ({ children }) => {
         // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         // current user Id is gotten from the onAuthChanged state above.
-        if (userInfoInFirebase.uid == state.currentUser.uid) {
+        if (userInfoInFirebase.uid == userInitState.currentUser.uid) {
           updateDoc(userRef, {
             invoiceData: updatedInvoice,
           });
