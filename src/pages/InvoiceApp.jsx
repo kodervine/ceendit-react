@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   Image,
@@ -10,7 +10,6 @@ import {
   Button,
   useDisclosure,
   Heading,
-  Input,
 } from "@chakra-ui/react";
 import { useGlobalContext } from "../context/AppContext";
 import logo from "../assets/logo.png";
@@ -25,10 +24,9 @@ import { nanoid } from "nanoid";
 
 const InvoiceApp = () => {
   const {
-    invoiceFormData,
-    setInvoiceFormData,
+    invoiceFormDataDirect,
     handleInputChange,
-    allInvoiceData,
+    addNewInvoiceItems,
     handleInvoiceSubmit,
     showPreviewComponent,
     handlePreviewData,
@@ -39,23 +37,8 @@ const InvoiceApp = () => {
   const btnRef = useRef();
   const smallScreenWidth = window.innerWidth < 700;
 
-  // Add extra invoice Data dynamically
-  const addNewInvoiceItems = () => {
-    setInvoiceFormData({
-      ...invoiceFormData,
-      itemContainer: [
-        ...invoiceFormData.itemContainer,
-        {
-          itemContent: "",
-          itemQty: "",
-          itemPrice: "",
-        },
-      ],
-    });
-  };
-
   // Const total from items price and quantity
-  const invoiceItemsTotal = invoiceFormData.itemContainer.reduce(
+  const invoiceItemsTotal = invoiceFormDataDirect.itemContainer.reduce(
     (acc, item) =>
       acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
     0
@@ -90,14 +73,14 @@ const InvoiceApp = () => {
               text="Date Created"
               nameOfDateInput="dateCreated"
               onHandleChange={handleInputChange}
-              valueofDateInput={invoiceFormData.dateCreated}
+              valueofDateInput={invoiceFormDataDirect.dateCreated}
             />
             <Spacer />
             <DateInput
               text="Date due"
               nameOfDateInput="dateDue"
               onHandleChange={handleInputChange}
-              valueOfDateInput={invoiceFormData.dateDue}
+              valueOfDateInput={invoiceFormDataDirect.dateDue}
             />
           </Flex>
 
@@ -111,10 +94,10 @@ const InvoiceApp = () => {
               formNameOfInvoiceFormEmail="billFromEmail"
               formNameOfInvoiceFormText="billFromName"
               formNameOfInvoiceFormNumber="billFromPhoneNumber"
-              valueOfInvoiceFormEmail={invoiceFormData.billFromEmail}
-              valueOfInvoiceFormText={invoiceFormData.billFromName}
+              valueOfInvoiceFormEmail={invoiceFormDataDirect.billFromEmail}
+              valueOfInvoiceFormText={invoiceFormDataDirect.billFromName}
               valueOfInvoiceFormPhoneNumber={
-                invoiceFormData.billFromPhoneNumber
+                invoiceFormDataDirect.billFromPhoneNumber
               }
               onHandleChange={handleInputChange}
             />
@@ -126,38 +109,31 @@ const InvoiceApp = () => {
               formNameOfInvoiceFormEmail="billToEmail"
               formNameOfInvoiceFormText="billToName"
               formNameOfInvoiceFormNumber="billToPhoneNumber"
-              valueOfInvoiceFormEmail={invoiceFormData.billToEmail}
-              valueOfInvoiceFormText={invoiceFormData.billToName}
-              valueOfInvoiceFormPhoneNumber={invoiceFormData.billToPhoneNumber}
+              valueOfInvoiceFormEmail={invoiceFormDataDirect.billToEmail}
+              valueOfInvoiceFormText={invoiceFormDataDirect.billToName}
+              valueOfInvoiceFormPhoneNumber={
+                invoiceFormDataDirect.billToPhoneNumber
+              }
               onHandleChange={handleInputChange}
             />
           </Box>
-          {/* InvoiceForm Bank account details from and to input rendering with name, phone number and email with data gotten from the useGlobalContext from useContext. 
-      
-      Also passing the data via props to InvoiceForm component*/}
+
+          {/* Data gotten from the useGlobalContext from useContext. Also passing the data via props to InvoiceForm component*/}
           <Box>
             <InvoiceBankDetails
               formNameOfInvoiceFormBankName="bankName"
               formNameOfInvoiceFormBankAccount="bankAccount"
               formNameOfInvoiceFormAccountName="accountName"
-              valueOfInvoiceFormBankName={invoiceFormData.bankName}
-              valueOfInvoiceFormAccountName={invoiceFormData.accountName}
-              valueOfInvoiceFormBankAccount={invoiceFormData.bankAccount}
+              valueOfInvoiceFormBankName={invoiceFormDataDirect.bankName}
+              valueOfInvoiceFormAccountName={invoiceFormDataDirect.accountName}
+              valueOfInvoiceFormBankAccount={invoiceFormDataDirect.bankAccount}
               onHandleChange={handleInputChange}
             />
           </Box>
 
-          {/* InvoiceItems rendering with data gotten from useContext - invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
+          {/* InvoiceItems rendering with data gotten from useContext - invoiceFormDataDirect variable. Plus passing the data via to the InvoiceItems component*/}
           <section>
-            {invoiceFormData.itemContainer.map((item, index) => {
-              // const formItemsTotal = invoiceFormData.itemContainer.reduce(
-              //   (acc, item) =>
-              //     acc +
-              //     parseFloat(item.itemQty || 0) *
-              //       parseFloat(item.itemPrice || 0),
-              //   0
-              // );
-              // setInvoiceItemsTotal(formItemsTotal);
+            {invoiceFormDataDirect.itemContainer.map((item, index) => {
               return (
                 <InvoiceItems
                   key={index}

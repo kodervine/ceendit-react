@@ -1,4 +1,5 @@
-export const initialInvoiceFormData = {
+// Define the initial state outside the component
+export const INVOICE_INITIAL_STATE = {
   dateCreated: "",
   dateDue: "",
   billFromEmail: "",
@@ -18,144 +19,73 @@ export const initialInvoiceFormData = {
     },
   ],
 };
-
+// Define the reducer function to handle state updates
 export const invoiceFormReducer = (state, action) => {
   switch (action.type) {
-    case "UPDATE_DATE_CREATED":
-      return { ...state, dateCreated: action.payload };
-    case "UPDATE_DATE_DUE":
-      return { ...state, dateDue: action.payload };
-    case "UPDATE_BILL_FROM_EMAIL":
-      return { ...state, billFromEmail: action.payload };
-    case "UPDATE_BILL_FROM_NAME":
-      return { ...state, billFromName: action.payload };
-    case "UPDATE_BILL_FROM_PHONE_NUMBER":
-      return { ...state, billFromPhoneNumber: action.payload };
-    case "UPDATE_BILL_TO_EMAIL":
-      return { ...state, billToEmail: action.payload };
-    case "UPDATE_BILL_TO_NAME":
-      return { ...state, billToName: action.payload };
-    case "UPDATE_BILL_TO_PHONE_NUMBER":
-      return { ...state, billToPhoneNumber: action.payload };
-    case "UPDATE_BANK_NAME":
-      return { ...state, bankName: action.payload };
-    case "UPDATE_ACCOUNT_NAME":
-      return { ...state, accountName: action.payload };
-    case "UPDATE_BANK_ACCOUNT":
-      return { ...state, bankAccount: action.payload };
-    case "ADD_ITEM_CONTAINER":
+    case "UPDATE_INVOICE_FORM_DATA":
+      const { name, value } = action.payload;
+      console.log("name: ", name);
+      let index, field;
+      if (name.includes("itemContainer")) {
+        [index, field] = name.split(".").slice(-2);
+        index = parseInt(index);
+        console.log(state);
+        if (index >= 0 && index < state.invoiceFormData.itemContainer.length) {
+          const newItemContainer = [...state.invoiceFormData.itemContainer];
+          newItemContainer[index][field] = value;
+          return {
+            ...state,
+            invoiceFormData: {
+              ...state.invoiceFormData,
+              itemContainer: newItemContainer,
+            },
+          };
+        }
+      } else {
+        return {
+          ...state,
+          invoiceFormData: {
+            ...state.invoiceFormData,
+            [name]: value,
+          },
+        };
+      }
+
+    case "ADD_ITEM_CONTAINER_ITEMS":
       return {
         ...state,
-        itemContainer: [...state.itemContainer, action.payload],
+        invoiceFormData: {
+          ...state.invoiceFormData,
+          itemContainer: [
+            ...state.invoiceFormData.itemContainer,
+            {
+              itemContent: "",
+              itemQty: "",
+              itemPrice: "",
+            },
+          ],
+        },
       };
-    case "UPDATE_ITEM_CONTAINER":
+
+    case "SUBMIT_INVOICE_FORM_DATA":
+      const { invoiceFormData } = state;
       return {
         ...state,
-        itemContainer: state.itemContainer.map((item, index) =>
-          index === action.payload.index
-            ? { ...item, [action.payload.field]: action.payload.value }
-            : item
-        ),
+        invoiceFormData: initialInvoiceState.invoiceFormData,
+        allInvoiceData: [...state.allInvoiceData, invoiceFormData],
       };
-    // Submit invoice data to firebase
-    case "updateField":
+
+    case "UPDATE_ALL_INVOICE_DATA":
       return {
         ...state,
-        [action.field]: action.value,
+        allInvoiceData: action.payload,
       };
-    case "addItem":
-      return {
-        ...state,
-        itemContainer: [
-          ...state.itemContainer,
-          { itemContent: "", itemQty: "", itemPrice: "" },
-        ],
-      };
-    case "updateItemField":
-      return {
-        ...state,
-        itemContainer: state.itemContainer.map((item, index) =>
-          index === action.itemIndex
-            ? {
-                ...item,
-                [action.field]: action.value,
-              }
-            : item
-        ),
-      };
+    case "RESET_INVOICE_FORM":
+      return action.payload;
+
     case "ERROR":
-      throw new Error();
+      throw new Error(`Unhandled action type: ${action.type}`);
     default:
       return state;
   }
 };
-
-// const [invoiceFormData, dispatch] = useReducer(invoiceFormReducer, initialState);
-
-// const handleInvoiceSubmit = async (e) => {
-//   e.preventDefault();
-//   const checkEmptyInput = Object.values(invoiceFormData);
-//   if (checkEmptyInput.some((input) => !input)) {
-//     alert("please fill out all fields");
-//     return;
-//   }
-
-//   setFirebaseAllInvoiceArray((prevdata) => {
-//     return [...prevdata, invoiceFormData];
-//   });
-//   console.log(firebaseAllInvoiceArray);
-
-//   // Save to firestore and fetch the updated data from function below
-//   handleUpdateDataInFirebase(firebaseAllInvoiceArray);
-//   // from function above
-//   fetchInvoiceData();
-//   setShowAllInvoice(true);
-//   dispatch({
-//     type: "reset",
-//   });
-// };
-
-// function invoiceReducer(state, action) {
-//   switch (action.type) {
-//     case 'UPDATE_FORM_DATA':
-//       return { ...state, ...action.payload };
-//     case 'RESET_FORM_DATA':
-//       return initialState;
-//     default:
-//       throw new Error(`Unhandled action type: ${action.type}`);
-//   }
-// }
-
-// function InvoiceForm() {
-//   const [invoiceFormData, dispatch] = useReducer(invoiceReducer, initialState);
-
-//   const handleInvoiceSubmit = async (e) => {
-//     e.preventDefault();
-//     const checkEmptyInput = Object.values(invoiceFormData);
-//     if (checkEmptyInput.some((input) => !input)) {
-//       alert('please fill out all fields');
-//       return;
-//     }
-
-//     // Save to firestore and fetch the updated data from function below
-//     handleUpdateDataInFirebase(invoiceFormData);
-//     // from function above
-//     fetchInvoiceData();
-
-//     dispatch({ type: 'RESET_FORM_DATA' });
-//   };
-
-//   const handleInputChange = (e) => {
-//     const { name, value } = e.target;
-//     dispatch({
-//       type: 'UPDATE_FORM_DATA',
-//       payload: { [name]: value },
-//     });
-//   };
-
-//   return (
-//     <form onSubmit={handleInvoiceSubmit}>
-//       {/* render your form inputs with handleInputChange */}
-//     </form>
-//   );
-// }
