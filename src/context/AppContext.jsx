@@ -170,7 +170,6 @@ const AppProvider = ({ children }) => {
       payload: { deleteindex },
     });
     handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
-    fetchInvoiceData();
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
