@@ -67,7 +67,7 @@ const AppProvider = ({ children }) => {
           if (userInfoInFirebase.uid == userInitState.currentUser.uid) {
             const newInvoiceData = document.data().invoiceData;
             formDispatch({
-              type: "UPDATE_ALL_INVOICE_DATA",
+              type: "FETCH_FIREBASE_INVOICE_DATA",
               payload: newInvoiceData,
             });
             userInitState.userUpdated;
@@ -95,7 +95,7 @@ const AppProvider = ({ children }) => {
     setShowPreviewComponent(true);
   };
 
-  // Add extra invoice Data dynamically
+  // Handle that extra invoice Data items by creating new objects dynamically
   const addNewInvoiceItems = () => {
     formDispatch({ type: "ADD_ITEM_CONTAINER_DATA" });
   };
@@ -118,9 +118,6 @@ const AppProvider = ({ children }) => {
   };
 
   // Handles each invoice submit and pushes it to be stored in firestore
-  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] = useState(
-    invoiceFormState.allInvoiceData
-  );
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormDataDirect);
@@ -129,12 +126,14 @@ const AppProvider = ({ children }) => {
       return;
     }
 
-    setFirebaseAllInvoiceArray((prevdata) => {
-      return [...prevdata, invoiceFormDataDirect];
+    // Add new invoice to the array in the state
+    formDispatch({
+      type: "SUBMIT_INVOICE_FORM_DATA",
+      payload: invoiceFormState.invoiceFormData,
     });
 
     // Save to firestore and fetch the updated data from function below
-    handleUpdateDataInFirebase(firebaseAllInvoiceArray);
+    handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
     // from function above
     fetchInvoiceData();
     setShowAllInvoice(true);

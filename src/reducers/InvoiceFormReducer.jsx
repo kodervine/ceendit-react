@@ -67,14 +67,13 @@ export const invoiceFormReducer = (state, action) => {
       };
 
     case "SUBMIT_INVOICE_FORM_DATA":
-      const { invoiceFormData } = state;
+      console.log(state.allInvoiceData, state.invoiceFormData);
       return {
         ...state,
-        invoiceFormData: initialInvoiceState.invoiceFormData,
-        allInvoiceData: [...state.allInvoiceData, invoiceFormData],
+        allInvoiceData: state.allInvoiceData.push(action.payload),
       };
 
-    case "UPDATE_ALL_INVOICE_DATA":
+    case "FETCH_FIREBASE_INVOICE_DATA":
       return {
         ...state,
         allInvoiceData: action.payload,
