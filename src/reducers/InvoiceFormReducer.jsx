@@ -51,7 +51,7 @@ export const invoiceFormReducer = (state, action) => {
         };
       }
 
-    case "ADD_ITEM_CONTAINER_ITEMS":
+    case "ADD_ITEM_CONTAINER_DATA":
       return {
         ...state,
         invoiceFormData: {
@@ -80,6 +80,19 @@ export const invoiceFormReducer = (state, action) => {
         ...state,
         allInvoiceData: action.payload,
       };
+
+    case "DELETE_INVOICE":
+      const { deleteindex } = action.payload;
+      const updateDeletedArray = state.allInvoiceData.filter((item, i) => {
+        console.log(i, deleteindex);
+        return i !== deleteindex;
+      });
+      console.log(updateDeletedArray);
+      return {
+        ...state,
+        allInvoiceData: updateDeletedArray,
+      };
+
     case "RESET_INVOICE_FORM":
       return action.payload;
 

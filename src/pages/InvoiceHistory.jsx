@@ -35,12 +35,8 @@ const InvoiceHistory = () => {
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
   // javascript
-  const {
-    allInvoiceDataDirect,
-    handlePrint,
-    handleNavigateUser,
-    EachDownloadRef,
-  } = useGlobalContext();
+  const { invoiceFormState, handlePrint, handleNavigateUser, EachDownloadRef } =
+    useGlobalContext();
 
   return (
     <Box>
@@ -51,7 +47,7 @@ const InvoiceHistory = () => {
         {!smallScreenWidth && <Sidebar />}
         {/* Data from context.jsx. Basically, array of the invoiceData field in firebase */}
         <Box width="100%">
-          {allInvoiceDataDirect.map((invoiceFirestore, index) => {
+          {invoiceFormState.allInvoiceData.map((invoiceFirestore, index) => {
             return (
               <Stack
                 key={nanoid()}

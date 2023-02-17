@@ -58,7 +58,6 @@ const AppProvider = ({ children }) => {
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
   // Save all the invoices for the invoiceHistory page and get data from firebase store
-
   const fetchInvoiceData = async () => {
     if (userInitState.userUpdated) {
       try {
@@ -90,7 +89,6 @@ const AppProvider = ({ children }) => {
   // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    console.log(name);
     formDispatch({
       type: "UPDATE_INVOICE_FORM_DATA",
       payload: { name, value },
@@ -100,10 +98,10 @@ const AppProvider = ({ children }) => {
 
   // Add extra invoice Data dynamically
   const addNewInvoiceItems = () => {
-    formDispatch({ type: "ADD_ITEM_CONTAINER_ITEMS" });
+    formDispatch({ type: "ADD_ITEM_CONTAINER_DATA" });
   };
 
-  // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
+  // FormPreview function - If it evealuated to true, it renders the FormPreview Page on the App.js
   const handlePreviewData = () => {
     const checkEmptyInput = Object.values(invoiceFormDataDirect);
     if (checkEmptyInput.some((input) => !input)) {
@@ -134,7 +132,6 @@ const AppProvider = ({ children }) => {
     setFirebaseAllInvoiceArray((prevdata) => {
       return [...prevdata, invoiceFormDataDirect];
     });
-    console.log(firebaseAllInvoiceArray);
 
     // Save to firestore and fetch the updated data from function below
     handleUpdateDataInFirebase(firebaseAllInvoiceArray);
@@ -144,7 +141,7 @@ const AppProvider = ({ children }) => {
     handleInvoiceFormReset();
   };
 
-  // General update the invoiceData fieldset in firebase. Accepts parameter of the updates invoices to update
+  // General update the invoiceData fieldset in firebase. Accepts parameter of the updated invoices to update
   const handleUpdateDataInFirebase = async (updatedInvoice) => {
     try {
       const q = query(collection(db, "users"));
@@ -152,7 +149,7 @@ const AppProvider = ({ children }) => {
       querySnapshot.forEach((document) => {
         const userInfoInFirebase = document.data();
 
-        // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
+        // Important for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         // current user Id is gotten from the onAuthChanged state above.
         if (userInfoInFirebase.uid == userInitState.currentUser.uid) {
@@ -167,17 +164,15 @@ const AppProvider = ({ children }) => {
     fetchInvoiceData();
   };
 
-  // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
-  const handleDeleteInvoice = (index) => {
-    const updateDeletedArray = allInvoiceDataDirect.filter((item, i) => {
-      console.log(i, index);
-      return i !== index;
+  // Sent this to DeleteInvoice component and InvoiceHistory page.
+  const handleDeleteInvoice = (deleteindex) => {
+    formDispatch({
+      type: "DELETE_INVOICE",
+      payload: { deleteindex },
     });
 
-    // setAllInvoiceData(updateDeletedArray);
-    // console.log(updateDeletedArray);
-    // handleUpdateDataInFirebase(updateDeletedArray);
-    // console.log(allInvoiceData);
+    handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
+    console.log(allInvoiceDataDirect);
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
