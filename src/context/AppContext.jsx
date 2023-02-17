@@ -52,7 +52,6 @@ const AppProvider = ({ children }) => {
 
   // Combined variables to get reducer form proper
   const invoiceFormDataDirect = invoiceFormState.invoiceFormData;
-  const allInvoiceDataDirect = invoiceFormState.allInvoiceData;
 
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
@@ -119,8 +118,9 @@ const AppProvider = ({ children }) => {
   };
 
   // Handles each invoice submit and pushes it to be stored in firestore
-  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] =
-    useState(allInvoiceDataDirect);
+  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] = useState(
+    invoiceFormState.allInvoiceData
+  );
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormDataDirect);
@@ -170,9 +170,8 @@ const AppProvider = ({ children }) => {
       type: "DELETE_INVOICE",
       payload: { deleteindex },
     });
-
     handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
-    console.log(allInvoiceDataDirect);
+    fetchInvoiceData();
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
@@ -226,7 +225,6 @@ const AppProvider = ({ children }) => {
         invoiceFormState,
         invoiceFormDataDirect,
         handleInputChange,
-        allInvoiceDataDirect,
         addNewInvoiceItems,
         handleInvoiceSubmit,
         handleDeleteInvoice,

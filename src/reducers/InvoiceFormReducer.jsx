@@ -24,12 +24,11 @@ export const invoiceFormReducer = (state, action) => {
   switch (action.type) {
     case "UPDATE_INVOICE_FORM_DATA":
       const { name, value } = action.payload;
-      console.log("name: ", name);
       let index, field;
       if (name.includes("itemContainer")) {
         [index, field] = name.split(".").slice(-2);
         index = parseInt(index);
-        console.log(state);
+
         if (index >= 0 && index < state.invoiceFormData.itemContainer.length) {
           const newItemContainer = [...state.invoiceFormData.itemContainer];
           newItemContainer[index][field] = value;
@@ -83,11 +82,9 @@ export const invoiceFormReducer = (state, action) => {
 
     case "DELETE_INVOICE":
       const { deleteindex } = action.payload;
-      const updateDeletedArray = state.allInvoiceData.filter((item, i) => {
-        console.log(i, deleteindex);
-        return i !== deleteindex;
-      });
-      console.log(updateDeletedArray);
+      const updateDeletedArray = state.allInvoiceData.filter(
+        (item, i) => i !== deleteindex
+      );
       return {
         ...state,
         allInvoiceData: updateDeletedArray,
