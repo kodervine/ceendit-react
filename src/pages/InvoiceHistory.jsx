@@ -35,8 +35,12 @@ const InvoiceHistory = () => {
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
   // javascript
-  const { allInvoiceData, handlePrint, handleNavigateUser, EachDownloadRef } =
-    useGlobalContext();
+  const {
+    allInvoiceDataDirect,
+    handlePrint,
+    handleNavigateUser,
+    EachDownloadRef,
+  } = useGlobalContext();
 
   return (
     <Box>
@@ -47,7 +51,7 @@ const InvoiceHistory = () => {
         {!smallScreenWidth && <Sidebar />}
         {/* Data from context.jsx. Basically, array of the invoiceData field in firebase */}
         <Box width="100%">
-          {allInvoiceData.map((invoiceFirestore, index) => {
+          {allInvoiceDataDirect.map((invoiceFirestore, index) => {
             return (
               <Stack
                 key={nanoid()}
@@ -175,7 +179,7 @@ const InvoiceHistory = () => {
                 </TableContainer>
 
                 {/* Buttons  */}
-                <Flex direction={smallScreenWidth ? "column" : "row"} gap="4">
+                <Flex direction={smallScreenWidth ? "column" : "row"}>
                   <Button
                     onClick={() => handlePrint(invoiceFirestore, index)}
                     colorScheme="blue"
@@ -189,6 +193,7 @@ const InvoiceHistory = () => {
                     onClick={() => {
                       handleNavigateUser(`/share-invoice/${index}`);
                     }}
+                    marginLeft={smallScreenWidth ? "0" : "12px"}
                     colorScheme="blue"
                     mt="10px"
                     width={smallScreenWidth ? "100%" : "auto"}
@@ -210,11 +215,3 @@ const InvoiceHistory = () => {
 };
 
 export default InvoiceHistory;
-
-// The data for the invoices is obtained from a state called "allInvoiceData" in the context.jsx file.
-
-// The "Invoice History" page also has a drawer component and a navigation bar. The drawer component is used to display additional information when opened and the navigation bar provides navigation to other pages in the app.
-
-// Each invoice is mapped over and its details are displayed using a Stack component. Some of the data for each invoice, such as the invoice number, is dynamically generated using a unique key from the "nanoid" library and the index of the mapped over array.
-
-// The "Invoice History" page has functionalities for printing invoices and downloading invoices as PDF files. The print function is triggered using the "handlePrint" function from the context, and the download function uses "EachDownloadRef".

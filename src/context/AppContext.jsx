@@ -52,12 +52,13 @@ const AppProvider = ({ children }) => {
 
   // Combined variables to get reducer form proper
   const invoiceFormDataDirect = invoiceFormState.invoiceFormData;
+  const allInvoiceDataDirect = invoiceFormState.allInvoiceData;
 
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
   // Save all the invoices for the invoiceHistory page and get data from firebase store
-  const [allInvoiceData, setAllInvoiceData] = useState([]);
+
   const fetchInvoiceData = async () => {
     if (userInitState.userUpdated) {
       try {
@@ -121,7 +122,7 @@ const AppProvider = ({ children }) => {
 
   // Handles each invoice submit and pushes it to be stored in firestore
   const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] =
-    useState(allInvoiceData);
+    useState(allInvoiceDataDirect);
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
     const checkEmptyInput = Object.values(invoiceFormDataDirect);
@@ -168,15 +169,15 @@ const AppProvider = ({ children }) => {
 
   // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (index) => {
-    const updateDeletedArray = allInvoiceData.filter((item, i) => {
+    const updateDeletedArray = allInvoiceDataDirect.filter((item, i) => {
       console.log(i, index);
       return i !== index;
     });
 
-    setAllInvoiceData(updateDeletedArray);
-    console.log(updateDeletedArray);
-    handleUpdateDataInFirebase(updateDeletedArray);
-    console.log(allInvoiceData);
+    // setAllInvoiceData(updateDeletedArray);
+    // console.log(updateDeletedArray);
+    // handleUpdateDataInFirebase(updateDeletedArray);
+    // console.log(allInvoiceData);
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
@@ -230,8 +231,7 @@ const AppProvider = ({ children }) => {
         invoiceFormState,
         invoiceFormDataDirect,
         handleInputChange,
-        allInvoiceData,
-        setAllInvoiceData,
+        allInvoiceDataDirect,
         addNewInvoiceItems,
         handleInvoiceSubmit,
         handleDeleteInvoice,
