@@ -1,13 +1,14 @@
 import { HiUsers, HiViewGrid } from "react-icons/hi";
 import { GoHome, GoSignOut } from "react-icons/go";
 import { FaFileInvoiceDollar, FaUserCheck } from "react-icons/fa";
-import { MdPreview } from "react-icons/md";
+import { MdPreview, MdMobileScreenShare } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
+import { BsFillPersonPlusFill } from "react-icons/bs";
 
-export const sidebarData = [
+export const linksData = [
   {
-    title: "Home",
-    links: [
+    title: "Overview",
+    linkItems: [
       {
         name: "Dashboard",
         icon: <GoHome />,
@@ -29,14 +30,25 @@ export const sidebarData = [
         link: "/invoice-history",
       },
       {
+        name: "Share Invoice",
+        icon: <MdMobileScreenShare />,
+        link: "/share-invoice",
+      },
+      {
         name: "My clients",
         icon: <HiUsers />,
+        link: "/my-clients",
       },
+      // {
+      //   name: "One client",
+      //   icon: <BsFillPersonPlusFill />,
+      //   link: "/client",
+      // },
     ],
   },
   {
     title: "Others",
-    links: [
+    linkItems: [
       {
         name: "Settings",
         icon: <AiOutlineSetting />,
@@ -44,10 +56,6 @@ export const sidebarData = [
       {
         name: "Subscription",
         icon: <FaUserCheck />,
-      },
-      {
-        name: "Log out",
-        icon: <GoSignOut />,
       },
     ],
   },

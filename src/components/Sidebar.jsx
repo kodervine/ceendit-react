@@ -1,5 +1,5 @@
 import React from "react";
-import { sidebarData } from "../data";
+import { linksData } from "../data";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
@@ -8,8 +8,8 @@ const Sidebar = () => {
   const midScreenWidth = window.innerWidth < 1000;
   return (
     <Flex direction="column" boxShadow="2xl" paddingLeft="10px" height="100vh">
-      {sidebarData.map((menuItems) => {
-        const { title, links } = menuItems;
+      {linksData.map((menuItems) => {
+        const { title, linkItems } = menuItems;
         return (
           <Box key={nanoid()} width={midScreenWidth ? "200px" : "283px"}>
             <Heading
@@ -21,7 +21,7 @@ const Sidebar = () => {
             >
               {title}
             </Heading>
-            {links.map((item) => {
+            {linkItems?.map((item) => {
               const { name, icon, link } = item;
               return (
                 <Flex

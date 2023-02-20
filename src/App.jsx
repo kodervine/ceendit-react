@@ -14,10 +14,12 @@ import ProtectedRoutes from "./utils/ProtectedRoutes";
 import Dashboard from "./pages/Dashboard";
 import AllClientsPage from "./components/clientsComponents/AllClientsPage";
 import ClientPage from "./pages/ClientPage";
+import ShareInvoicePage from "./pages/ShareInvoicePage";
 
 function App() {
   // For form preview
-  const { showPreviewComponent, showAllInvoice } = useGlobalContext();
+  const { showPreviewComponent, showAllInvoice, userInitState } =
+    useGlobalContext();
 
   return (
     <Box>
@@ -39,7 +41,18 @@ function App() {
             element={showPreviewComponent ? <FormPreview /> : <Error />}
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
+          {userInitState.currentUser && (
+            <Route
+              path={`/invoices/${userInitState.currentUser.displayName}`}
+              element={<ShareInvoicePage />}
+            >
+              <Route
+                path={`/invoices/${userInitState.currentUser.displayName}/:id`}
+              />
+            </Route>
+          )}
         </Route>
+        {/* <Route path="/invoices/:id" component={ShareInvoicePage} /> */}
         <Route path="*" element={<Error />} />
       </Routes>
     </Box>

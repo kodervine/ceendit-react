@@ -1,9 +1,23 @@
-import React, { useContext, useState, useEffect, useRef } from "react";
+import React, {
+  useContext,
+  useState,
+  useEffect,
+  useRef,
+  useReducer,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import jsPDF from "jspdf";
 import { collection, getDocs, query, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
+import {
+  USER_INITIAL_STATE,
+  authUserReducer,
+} from "../reducers/AuthUserReducer";
+import {
+  INVOICE_INITIAL_STATE,
+  invoiceFormReducer,
+} from "../reducers/InvoiceFormReducer";
 
 const AppContext = React.createContext();
 const AppProvider = ({ children }) => {
@@ -13,60 +27,50 @@ const AppProvider = ({ children }) => {
   };
 
   // Know the current user on the site to be used to fetch the invoicedata from firestore subsequently
-  const [currentUser, setCurrentUser] = useState("");
-  const [userUpdated, setUserUpdated] = useState(false);
+  const [userInitState, authDispatch] = useReducer(
+    authUserReducer,
+    USER_INITIAL_STATE
+  );
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log(`note: user, ${user.email} is signed in`);
-        setCurrentUser(user);
-        setUserUpdated(true);
-        localStorage.setItem("isUserSignedIn", true);
+        authDispatch({ type: "USER_LOGGED_IN", payload: user });
+        console.log(`user ${user.email} is logged in`);
       } else {
-        console.log("note: user is signed out");
-        setUserUpdated(false);
-        localStorage.removeItem("isUserSignedIn");
+        console.log("user logged out");
+        authDispatch({ type: "USER_LOGGED_OUT", payload: user });
       }
     });
-  }, [auth, currentUser]);
+  }, [auth, userInitState.currentUser]);
 
   // Form data to be updated to be previewed, and concanated to the state pushed to firestore
-  const [invoiceFormData, setInvoiceFormData] = useState({
-    dateCreated: "",
-    dateDue: "",
-    billFromEmail: "",
-    billFromName: "",
-    billFromPhoneNumber: "",
-    billToEmail: "",
-    billToName: "",
-    billToPhoneNumber: "",
-    bankName: "",
-    accountName: "",
-    bankAccount: "",
-    itemContainer: [
-      {
-        itemContent: "",
-        itemQty: "",
-        itemPrice: "",
-      },
-    ],
+  const [invoiceFormState, formDispatch] = useReducer(invoiceFormReducer, {
+    invoiceFormData: INVOICE_INITIAL_STATE,
+    allInvoiceData: [],
   });
+
+  // Combined variables to get reducer form proper
+  const invoiceFormDataDirect = invoiceFormState.invoiceFormData;
+
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
   // Save all the invoices for the invoiceHistory page and get data from firebase store
-  const [allInvoiceData, setAllInvoiceData] = useState([]);
   const fetchInvoiceData = async () => {
-    if (userUpdated) {
+    if (userInitState.userUpdated) {
       try {
         const q = query(collection(db, "users"));
         const querySnapshot = await getDocs(q);
         querySnapshot.forEach((document) => {
           const userInfoInFirebase = document.data();
-          if (userInfoInFirebase.uid == currentUser.uid) {
+          if (userInfoInFirebase.uid == userInitState.currentUser.uid) {
             const newInvoiceData = document.data().invoiceData;
-            setAllInvoiceData(newInvoiceData);
-            setUserUpdated(true);
+            formDispatch({
+              type: "FETCH_FIREBASE_INVOICE_DATA",
+              payload: newInvoiceData,
+            });
+            userInitState.userUpdated;
           }
         });
       } catch (e) {
@@ -76,96 +80,67 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (currentUser) {
+    if (userInitState.currentUser) {
       fetchInvoiceData();
     }
-  }, [currentUser]);
+  }, [userInitState.currentUser]);
 
   // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    let index, field;
-
-    if (name.includes("itemContainer")) {
-      [index, field] = name.split(".").slice(-2);
-      index = parseInt(index);
-      if (index >= 0 && index < invoiceFormData.itemContainer.length) {
-        setInvoiceFormData((prevState) => {
-          const newItemContainer = [...prevState.itemContainer];
-          newItemContainer[index][field] = value;
-          return {
-            ...prevState,
-            itemContainer: newItemContainer,
-          };
-        });
-      }
-    } else {
-      setInvoiceFormData((prevState) => {
-        return {
-          ...prevState,
-          [name]: value,
-        };
-      });
-    }
+    formDispatch({
+      type: "UPDATE_INVOICE_FORM_DATA",
+      payload: { name, value },
+    });
     setShowPreviewComponent(true);
   };
 
-  // FormPreview function - Checks if any of the input is empty. If not, setShowPreviewComponent to false. If it evealuated to true, it renders the FormPreview Page on the App.js
+  // Handle that extra invoice Data items by creating new objects dynamically
+  const addNewInvoiceItems = () => {
+    formDispatch({ type: "ADD_ITEM_CONTAINER_DATA" });
+  };
+
+  // FormPreview function - If it evealuated to true, it renders the FormPreview Page on the App.js
   const handlePreviewData = () => {
-    const checkEmptyInput = Object.values(invoiceFormData);
+    const checkEmptyInput = Object.values(invoiceFormDataDirect);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
     }
+  };
+
+  // Handle form reset from InvoiceFormReducer
+  const handleInvoiceFormReset = () => {
+    formDispatch({
+      type: "RESET_FORM",
+      payload: INVOICE_INITIAL_STATE,
+    });
   };
 
   // Handles each invoice submit and pushes it to be stored in firestore
-  const [firebaseAllInvoiceArray, setFirebaseAllInvoiceArray] =
-    useState(allInvoiceData);
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
-    const checkEmptyInput = Object.values(invoiceFormData);
+    const checkEmptyInput = Object.values(invoiceFormDataDirect);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
     }
 
-    setFirebaseAllInvoiceArray((prevdata) => {
-      return [...prevdata, invoiceFormData];
+    // Add new invoice to the array in the state
+    formDispatch({
+      type: "SUBMIT_INVOICE_FORM_DATA",
+      payload: invoiceFormState.invoiceFormData,
     });
-    console.log(firebaseAllInvoiceArray);
 
     // Save to firestore and fetch the updated data from function below
-    handleUpdateDataInFirebase(firebaseAllInvoiceArray);
+    handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
     // from function above
     fetchInvoiceData();
     setShowAllInvoice(true);
-    setInvoiceFormData((data) => {
-      return {
-        ...data,
-        dateCreated: "",
-        dateDue: "",
-        billFromEmail: "",
-        billFromName: "",
-        billFromPhoneNumber: "",
-        billToEmail: "",
-        billToName: "",
-        billToPhoneNumber: "",
-        bankName: "",
-        accountName: "",
-        bankAccount: "",
-        itemContainer: [
-          {
-            itemContent: "",
-            itemQty: "",
-            itemPrice: "",
-          },
-        ],
-      };
-    });
+    handleInvoiceFormReset();
   };
 
-  // General update the invoiceData fieldset in firebase. Accepts parameter of the updates invoices to update
+  // General update the invoiceData fieldset in firebase. Accepts parameter of the updated invoices to update
   const handleUpdateDataInFirebase = async (updatedInvoice) => {
     try {
       const q = query(collection(db, "users"));
@@ -173,10 +148,10 @@ const AppProvider = ({ children }) => {
       querySnapshot.forEach((document) => {
         const userInfoInFirebase = document.data();
 
-        // Add to the existing fieldset in the firebase for each user - should be sent to the handlePreview though as it overwrites the current data there
+        // Important for each user - should be sent to the handlePreview though as it overwrites the current data there
         const userRef = doc(db, "users", document.id);
         // current user Id is gotten from the onAuthChanged state above.
-        if (userInfoInFirebase.uid == currentUser.uid) {
+        if (userInfoInFirebase.uid == userInitState.currentUser.uid) {
           updateDoc(userRef, {
             invoiceData: updatedInvoice,
           });
@@ -188,17 +163,13 @@ const AppProvider = ({ children }) => {
     fetchInvoiceData();
   };
 
-  // Deletes each invoice from firebase. Sent this to DeleteInvoice component and InvoiceHistory page.
-  const handleDeleteInvoice = (index) => {
-    const updateDeletedArray = allInvoiceData.filter((item, i) => {
-      console.log(i, index);
-      return i !== index;
+  // Sent this to DeleteInvoice component and InvoiceHistory page.
+  const handleDeleteInvoice = (deleteindex) => {
+    formDispatch({
+      type: "DELETE_INVOICE",
+      payload: { deleteindex },
     });
-
-    setAllInvoiceData(updateDeletedArray);
-    console.log(updateDeletedArray);
-    handleUpdateDataInFirebase(updateDeletedArray);
-    console.log(allInvoiceData);
+    handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
@@ -247,14 +218,12 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        currentUser,
-        userUpdated,
+        userInitState,
         handleNavigateUser,
-        invoiceFormData,
-        setInvoiceFormData,
+        invoiceFormState,
+        invoiceFormDataDirect,
         handleInputChange,
-        allInvoiceData,
-        setAllInvoiceData,
+        addNewInvoiceItems,
         handleInvoiceSubmit,
         handleDeleteInvoice,
         showAllInvoice,
@@ -278,39 +247,11 @@ export const useGlobalContext = () => {
 
 export { AppContext, AppProvider };
 
-/*
-context.jsx - This file serves as the state management of the application.
-It includes functionalities like getting the current user, setting up the form data,
-handling input change, handling form preview and submitting invoices to Firebase.
+// Comments
+// This is a React component that sets up a context provider to be used throughout an app. The provider holds several state values that affect various components in the app. It also has several helper functions that are used to manipulate this state.
 
-Imports:
-1. React - core library for building UI components
-2. jsPDF - a library for generating PDF documents
-3. Firebase functions - for connecting and performing CRUD operations on the database
+// The component uses a context API to create a context object and a context provider to wrap other components. The state of the app is managed using the useReducer hook, which takes a reducer function and an initial state. The reducer functions are defined in separate files and are imported as needed.
 
-AppContext & AppProvider:
-- creates the context object and a component that provides the context value
-- the context holds the following state values:
-* currentUserId & currentUser: holds the ID and user object of the current user
-* invoiceFormData: holds the data for the invoice form
-* showPreviewComponent: determines if the FormPreview component should be displayed
-* showAllInvoice: determines if the InvoiceHistory component should be displayed
-* allInvoiceData: holds all the invoice data retrieved from the database
+// The component fetches data from Firestore and uses the onAuthStateChanged method from the Firebase Authentication library to track user authentication status. It also has a helper function that generates a PDF invoice using the jspdf library.
 
-handleInputChange:
-- updates the invoiceFormData state with the values from the input fields
-
-handlePreviewData:
-- checks if all the input fields have values
-- if any field is empty, shows an alert message
-
-handleInvoiceSubmit:
-- prevents the default submit behavior
-- checks if all the input fields have values
-- if any field is empty, shows an alert message
-- adds the invoice data to Firebase and updates the allInvoiceData state
-- resets the invoiceFormData state
-
-fetchInvoiceData:
-- retrieves the invoice data from Firebase for the current user and updates the allInvoiceData state
-*/
+// The component also uses several other hooks such as useEffect, useState, and useRef to manage the state of the app and perform various side effects. Each helper function is used to perform a specific task, and they are all clearly named for their purposes.

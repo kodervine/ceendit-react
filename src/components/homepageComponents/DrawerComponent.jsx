@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useGlobalContext } from "../../context/AppContext";
+import { nanoid } from "nanoid";
 import {
   Drawer,
   DrawerBody,
@@ -10,11 +11,13 @@ import {
   DrawerCloseButton,
   Flex,
   Text,
+  Box,
 } from "@chakra-ui/react";
 import { logOutUser } from "../../firebase-config";
+import { linksData } from "../../data";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
-  const { currentUser, handleNavigateUser } = useGlobalContext();
+  const { userInitState, handleNavigateUser } = useGlobalContext();
   const loggingOutUser = () => {
     logOutUser();
     handleNavigateUser("signin");
@@ -36,15 +39,32 @@ const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
 
         <DrawerBody mb="4">
           <Flex flexDirection="column" gap="3">
-            {currentUser ? (
+            {userInitState.currentUser ? (
               <>
-                <Link to="/create-invoice">Create Invoice</Link>
-                <Link to="/form-preview">Form Preview</Link>
-                <Link to="/invoice-history">See all Invoice</Link>
+                {linksData.map((items) => {
+                  const { linkItems } = items;
+                  return linkItems?.map((links) => {
+                    const { name, link } = links;
+                    return (
+                      <Box
+                        py="1"
+                        pl="3"
+                        borderRadius="8px"
+                        _hover={{ bg: "blue.100" }}
+                        _active={{ bg: "blue.100" }}
+                        key={nanoid()}
+                      >
+                        <Link to={link}>{name}</Link>
+                      </Box>
+                    );
+                  });
+                })}
+
                 <Text
                   onClick={loggingOutUser}
                   cursor="pointer"
                   color="blue.500"
+                  pl="3"
                 >
                   Log out
                 </Text>
