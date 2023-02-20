@@ -36,9 +36,8 @@ const InvoiceHistory = () => {
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
 
-  // javascript
+  // from AppContext
   const { invoiceFormState, userInitState, handlePrint } = useGlobalContext();
-  const id = nanoid();
 
   return (
     <Box>

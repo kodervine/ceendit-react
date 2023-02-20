@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useGlobalContext } from "../context/AppContext";
 import {
   Box,
@@ -33,8 +33,9 @@ const ShareInvoicePage = () => {
 
   const { invoiceFormState, handlePreviewInvoicePdf } = useGlobalContext();
 
+  // Retrieve invoice data based on the id parameter in the URL. If the invoice does not exist, display an error message.
   const { id } = useParams();
-  const invoiceIndex = parseInt(id, 10); // Convert id to integer
+  const invoiceIndex = parseInt(id, 10); //
   const invoice = invoiceFormState.allInvoiceData.filter(
     (_, index) => index === invoiceIndex
   )[0];

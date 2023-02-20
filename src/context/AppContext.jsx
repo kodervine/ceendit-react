@@ -246,3 +246,12 @@ export const useGlobalContext = () => {
 };
 
 export { AppContext, AppProvider };
+
+// Comments
+// This is a React component that sets up a context provider to be used throughout an app. The provider holds several state values that affect various components in the app. It also has several helper functions that are used to manipulate this state.
+
+// The component uses a context API to create a context object and a context provider to wrap other components. The state of the app is managed using the useReducer hook, which takes a reducer function and an initial state. The reducer functions are defined in separate files and are imported as needed.
+
+// The component fetches data from Firestore and uses the onAuthStateChanged method from the Firebase Authentication library to track user authentication status. It also has a helper function that generates a PDF invoice using the jspdf library.
+
+// The component also uses several other hooks such as useEffect, useState, and useRef to manage the state of the app and perform various side effects. Each helper function is used to perform a specific task, and they are all clearly named for their purposes.
