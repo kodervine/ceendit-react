@@ -40,10 +40,11 @@ function App() {
             element={showPreviewComponent ? <FormPreview /> : <Error />}
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
-          <Route path="/share-invoice" element={<ShareInvoicePage />}>
-            <Route path=":index" />
+          <Route path="/invoices" element={<ShareInvoicePage />}>
+            <Route path=":id" />
           </Route>
         </Route>
+        {/* <Route path="/invoices/:id" component={ShareInvoicePage} /> */}
         <Route path="*" element={<Error />} />
       </Routes>
     </Box>

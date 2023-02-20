@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import logo from "../assets/logo.png";
+import { Link } from "react-router-dom";
 import {
   Box,
   Image,
@@ -97,7 +98,6 @@ const InvoiceHistory = () => {
                 </Box>
 
                 {/* Bank details */}
-                {/* Bank details */}
                 <TableContainer>
                   <Table variant="simple">
                     <Thead>
@@ -186,16 +186,13 @@ const InvoiceHistory = () => {
                     <Text>Download</Text>
                   </Button>
                   <Button
-                    onClick={() => {
-                      handleNavigateUser(`/share-invoice/${index}`);
-                    }}
                     marginLeft={smallScreenWidth ? "0" : "12px"}
                     colorScheme="blue"
                     mt="10px"
                     width={smallScreenWidth ? "100%" : "auto"}
                     maxW="960px"
                   >
-                    <Text>Share Invoice</Text>
+                    <Link to={`/invoices/${index}`}>Share invoice</Link>
                   </Button>
 
                   {/* same id from the map from firestore */}
