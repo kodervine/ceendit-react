@@ -35,9 +35,10 @@ const InvoiceHistory = () => {
 
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
+
   // javascript
-  const { invoiceFormState, handlePrint, handleNavigateUser, EachDownloadRef } =
-    useGlobalContext();
+  const { invoiceFormState, userInitState, handlePrint } = useGlobalContext();
+  const id = nanoid();
 
   return (
     <Box>
@@ -192,7 +193,11 @@ const InvoiceHistory = () => {
                     width={smallScreenWidth ? "100%" : "auto"}
                     maxW="960px"
                   >
-                    <Link to={`/invoices/${index}`}>Share invoice</Link>
+                    <Link
+                      to={`/invoices/${userInitState.currentUser.displayName}/${index}`}
+                    >
+                      Share invoice
+                    </Link>
                   </Button>
 
                   {/* same id from the map from firestore */}

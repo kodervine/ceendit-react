@@ -18,7 +18,8 @@ import ShareInvoicePage from "./pages/ShareInvoicePage";
 
 function App() {
   // For form preview
-  const { showPreviewComponent, showAllInvoice } = useGlobalContext();
+  const { showPreviewComponent, showAllInvoice, userInitState } =
+    useGlobalContext();
 
   return (
     <Box>
@@ -40,9 +41,16 @@ function App() {
             element={showPreviewComponent ? <FormPreview /> : <Error />}
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
-          <Route path="/invoices" element={<ShareInvoicePage />}>
-            <Route path=":id" />
-          </Route>
+          {userInitState.currentUser && (
+            <Route
+              path={`/invoices/${userInitState.currentUser.displayName}`}
+              element={<ShareInvoicePage />}
+            >
+              <Route
+                path={`/invoices/${userInitState.currentUser.displayName}/:id`}
+              />
+            </Route>
+          )}
         </Route>
         {/* <Route path="/invoices/:id" component={ShareInvoicePage} /> */}
         <Route path="*" element={<Error />} />
