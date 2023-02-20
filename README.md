@@ -37,9 +37,10 @@ Demo link - https://ceendit.netlify.app/
 - Protected Routes
 - Various form inputs
 - Error & validation
-- Download invoice as pdf files
+- Download invoice as pdf file
 - Preview Invoice page
 - View all Invoice page
+- Share Invoice as webpage
 - Delete Invoice
 
 ## Goals
