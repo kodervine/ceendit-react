@@ -1,26 +1,26 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import {
-  Image,
-  Text,
-  Flex,
-  Spacer,
   Box,
-  FormControl,
   Button,
-  useDisclosure,
+  Flex,
+  FormControl,
   Heading,
+  Image,
+  Spacer,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useGlobalContext } from "../context/AppContext";
-import logo from "../assets/logo.png";
-import DateInput from "../components/DateInput";
-import InvoiceForm from "../components/InvoiceForm";
-import InvoiceItems from "../components/InvoiceItems";
-import InvoiceBankDetails from "../components/InvoiceBankDetails";
-import Nav from "../components/homepageComponents/Nav";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
-import Sidebar from "../components/Sidebar";
-import { nanoid } from "nanoid";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+
+import logo from "@/assets/logo.png";
+import DateInput from "@/components/DateInput";
+import InvoiceBankDetails from "@/components/InvoiceBankDetails";
+import InvoiceForm from "@/components/InvoiceForm";
+import InvoiceItems from "@/components/InvoiceItems";
+import Sidebar from "@/components/Sidebar";
+import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
+import Nav from "@/components/homepageComponents/Nav";
+import { useGlobalContext } from "@/context/AppContext";
 
 const InvoiceApp = () => {
   const {

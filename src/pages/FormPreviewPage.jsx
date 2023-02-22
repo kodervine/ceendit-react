@@ -1,38 +1,39 @@
-import React, { useRef } from "react";
-import logo from "../assets/logo.png";
-import { nanoid } from "nanoid";
 import {
+  Box,
+  Button,
   Flex,
+  Heading,
   Image,
   Spacer,
-  Box,
   Stack,
-  Heading,
-  Text,
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   TableContainer,
-  Button,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
-import Nav from "../components/homepageComponents/Nav";
-import InvoiceToPdf from "../components/InvoiceToPdf";
-import { useGlobalContext } from "../context/AppContext";
-import Sidebar from "../components/Sidebar";
+import { nanoid } from "nanoid";
+import { useRef } from "react";
 
-const FormPreview = () => {
+import logo from "@/assets/logo.png";
+import InvoiceToPdf from "@/components/InvoiceToPdf";
+import Sidebar from "@/components/Sidebar";
+import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
+import Nav from "@/components/homepageComponents/Nav";
+import { useGlobalContext } from "@/context/AppContext";
+
+const FormPreviewPage = () => {
   // For drawer component
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
   const smallScreenWidth = window.innerWidth < 700;
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
 
   const {
     invoiceFormDataDirect,
@@ -157,7 +158,7 @@ const FormPreview = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {invoiceFormDataDirect.itemContainer.map((item, index) => {
+                {invoiceFormDataDirect.itemContainer.map((item) => {
                   return (
                     <Tr key={nanoid()}>
                       <Td>{item.itemContent}</Td>
@@ -196,4 +197,4 @@ const FormPreview = () => {
   );
 };
 
-export default FormPreview;
+export default FormPreviewPage;

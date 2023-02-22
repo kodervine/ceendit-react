@@ -1,25 +1,26 @@
-import { useState } from "react";
-import { useAuthUserContext } from "../context/UserContext";
-import {
-  Text,
-  Flex,
-  Heading,
-  Input,
-  Button,
-  IconButton,
-  InputGroup,
-  Stack,
-  InputLeftElement,
-  chakra,
-  Box,
-  Link,
-  Avatar,
-  FormControl,
-  useColorMode,
-  InputRightElement,
-} from "@chakra-ui/react";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import {
+  Avatar,
+  Box,
+  Button,
+  Flex,
+  FormControl,
+  Heading,
+  IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Link,
+  Stack,
+  Text,
+  chakra,
+  useColorMode,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { FaLock, FaUserAlt } from "react-icons/fa";
+
+import { useAuthUserContext } from "@/context/UserContext";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
@@ -145,10 +146,3 @@ const SignUpPage = () => {
 };
 
 export default SignUpPage;
-
-// What this page does
-// The component uses the state hook useState to keep track of whether the password input should show the password or hide it. The component also uses the React Router DOM navigate hook to navigate the user after successful sign-up.
-
-// The form has two inputs: email and password, with email and password change handlers. Upon submit, the form data is passed to the handleCreateUserWithEmailAndPassword function from Firebase, which creates the user and logs them in. The user is then navigated to the "create-invoice" page.
-
-// There is also a secondary sign-up option using Google by clicking the "Click here" link, which invokes the signInWithGoogle function from Firebase.

@@ -1,31 +1,32 @@
-import React, { useRef } from "react";
-import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
 import {
   Box,
-  Image,
   Button,
-  Stack,
-  Heading,
   Flex,
+  Heading,
+  Image,
   Spacer,
-  Text,
+  Stack,
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
-import { useGlobalContext } from "../context/AppContext";
-import Sidebar from "../components/Sidebar";
-import DeleteInvoice from "../components/DeleteInvoice";
-import Nav from "../components/homepageComponents/Nav";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+
+import logo from "@/assets/logo.png";
+import DeleteInvoice from "@/components/DeleteInvoice";
+import Sidebar from "@/components/Sidebar";
+import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
+import Nav from "@/components/homepageComponents/Nav";
+import { useGlobalContext } from "@/context/AppContext";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistory = () => {

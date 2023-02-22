@@ -1,28 +1,29 @@
-import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
-import { useGlobalContext } from "../context/AppContext";
 import {
   Box,
   Button,
-  Stack,
-  Heading,
   Flex,
+  Heading,
   Spacer,
-  Text,
+  Stack,
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
-import Nav from "../components/homepageComponents/Nav";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
-import Sidebar from "../components/Sidebar";
 import { nanoid } from "nanoid";
+import { useRef } from "react";
+import { useParams } from "react-router-dom";
+
+import Sidebar from "@/components/Sidebar";
+import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
+import Nav from "@/components/homepageComponents/Nav";
+import { useGlobalContext } from "@/context/AppContext";
 
 const ShareInvoicePage = () => {
   // For drawer component

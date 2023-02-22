@@ -1,8 +1,7 @@
-import React from "react";
 import { Flex } from "@chakra-ui/react";
 
-const Dashboard = () => {
+const DashboardPage = () => {
   return <Flex>To be made</Flex>;
 };
 
-export default Dashboard;
+export default DashboardPage;
