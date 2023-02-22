@@ -22,14 +22,14 @@ import { useRef } from "react";
 import { Link } from "react-router-dom";
 
 import logo from "@/assets/logo.png";
-import DeleteInvoice from "@/components/DeleteInvoice";
-import Sidebar from "@/components/Sidebar";
-import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
-import Nav from "@/components/homepageComponents/Nav";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
+import DeleteInvoice from "@/components/invoice/DeleteInvoice";
 import { useGlobalContext } from "@/context/AppContext";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
-const InvoiceHistory = () => {
+const InvoiceHistoryPage = () => {
   // For drawer component
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
@@ -212,4 +212,4 @@ const InvoiceHistory = () => {
   );
 };
 
-export default InvoiceHistory;
+export default InvoiceHistoryPage;

@@ -20,9 +20,9 @@ import { nanoid } from "nanoid";
 import { useRef } from "react";
 import { useParams } from "react-router-dom";
 
-import Sidebar from "@/components/Sidebar";
-import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
-import Nav from "@/components/homepageComponents/Nav";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
 import { useGlobalContext } from "@/context/AppContext";
 
 const ShareInvoicePage = () => {

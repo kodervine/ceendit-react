@@ -21,10 +21,10 @@ import { nanoid } from "nanoid";
 import { useRef } from "react";
 
 import logo from "@/assets/logo.png";
-import InvoiceToPdf from "@/components/InvoiceToPdf";
-import Sidebar from "@/components/Sidebar";
-import DrawerComponent from "@/components/homepageComponents/DrawerComponent";
-import Nav from "@/components/homepageComponents/Nav";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
+import InvoiceToPdf from "@/components/invoice/InvoiceToPdf";
 import { useGlobalContext } from "@/context/AppContext";
 
 const FormPreviewPage = () => {

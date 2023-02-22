@@ -17,8 +17,8 @@ import {
 import { FaEllipsisV } from "react-icons/fa";
 
 import logo from "@/assets/logo.png";
-import Sidebar from "@/components/Sidebar";
-import Nav from "@/components/homepageComponents/Nav";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
 
 function AllClientsPage() {
   const textColor = useColorModeValue("gray.700", "white");
