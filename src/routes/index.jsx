@@ -3,16 +3,17 @@ import { Route, Routes } from "react-router-dom";
 import AlertComponent from "@/components/AlertComponent";
 import Error from "@/components/Error";
 
-import AllClientsPage from "@/components/clientsComponents/AllClientsPage";
-import ClientPage from "@/pages/ClientPage";
-import Dashboard from "@/pages/Dashboard";
-import FormPreview from "@/pages/FormPreview";
+import DashboardPage from "@/pages/DashboardPage";
+import FormPreviewPage from "@/pages/FormPreviewPage";
 import HomePage from "@/pages/HomePage";
-import InvoiceApp from "@/pages/InvoiceApp";
-import InvoiceHistory from "@/pages/InvoiceHistory";
-import ShareInvoicePage from "@/pages/ShareInvoicePage";
-import SignInPage from "@/pages/SignInPage";
-import SignUpPage from "@/pages/SignUpPage";
+import SignInPage from "@/pages/auth/SignInPage";
+import SignUpPage from "@/pages/auth/SignUpPage";
+import AllClientsPage from "@/pages/clients/AllClientsPage";
+import ClientPage from "@/pages/clients/ClientPage";
+import InvoiceHistory from "@/pages/invoice/InvoiceHistoryPage";
+import InvoiceApp from "@/pages/invoice/InvoicePage";
+import ShareInvoicePage from "@/pages/invoice/ShareInvoicePage";
+
 import ProtectedRoutes from "@/utils/ProtectedRoutes";
 
 import { useGlobalContext } from "@/context/AppContext";
@@ -35,11 +36,11 @@ export default () => {
         <Route path="/client" element={<ClientPage />} />
 
         <Route element={<ProtectedRoutes />}>
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/create-invoice" element={<InvoiceApp />} />
           <Route
             path="/form-preview"
-            element={showPreviewComponent ? <FormPreview /> : <Error />}
+            element={showPreviewComponent ? <FormPreviewPage /> : <Error />}
           />
           <Route path="/invoice-history" element={<InvoiceHistory />} />
           {userInitState.currentUser && (
