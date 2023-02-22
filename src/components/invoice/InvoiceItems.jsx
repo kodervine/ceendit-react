@@ -1,8 +1,7 @@
-import React from "react";
-import { useGlobalContext } from "../context/AppContext";
-import { Stack, Input, Textarea, Heading, Flex, Box } from "@chakra-ui/react";
+import { Box, Flex, Heading, Input, Stack, Textarea } from "@chakra-ui/react";
 
-// Props for the input values are gotten from InvoiceApp page rendered with InvoiceItems name, with data from the useState declared on the useContext component
+/* Props for the input values are gotten from InvoiceApp page rendered with InvoiceItems name, with data from the useState declared on the useContext component */
+
 const InvoiceItems = ({
   nameOfInvoiceItemPrice,
   nameOfInvoiceItemContent,
@@ -12,7 +11,6 @@ const InvoiceItems = ({
   valueOfInvoiceItemQty,
   onHandleChange,
 }) => {
-  const { handleInputChange } = useGlobalContext();
   return (
     <div>
       {/* Item name */}

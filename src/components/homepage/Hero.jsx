@@ -1,6 +1,3 @@
-import React from "react";
-import { useGlobalContext } from "../../context/AppContext";
-import heroImage from "../../assets/hero-image.svg";
 import {
   Box,
   Button,
@@ -10,6 +7,9 @@ import {
   Text,
   useMediaQuery,
 } from "@chakra-ui/react";
+
+import heroImage from "@/assets/hero-image.svg";
+import { useGlobalContext } from "@/context/AppContext";
 
 const Hero = () => {
   const { handleNavigateUser } = useGlobalContext();

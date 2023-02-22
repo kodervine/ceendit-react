@@ -1,6 +1,6 @@
-import React from "react";
 import { Box, Button } from "@chakra-ui/react";
-import { useGlobalContext } from "../context/AppContext";
+
+import { useGlobalContext } from "@/context/AppContext";
 
 // Id parameter is the index of each of invoice mapped from the invoiceHistory page.
 const DeleteInvoice = ({ id }) => {
