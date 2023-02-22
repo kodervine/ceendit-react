@@ -1,9 +1,8 @@
-import { HiUsers, HiViewGrid } from "react-icons/hi";
-import { GoHome, GoSignOut } from "react-icons/go";
-import { FaFileInvoiceDollar, FaUserCheck } from "react-icons/fa";
-import { MdPreview, MdMobileScreenShare } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
-import { BsFillPersonPlusFill } from "react-icons/bs";
+import { FaFileInvoiceDollar, FaUserCheck } from "react-icons/fa";
+import { GoHome } from "react-icons/go";
+import { HiUsers, HiViewGrid } from "react-icons/hi";
+import { MdMobileScreenShare, MdPreview } from "react-icons/md";
 
 export const linksData = [
   {
@@ -39,11 +38,6 @@ export const linksData = [
         icon: <HiUsers />,
         link: "/my-clients",
       },
-      // {
-      //   name: "One client",
-      //   icon: <BsFillPersonPlusFill />,
-      //   link: "/client",
-      // },
     ],
   },
   {
