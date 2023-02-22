@@ -10,8 +10,8 @@ import SignInPage from "@/pages/auth/SignInPage";
 import SignUpPage from "@/pages/auth/SignUpPage";
 import AllClientsPage from "@/pages/clients/AllClientsPage";
 import ClientPage from "@/pages/clients/ClientPage";
-import InvoiceHistory from "@/pages/invoice/InvoiceHistoryPage";
-import InvoiceApp from "@/pages/invoice/InvoicePage";
+import InvoiceHistoryPage from "@/pages/invoice/InvoiceHistoryPage";
+import InvoicePage from "@/pages/invoice/InvoicePage";
 import ShareInvoicePage from "@/pages/invoice/ShareInvoicePage";
 
 import ProtectedRoutes from "@/utils/ProtectedRoutes";
@@ -37,12 +37,12 @@ export default () => {
 
         <Route element={<ProtectedRoutes />}>
           <Route path="/dashboard" element={<DashboardPage />} />
-          <Route path="/create-invoice" element={<InvoiceApp />} />
+          <Route path="/create-invoice" element={<InvoicePage />} />
           <Route
             path="/form-preview"
             element={showPreviewComponent ? <FormPreviewPage /> : <Error />}
           />
-          <Route path="/invoice-history" element={<InvoiceHistory />} />
+          <Route path="/invoice-history" element={<InvoiceHistoryPage />} />
           {userInitState.currentUser && (
             <Route
               path={`/invoices/${userInitState.currentUser.displayName}`}
