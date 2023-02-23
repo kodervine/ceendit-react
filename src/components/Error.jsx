@@ -1,17 +1,18 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import {
-  Flex,
   Box,
-  Text,
+  Flex,
   Image,
-  useDisclosure,
+  Text,
   useColorMode,
+  useDisclosure,
 } from "@chakra-ui/react";
-import errorImg from "../assets/error-img.svg";
-import Nav from "./homepageComponents/Nav";
-import DrawerComponent from "./homepageComponents/DrawerComponent";
-import Sidebar from "./Sidebar";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
+
+import errorImg from "@/assets/error-img.svg";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
 
 const Error = () => {
   // For drawer component
@@ -20,6 +21,7 @@ const Error = () => {
 
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
+
   return (
     <>
       <Nav btnRef={btnRef} onOpen={onOpen} />

@@ -1,28 +1,32 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth, signOut } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+// WARNING: Keep all secret keys secret in production
+const apiKey = import.meta.env.VITE_FIREBASE_API_KEY;
+const authDomain = import.meta.env.VITE_FIREBASE_AUTH_DOMAIN;
+const projectId = import.meta.env.VITE_FIREBASE_PROJECT_ID;
+const storageBucket = import.meta.env.VITE_FIREBASE_STORAGE_BUCKET;
+const messagingSenderId = import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID;
+const appId = import.meta.env.VITE_FIREBASE_APP_ID;
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB_b1GrTINF64uBHvXxW1LZhN1NLRrGnkw",
-  authDomain: "ceendit.firebaseapp.com",
-  projectId: "ceendit",
-  storageBucket: "ceendit.appspot.com",
-  messagingSenderId: "690103606444",
-  appId: "1:690103606444:web:3082b5b7f46e5b8a2c5309",
+  apiKey,
+  authDomain,
+  projectId,
+  storageBucket,
+  messagingSenderId,
+  appId,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-export default app;
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-const logOutUser = () => {
-  signOut(auth);
-};
-
-export { auth, db, logOutUser };
+export default app;
+export { auth, db };

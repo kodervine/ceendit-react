@@ -1,28 +1,28 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
 import {
-  Image,
-  Text,
-  Flex,
-  Spacer,
   Box,
-  FormControl,
   Button,
-  useDisclosure,
+  Flex,
+  FormControl,
   Heading,
+  Image,
+  Spacer,
+  Text,
+  useDisclosure,
 } from "@chakra-ui/react";
-import { useGlobalContext } from "../context/AppContext";
-import logo from "../assets/logo.png";
-import DateInput from "../components/DateInput";
-import InvoiceForm from "../components/InvoiceForm";
-import InvoiceItems from "../components/InvoiceItems";
-import InvoiceBankDetails from "../components/InvoiceBankDetails";
-import Nav from "../components/homepageComponents/Nav";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
-import Sidebar from "../components/Sidebar";
-import { nanoid } from "nanoid";
+import { useRef } from "react";
+import { Link } from "react-router-dom";
 
-const InvoiceApp = () => {
+import logo from "@/assets/logo.png";
+import DateInput from "@/components/DateInput";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
+import InvoiceBankDetails from "@/components/invoice/InvoiceBankDetails";
+import InvoiceForm from "@/components/invoice/InvoiceForm";
+import InvoiceItems from "@/components/invoice/InvoiceItems";
+import { useGlobalContext } from "@/context/AppContext";
+
+const InvoicePage = () => {
   const {
     invoiceFormDataDirect,
     handleInputChange,
@@ -221,4 +221,4 @@ const InvoiceApp = () => {
   );
 };
 
-export default InvoiceApp;
+export default InvoicePage;

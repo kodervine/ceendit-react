@@ -1,8 +1,8 @@
-import React from "react";
-import { linksData } from "../data";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
 import { nanoid } from "nanoid";
+import { Link } from "react-router-dom";
+
+import { linksData } from "@/data";
 
 const Sidebar = () => {
   const midScreenWidth = window.innerWidth < 1000;

@@ -1,11 +1,12 @@
-import { useRef } from "react";
 import { useDisclosure } from "@chakra-ui/react";
-import Hero from "../components/homepageComponents/Hero";
-import AboutUs from "../components/homepageComponents/AboutUs";
-import Footer from "../components/homepageComponents/Footer";
-import Nav from "../components/homepageComponents/Nav";
-import Services from "../components/homepageComponents/Services";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
+import { useRef } from "react";
+
+import AboutUs from "@/components/homepage/AboutUs";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Footer from "@/components/homepage/Footer";
+import Hero from "@/components/homepage/Hero";
+import Nav from "@/components/homepage/Nav";
+import Services from "@/components/homepage/Services";
 
 function HomePage() {
   const { isOpen, onOpen, onClose } = useDisclosure();

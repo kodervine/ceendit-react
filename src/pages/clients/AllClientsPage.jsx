@@ -1,24 +1,24 @@
-import React from "react";
-import logo from "../../assets/logo.png";
 import {
-  Table,
-  Tbody,
-  Thead,
-  Tr,
-  Td,
-  Flex,
-  Text,
-  Progress,
-  Icon,
-  IconButton,
-  Button,
-  useColorModeValue,
   Avatar,
   Badge,
+  Button,
+  Flex,
+  Icon,
+  IconButton,
+  Progress,
+  Table,
+  Tbody,
+  Td,
+  Text,
+  Thead,
+  Tr,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
-import Nav from "../homepageComponents/Nav";
-import Sidebar from "../Sidebar";
+
+import logo from "@/assets/logo.png";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
 
 function AllClientsPage() {
   const textColor = useColorModeValue("gray.700", "white");

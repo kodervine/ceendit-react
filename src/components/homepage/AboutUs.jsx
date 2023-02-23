@@ -1,7 +1,6 @@
-import React from "react";
-import { Flex, Spacer, Text, useMediaQuery, Icon } from "@chakra-ui/react";
-import { FaTools, FaHandshake, FaStar } from "react-icons/fa";
+import { Flex, Icon, Text, useMediaQuery } from "@chakra-ui/react";
 import { nanoid } from "nanoid";
+import { FaHandshake, FaStar, FaTools } from "react-icons/fa";
 
 const AboutUs = () => {
   const [isLargerThan48] = useMediaQuery("(min-width: 48em)");

@@ -1,8 +1,8 @@
-import React from "react";
 import { Flex } from "@chakra-ui/react";
-import ClientProfileInfo from "../components/clientsComponents/ClientProfileInfo";
-import Sidebar from "../components/Sidebar";
-import Nav from "../components/homepageComponents/Nav";
+
+import ClientProfileInfo from "@/components/clients/ClientProfileInfo";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
 
 const ClientPage = () => {
   return (

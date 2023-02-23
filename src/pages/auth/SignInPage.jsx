@@ -1,27 +1,27 @@
-import { useState } from "react";
-import { useGlobalContext } from "../context/AppContext";
-import { useAuthUserContext } from "../context/UserContext";
-import { Link } from "react-router-dom";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
-  Flex,
-  Text,
-  Heading,
-  Input,
-  Button,
-  InputGroup,
-  Stack,
-  InputLeftElement,
-  chakra,
-  Box,
   Avatar,
+  Box,
+  Button,
+  Flex,
   FormControl,
   FormHelperText,
-  InputRightElement,
+  Heading,
   IconButton,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Stack,
+  Text,
+  chakra,
   useColorMode,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import { useState } from "react";
+import { FaLock, FaUserAlt } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
+import { useAuthUserContext } from "@/context/UserContext";
 
 const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);

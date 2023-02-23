@@ -1,100 +1,103 @@
-import React, { useRef } from "react";
-import { useParams } from "react-router-dom";
-import { useGlobalContext } from "../context/AppContext";
 import {
   Box,
   Button,
-  Stack,
-  Heading,
   Flex,
+  Heading,
+  Image,
   Spacer,
-  Text,
+  Stack,
   Table,
-  Thead,
-  Tbody,
-  Tr,
-  Th,
-  Td,
   TableContainer,
+  Tbody,
+  Td,
+  Text,
+  Th,
+  Thead,
+  Tr,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
-import Nav from "../components/homepageComponents/Nav";
-import DrawerComponent from "../components/homepageComponents/DrawerComponent";
-import Sidebar from "../components/Sidebar";
 import { nanoid } from "nanoid";
+import { useRef } from "react";
 
-const ShareInvoicePage = () => {
+import logo from "@/assets/logo.png";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
+import Nav from "@/components/homepage/Nav";
+import Sidebar from "@/components/homepage/Sidebar";
+import InvoiceToPdf from "@/components/invoice/InvoiceToPdf";
+import { useGlobalContext } from "@/context/AppContext";
+
+const FormPreviewPage = () => {
   // For drawer component
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
+
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
 
-  const { invoiceFormState, handlePreviewInvoicePdf } = useGlobalContext();
-
-  // Retrieve invoice data based on the id parameter in the URL. If the invoice does not exist, display an error message.
-  const { id } = useParams();
-  const invoiceIndex = parseInt(id, 10); //
-  const invoice = invoiceFormState.allInvoiceData.filter(
-    (_, index) => index === invoiceIndex
-  )[0];
-
-  if (!invoice) {
-    return <div>Invoice not found</div>;
-  }
+  const {
+    invoiceFormDataDirect,
+    FormPreviewRef,
+    handleInvoiceSubmit,
+    showPreviewComponent,
+  } = useGlobalContext();
 
   return (
-    <>
+    <Box id="form-input">
       <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       <Flex>
-        {/* ShareInvoicePage {id} */}
         {!smallScreenWidth && <Sidebar />}
+
         <Stack
-          width={{ base: "100%", md: "90%", lg: "90%" }}
+          ref={FormPreviewRef}
+          width={{ base: "100%", md: "90%", lg: "70%" }}
           maxW="960px"
           m="auto"
           mb="6"
+          mt="6"
           p="6"
           boxShadow="dark-lg"
           rounded="md"
         >
+          {/* Logo header */}
           <Flex alignItems="center" justifyContent="space-between">
+            <Image src={logo} />
             <Box>
-              <Text fontWeight="bold">Invoice No 0000</Text>
+              <Text fontWeight="bold">
+                Invoice No {invoiceFormDataDirect.dateCreated}
+              </Text>
             </Box>
           </Flex>
 
           {/* Date */}
           <Box>
-            <Heading size="md">{invoice.billFromName}</Heading>
-            <Text>{invoice.billFromPhoneNumber}</Text>
-            <Text>{invoice.billFromEmail}</Text>
+            <Heading size="md">{invoiceFormDataDirect.billFromName}</Heading>
+            <Text>{invoiceFormDataDirect.billFromPhoneNumber}</Text>
+            <Text>{invoiceFormDataDirect.billFromEmail}</Text>
           </Box>
 
           {/* Invoice date and due date */}
           <Flex>
             <Box>
               <Heading size="sm">Invoice date</Heading>
-              <Text>{invoice.dateCreated}</Text>
+              <Text>{invoiceFormDataDirect.dateCreated}</Text>
             </Box>
             <Spacer />
             <Box>
               <Heading size="sm">Due date</Heading>
-              <Text>{invoice.dateDue}</Text>
+              <Text>{invoiceFormDataDirect.dateDue}</Text>
             </Box>
           </Flex>
 
           {/* Billed to */}
           <Box>
             <Heading size="sm">Billed to</Heading>
-            <Text>{invoice.billToName}</Text>
-            <Text>{invoice.billToPhoneNumber}</Text>
-            <Text>{invoice.billToEmail}</Text>
+            <Text>{invoiceFormDataDirect.billToName}</Text>
+            <Text>{invoiceFormDataDirect.billToPhoneNumber}</Text>
+            <Text>{invoiceFormDataDirect.billToEmail}</Text>
           </Box>
 
-          {/* Bank details */}
           {/* Bank details */}
           <TableContainer>
             <Table variant="simple">
@@ -107,8 +110,8 @@ const ShareInvoicePage = () => {
                     Account Name
                   </Th>
                   <Th
-                    isNumeric
                     color={colorMode === "light" ? "auto" : "blue.900"}
+                    isNumeric
                   >
                     Account Number
                   </Th>
@@ -116,9 +119,9 @@ const ShareInvoicePage = () => {
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>{invoice.bankName}</Td>
-                  <Td>{invoice.accountName}</Td>
-                  <Td isNumeric>{invoice.bankAccount}</Td>
+                  <Td>{invoiceFormDataDirect.bankName}</Td>
+                  <Td>{invoiceFormDataDirect.accountName}</Td>
+                  <Td isNumeric>{invoiceFormDataDirect.bankAccount}</Td>
                 </Tr>
               </Tbody>
             </Table>
@@ -130,38 +133,37 @@ const ShareInvoicePage = () => {
               <Thead>
                 <Tr bg={colorMode === "light" ? "gray.100" : "blue.100"}>
                   <Th color={colorMode === "light" ? "auto" : "blue.900"}>
-                    Item Details
+                    Item Name
                   </Th>
                   <Th
-                    isNumeric
                     color={colorMode === "light" ? "auto" : "blue.900"}
+                    isNumeric
                   >
                     Qty
                   </Th>
                   <Th
-                    isNumeric
                     color={colorMode === "light" ? "auto" : "blue.900"}
+                    isNumeric
                     textAlign="center"
                   >
-                    Item Price
+                    Price
                   </Th>
+
                   <Th
-                    isNumeric
                     color={colorMode === "light" ? "auto" : "blue.900"}
+                    isNumeric
                   >
-                    Items Total
+                    Total Amount
                   </Th>
                 </Tr>
               </Thead>
               <Tbody>
-                {invoice.itemContainer.map((item, index) => {
+                {invoiceFormDataDirect.itemContainer.map((item) => {
                   return (
                     <Tr key={nanoid()}>
                       <Td>{item.itemContent}</Td>
-                      <Td isNumeric textAlign="center">
-                        {item.itemQty}
-                      </Td>
-                      <Td textAlign="center">{item.itemPrice}</Td>
+                      <Td isNumeric>{item.itemQty}</Td>
+                      <Td textAlign="center">N {item.itemPrice}</Td>
                       <Td isNumeric>
                         #{parseInt(item.itemQty * item.itemPrice)}
                       </Td>
@@ -171,25 +173,28 @@ const ShareInvoicePage = () => {
               </Tbody>
             </Table>
           </TableContainer>
-
-          {/* Buttons  */}
-          <Flex direction={smallScreenWidth ? "column" : "row"}>
-            <Button
-              onClick={handlePreviewInvoicePdf}
-              colorScheme="blue"
-              mt="10px"
-              width={smallScreenWidth ? "100%" : "auto"}
-              maxW="960px"
-            >
-              {/* <InvoiceToPdf index={id} /> */}
-              <Text>Download</Text>
-            </Button>
-          </Flex>
         </Stack>
-        {/* Add more fields as needed */}
       </Flex>
-    </>
+      {/* Buttons */}
+      {showPreviewComponent && <InvoiceToPdf />}
+      <Box
+        width={{ base: "100%", md: "90%", lg: "70%" }}
+        maxW="960px"
+        margin="auto"
+        mt="10px"
+        mb="10px"
+      >
+        {/* Eventually this should show only the submit */}
+        <Button
+          onClick={handleInvoiceSubmit}
+          colorScheme="blue"
+          width={smallScreenWidth ? "100%" : "100%"}
+        >
+          Save to Invoice History
+        </Button>
+      </Box>
+    </Box>
   );
 };
 
-export default ShareInvoicePage;
+export default FormPreviewPage;

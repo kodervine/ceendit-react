@@ -1,19 +1,19 @@
-import React from "react";
-import { useGlobalContext } from "../../context/AppContext";
-import aboutUsImage from "../../assets/aboutus-image.svg";
 import {
-  Flex,
-  Spacer,
-  Image,
-  Text,
   Button,
+  Flex,
+  Image,
+  Spacer,
+  Text,
   useMediaQuery,
 } from "@chakra-ui/react";
+import { nanoid } from "nanoid";
 import { AiFillFilePdf } from "react-icons/ai";
 import { BsHourglassSplit, BsShieldCheck } from "react-icons/bs";
-import { GiReceiveMoney } from "react-icons/gi";
 import { FaBriefcase } from "react-icons/fa";
-import { nanoid } from "nanoid";
+import { GiReceiveMoney } from "react-icons/gi";
+
+import aboutUsImage from "@/assets/aboutus-image.svg";
+import { useGlobalContext } from "@/context/AppContext";
 
 const Services = () => {
   const { handleNavigateUser } = useGlobalContext();

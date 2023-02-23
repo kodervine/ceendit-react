@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
-import { Stack, Alert, AlertIcon } from "@chakra-ui/react";
-import { useGlobalContext } from "../context/AppContext";
+import { Alert, AlertIcon, Stack } from "@chakra-ui/react";
+import { useEffect } from "react";
+
+import { useGlobalContext } from "@/context/AppContext";
 
 const AlertComponent = () => {
   const { showAllInvoice, setShowAllInvoice } = useGlobalContext();

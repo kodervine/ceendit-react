@@ -1,19 +1,20 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useGlobalContext } from "../../context/AppContext";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import {
-  Text,
   Flex,
-  Spacer,
+  Icon,
   IconButton,
+  Spacer,
+  Text,
   useColorMode,
   useColorModeValue,
   useMediaQuery,
-  Icon,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { useState } from "react";
 import { FaAlignJustify } from "react-icons/fa";
-import { logOutUser } from "../../firebase-config";
+import { Link } from "react-router-dom";
+
+import { useGlobalContext } from "@/context/AppContext";
+import { logOutUser } from "@/utils/auth";
 
 const Nav = ({ onOpen, btnRef }) => {
   const { userInitState, handleNavigateUser } = useGlobalContext();

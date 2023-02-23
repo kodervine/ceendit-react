@@ -1,20 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import { useGlobalContext } from "../../context/AppContext";
-import { nanoid } from "nanoid";
 import {
+  Box,
   Drawer,
   DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
   DrawerHeader,
   DrawerOverlay,
-  DrawerContent,
-  DrawerCloseButton,
   Flex,
   Text,
-  Box,
 } from "@chakra-ui/react";
-import { logOutUser } from "../../firebase-config";
-import { linksData } from "../../data";
+import { nanoid } from "nanoid";
+import { Link } from "react-router-dom";
+
+import { useGlobalContext } from "@/context/AppContext";
+import { linksData } from "@/data";
+import { logOutUser } from "@/utils/auth";
 
 const DrawerComponent = ({ isOpen, onClose, btnRef }) => {
   const { userInitState, handleNavigateUser } = useGlobalContext();

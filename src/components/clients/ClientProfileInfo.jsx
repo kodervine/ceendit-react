@@ -1,16 +1,12 @@
 import {
-  Flex,
-  Icon,
-  Link,
-  Text,
-  Heading,
   Card,
-  CardHeader,
   CardBody,
-  CardFooter,
+  CardHeader,
+  Flex,
+  Heading,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React from "react";
 
 const ClientProfileInfo = () => {
   // Chakra color mode

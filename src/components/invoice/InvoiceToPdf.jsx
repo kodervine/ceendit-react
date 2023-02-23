@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
 import { Box, Button } from "@chakra-ui/react";
-import { useGlobalContext } from "../context/AppContext";
+
+import { useGlobalContext } from "@/context/AppContext";
+
 const InvoiceToPdf = () => {
   const smallScreenWidth = window.innerWidth < 700;
   const { handlePreviewInvoicePdf } = useGlobalContext();
