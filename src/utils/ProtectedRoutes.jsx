@@ -1,7 +1,8 @@
 import React from "react";
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useLocation } from "react-router-dom";
 
 const ProtectedRoutes = () => {
+  const location = useLocation();
   return localStorage.getItem("isUserSignedIn") ? (
     <Outlet />
   ) : (
