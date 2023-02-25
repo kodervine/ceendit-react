@@ -12,21 +12,21 @@ const TopCards = () => {
         width="full"
         align="center"
       >
-        <Card width={{ sm: "100vw", lg: "25vw" }}>
+        <Card width={{ sm: "90vw", lg: "25vw" }}>
           <CardBody>
             {" "}
             <Heading size="md"> Total Invoice No</Heading>
             <Text>70</Text>
             <Button
               onClick={() => {
-                handleNavigateUser("create-invoice");
+                handle("create-invoice");
               }}
             >
               Add New Invoice
             </Button>
           </CardBody>
         </Card>
-        <Card width={{ sm: "100vw", lg: "25vw" }}>
+        <Card width={{ sm: "90vw", lg: "25vw" }}>
           <CardBody>
             {" "}
             <Heading size="md"> Total Revenue</Heading>
@@ -41,7 +41,7 @@ const TopCards = () => {
           </CardBody>
         </Card>
 
-        <Card width={{ sm: "100vw", lg: "25vw" }}>
+        <Card width={{ sm: "90vw", lg: "25vw" }}>
           <CardBody>
             {" "}
             <Heading size="md">Clients No</Heading>

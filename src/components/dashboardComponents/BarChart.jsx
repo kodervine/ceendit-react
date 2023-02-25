@@ -55,10 +55,8 @@ const BarChart = () => {
   }, []);
   return (
     <>
-      <div className="w-full md:col-span-2 relative lg:h-[70vh] h-[50vh] m-auto p-4 border rounded-lg bg-white"></div>
-
       <Box
-        width={{ sm: "100vw", md: "90vw" }}
+        width={{ sm: "90vw", md: "60vw" }}
         height={{ sm: "50vh", md: "70vh" }}
       >
         <Bar data={chartData} options={chartOptions} />

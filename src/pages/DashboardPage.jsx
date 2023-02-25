@@ -16,9 +16,13 @@ const DashboardPage = () => {
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       <Flex>
         {innerWidth > 700 && <Sidebar />}
-        <Flex direction="column">
+        <Flex direction="column" padding={2}>
           <TopCards />
-          <Flex mt="10px" direction={{ sm: "column", lg: "row" }}>
+          <Flex
+            mt={8}
+            direction={{ sm: "column", lg: "row" }}
+            gap={{ sm: "0px", lg: "20px" }}
+          >
             <BarChart />
             <RecentInvoices />
           </Flex>
