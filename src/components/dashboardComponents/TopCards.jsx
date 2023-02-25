@@ -19,7 +19,7 @@ const TopCards = () => {
             <Text>70</Text>
             <Button
               onClick={() => {
-                handle("create-invoice");
+                handleNavigateUser("create-invoice");
               }}
             >
               Add New Invoice
