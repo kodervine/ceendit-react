@@ -14,10 +14,9 @@ import {
   Tr,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { FaEllipsisV } from "react-icons/fa";
-
-import logo from "@/assets/logo.png";
+import { FaEllipsisV, FaPersonBooth } from "react-icons/fa";
 import Nav from "@/components/homepage/Nav";
+import ClientMenu from "@/components/clients/ClientMenu";
 import Sidebar from "@/components/homepage/Sidebar";
 
 function AllClientsPage() {
@@ -51,16 +50,7 @@ function AllClientsPage() {
                   </Text>
                 </Flex>
               </Td>
-              <Td>
-                <Text
-                  fontSize="md"
-                  color={textColor}
-                  fontWeight="semibold"
-                  pb=".5rem"
-                >
-                  Company
-                </Text>
-              </Td>
+
               <Td>
                 <Text
                   fontSize="md"
@@ -79,7 +69,7 @@ function AllClientsPage() {
                     fontWeight="semibold"
                     pb=".2rem"
                   >
-                    Progression
+                    Duration
                   </Text>
                   <Progress
                     colorScheme="blue"
@@ -107,7 +97,7 @@ function AllClientsPage() {
                   minWidth="100%"
                   flexWrap="nowrap"
                 >
-                  <Avatar src={logo} w="50px" borderRadius="12px" me="18px" />
+                  <Avatar />
                   <Flex direction="column">
                     <Text
                       fontSize="md"
@@ -125,24 +115,14 @@ function AllClientsPage() {
               </Td>
 
               <Td>
-                <Flex direction="column">
-                  <Text fontSize="md" color={textColor} fontWeight="semibold">
-                    domain
-                  </Text>
-                  <Text fontSize="sm" color="gray.400" fontWeight="normal">
-                    subdomain
-                  </Text>
-                </Flex>
-              </Td>
-              <Td>
                 <Badge
-                  bg={"status" === "Online" ? "green.400" : bgStatus}
-                  color={"status" === "Online" ? "white" : colorStatus}
-                  fontSize="16px"
+                  bg="green.400"
+                  color="white"
+                  fontSize="14px"
                   p="3px 10px"
                   borderRadius="8px"
                 >
-                  status
+                  Active
                 </Badge>
               </Td>
               <Td>
@@ -152,20 +132,11 @@ function AllClientsPage() {
                   fontWeight="semibold"
                   pb=".5rem"
                 >
-                  date
+                  View invoices
                 </Text>
               </Td>
               <Td>
-                <Button p="0px" bg="transparent" variant="no-hover">
-                  <Text
-                    fontSize="md"
-                    color="gray.400"
-                    fontWeight="semibold"
-                    cursor="pointer"
-                  >
-                    Edit
-                  </Text>
-                </Button>
+                <ClientMenu />
               </Td>
             </Tr>
           </Tbody>

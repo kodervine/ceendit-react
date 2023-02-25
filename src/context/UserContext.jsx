@@ -17,11 +17,15 @@ import {
   serverTimestamp,
 } from "firebase/firestore";
 import { useGlobalContext } from "./AppContext";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const UserContext = React.createContext();
 
 const UserProvider = ({ children }) => {
+  // Redirection and navigation
   const { handleNavigateUser } = useGlobalContext();
+  const navigate = useNavigate();
+  const location = useLocation();
   // Create user
   const handleCreateUserWithEmailAndPassword = async (
     email,
@@ -60,7 +64,12 @@ const UserProvider = ({ children }) => {
   const handleUserLogInWithEmailAndPassword = async (email, password) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      handleNavigateUser("create-invoice");
+      if (location.state?.from) {
+        navigate(location.state.from);
+      } else {
+        handleNavigateUser("create-invoice");
+      }
+
       setTimeout(() => {
         alert("Login successful");
       }, 500);
@@ -98,7 +107,12 @@ const UserProvider = ({ children }) => {
           authProvider: "google",
           email: googleUser.email,
         });
-        handleNavigateUser("create-invoice");
+        if (location.state?.from) {
+          navigate(location.state.from);
+        } else {
+          handleNavigateUser("create-invoice");
+        }
+
         setTimeout(() => {
           alert("Login successful");
         }, 500);
