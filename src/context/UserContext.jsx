@@ -45,7 +45,7 @@ const UserProvider = ({ children }) => {
         invoiceData: [],
       });
       alert("Account created successfully");
-      handleNavigateUser("create-invoice");
+      handleNavigateUser("dashboard");
     } catch (error) {
       if (error.code == "auth/email-already-in-use") {
         alert("The email address is already in use, log in instead");
@@ -67,7 +67,7 @@ const UserProvider = ({ children }) => {
       if (location.state?.from) {
         navigate(location.state.from);
       } else {
-        handleNavigateUser("create-invoice");
+        handleNavigateUser("dashboard");
       }
 
       setTimeout(() => {
@@ -110,7 +110,7 @@ const UserProvider = ({ children }) => {
         if (location.state?.from) {
           navigate(location.state.from);
         } else {
-          handleNavigateUser("create-invoice");
+          handleNavigateUser("dashboard");
         }
 
         setTimeout(() => {
@@ -128,7 +128,7 @@ const UserProvider = ({ children }) => {
           invoiceData: [],
         });
         alert("Account created successfully");
-        handleNavigateUser("create-invoice");
+        handleNavigateUser("dashboard");
       }
       // await
     } catch (error) {
