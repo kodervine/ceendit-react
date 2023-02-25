@@ -20,7 +20,7 @@ const DashboardPage = () => {
           <TopCards />
           <Flex
             mt={8}
-            direction={{ sm: "column", lg: "row" }}
+            direction={innerWidth > 700 ? "row" : "column"}
             gap={{ sm: "0px", lg: "20px" }}
           >
             <BarChart />

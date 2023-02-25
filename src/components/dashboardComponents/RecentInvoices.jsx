@@ -7,7 +7,7 @@ const RecentInvoices = () => {
   const { invoiceFormState } = useGlobalContext();
   return (
     <Box
-      width={{ sm: "90%", lg: "50%" }}
+      width={innerWidth > 700 ? "50%" : "90%"}
       position="relative"
       height={{ sm: "50vh", lg: "70vh" }}
       margin="auto"
