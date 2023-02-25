@@ -18,7 +18,7 @@ const DashboardPage = () => {
         {innerWidth > 700 && <Sidebar />}
         <Flex direction="column">
           <TopCards />
-          <Flex>
+          <Flex mt="10px" direction={{ sm: "column", lg: "row" }}>
             <BarChart />
             <RecentInvoices />
           </Flex>
