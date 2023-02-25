@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import {
   Avatar,
   Badge,
@@ -13,11 +14,12 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  useDisclosure,
   Tooltip,
 } from "@chakra-ui/react";
-import { FaEllipsisV } from "react-icons/fa";
 import { AiOutlinePlus } from "react-icons/ai";
 import Nav from "@/components/homepage/Nav";
+import DrawerComponent from "@/components/homepage/DrawerComponent";
 import ClientMenu from "@/components/clients/ClientMenu";
 import Sidebar from "@/components/homepage/Sidebar";
 import { useGlobalContext } from "@/context/AppContext";
@@ -25,15 +27,17 @@ import { nanoid } from "nanoid";
 
 function AllClientsPage() {
   const textColor = useColorModeValue("gray.700", "white");
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const btnRef = useRef();
 
   const { invoiceFormState } = useGlobalContext();
-  console.log(invoiceFormState.allInvoiceData);
 
   return (
     <>
-      <Nav />
+      <Nav btnRef={btnRef} onOpen={onOpen} />
+      <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
       <Flex>
-        <Sidebar />
+        {innerWidth > 700 && <Sidebar />}
 
         <Table height="10vh">
           <Thead>
@@ -57,35 +61,40 @@ function AllClientsPage() {
                   Name
                 </Text>
               </Td>
-
-              <Td>
-                <Text
-                  fontSize="md"
-                  color={textColor}
-                  fontWeight="semibold"
-                  pb=".5rem"
-                >
-                  Status
-                </Text>
-              </Td>
-              <Td>
-                <Flex direction="column">
+              {innerWidth > 700 && (
+                <Td>
                   <Text
                     fontSize="md"
-                    color="blue.400"
+                    color={textColor}
                     fontWeight="semibold"
-                    pb=".2rem"
+                    pb=".5rem"
                   >
-                    Duration
+                    Status
                   </Text>
-                  <Progress
-                    colorScheme="blue"
-                    size="xs"
-                    value="200"
-                    borderRadius="15px"
-                  />
-                </Flex>
-              </Td>
+                </Td>
+              )}
+
+              {innerWidth > 700 && (
+                <Td>
+                  <Flex direction="column">
+                    <Text
+                      fontSize="md"
+                      color="blue.400"
+                      fontWeight="semibold"
+                      pb=".2rem"
+                    >
+                      Duration
+                    </Text>
+                    <Progress
+                      colorScheme="blue"
+                      size="xs"
+                      value="200"
+                      borderRadius="15px"
+                    />
+                  </Flex>
+                </Td>
+              )}
+
               <Td>
                 <Button p="0px" bg="transparent"></Button>
               </Td>
@@ -117,27 +126,31 @@ function AllClientsPage() {
                       </Text>
                     </Flex>
                   </Td>
-                  <Td>
-                    <Badge
-                      bg="green.400"
-                      color="white"
-                      fontSize="14px"
-                      p="3px 10px"
-                      borderRadius="8px"
-                    >
-                      Active
-                    </Badge>
-                  </Td>
-                  <Td>
-                    <Text
-                      fontSize="md"
-                      color={textColor}
-                      fontWeight="semibold"
-                      pb=".5rem"
-                    >
-                      {dateDue}
-                    </Text>
-                  </Td>
+                  {innerWidth > 700 && (
+                    <Td>
+                      <Badge
+                        bg="green.400"
+                        color="white"
+                        fontSize="14px"
+                        p="3px 10px"
+                        borderRadius="8px"
+                      >
+                        Active
+                      </Badge>
+                    </Td>
+                  )}
+                  {innerWidth > 700 && (
+                    <Td>
+                      <Text
+                        fontSize="md"
+                        color={textColor}
+                        fontWeight="semibold"
+                        pb=".5rem"
+                      >
+                        {dateDue}
+                      </Text>
+                    </Td>
+                  )}
                   <Td>
                     <ClientMenu />
                   </Td>
