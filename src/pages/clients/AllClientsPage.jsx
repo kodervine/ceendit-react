@@ -13,16 +13,22 @@ import {
   Thead,
   Tr,
   useColorModeValue,
+  Tooltip,
 } from "@chakra-ui/react";
-import { FaEllipsisV, FaPersonBooth } from "react-icons/fa";
+import { FaEllipsisV } from "react-icons/fa";
+import { AiOutlinePlus } from "react-icons/ai";
 import Nav from "@/components/homepage/Nav";
 import ClientMenu from "@/components/clients/ClientMenu";
 import Sidebar from "@/components/homepage/Sidebar";
+import { useGlobalContext } from "@/context/AppContext";
+import { nanoid } from "nanoid";
 
 function AllClientsPage() {
   const textColor = useColorModeValue("gray.700", "white");
-  const bgStatus = useColorModeValue("gray.400", "#1a202c");
-  const colorStatus = useColorModeValue("white", "gray.400");
+
+  const { invoiceFormState } = useGlobalContext();
+  console.log(invoiceFormState.allInvoiceData);
+
   return (
     <>
       <Nav />
@@ -33,22 +39,23 @@ function AllClientsPage() {
           <Thead>
             <Tr>
               <Td>
-                <Flex
-                  alignItems="center"
-                  py=".8rem"
+                {" "}
+                <Tooltip label="Add New Client">
+                  <Button>
+                    {" "}
+                    <AiOutlinePlus />
+                  </Button>
+                </Tooltip>
+              </Td>
+              <Td>
+                <Text
+                  fontSize="md"
+                  color={textColor}
+                  fontWeight="semibold"
                   minWidth="100%"
-                  flexWrap="nowrap"
                 >
-                  <IconButton h={"24px"} w={"24px"} me="18px" />
-                  <Text
-                    fontSize="md"
-                    color={textColor}
-                    fontWeight="semibold"
-                    minWidth="100%"
-                  >
-                    Name
-                  </Text>
-                </Flex>
+                  Name
+                </Text>
               </Td>
 
               <Td>
@@ -80,65 +87,63 @@ function AllClientsPage() {
                 </Flex>
               </Td>
               <Td>
-                <Button p="0px" bg="transparent">
-                  <Icon as={FaEllipsisV} color="gray.400" cursor="pointer" />
-                </Button>
+                <Button p="0px" bg="transparent"></Button>
               </Td>
             </Tr>
           </Thead>
 
           {/* Another table */}
           <Tbody>
-            <Tr>
-              <Td height="10vh">
-                <Flex
-                  align="center"
-                  py=".8rem"
-                  minWidth="100%"
-                  flexWrap="nowrap"
-                >
-                  <Avatar />
-                  <Flex direction="column">
+            {invoiceFormState.allInvoiceData.map((clients, index) => {
+              const { billToName, billToEmail, dateCreated, dateDue } = clients;
+              return (
+                <Tr key={nanoid()}>
+                  {" "}
+                  <Td>
+                    <Avatar />
+                  </Td>
+                  <Td height="10vh">
+                    <Flex direction="column">
+                      <Text
+                        fontSize="md"
+                        color={textColor}
+                        fontWeight="semibold"
+                        minWidth="100%"
+                      >
+                        {billToName}
+                      </Text>
+                      <Text fontSize="sm" color="gray.400" fontWeight="normal">
+                        {billToEmail}
+                      </Text>
+                    </Flex>
+                  </Td>
+                  <Td>
+                    <Badge
+                      bg="green.400"
+                      color="white"
+                      fontSize="14px"
+                      p="3px 10px"
+                      borderRadius="8px"
+                    >
+                      Active
+                    </Badge>
+                  </Td>
+                  <Td>
                     <Text
                       fontSize="md"
                       color={textColor}
                       fontWeight="semibold"
-                      minWidth="100%"
+                      pb=".5rem"
                     >
-                      Chinenye Anikwenze
+                      {dateDue}
                     </Text>
-                    <Text fontSize="sm" color="gray.400" fontWeight="normal">
-                      anikwenzekelly@gmail.com
-                    </Text>
-                  </Flex>
-                </Flex>
-              </Td>
-
-              <Td>
-                <Badge
-                  bg="green.400"
-                  color="white"
-                  fontSize="14px"
-                  p="3px 10px"
-                  borderRadius="8px"
-                >
-                  Active
-                </Badge>
-              </Td>
-              <Td>
-                <Text
-                  fontSize="md"
-                  color={textColor}
-                  fontWeight="semibold"
-                  pb=".5rem"
-                >
-                  View invoices
-                </Text>
-              </Td>
-              <Td>
-                <ClientMenu />
-              </Td>
-            </Tr>
+                  </Td>
+                  <Td>
+                    <ClientMenu />
+                  </Td>
+                </Tr>
+              );
+            })}
           </Tbody>
         </Table>
       </Flex>
