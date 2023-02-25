@@ -6,13 +6,13 @@ const TopCards = () => {
   return (
     <>
       <Flex
-        direction={{ sm: "column", lg: "row" }}
+        direction={innerWidth > 700 ? "row" : "column"}
         overflow="hidden"
         variant="outline"
         width="full"
         align="center"
       >
-        <Card width={{ sm: "90vw", lg: "25vw" }}>
+        <Card width={innerWidth > 700 ? "25vw" : "90vw"}>
           <CardBody>
             {" "}
             <Heading size="md"> Total Invoice No</Heading>
@@ -26,7 +26,7 @@ const TopCards = () => {
             </Button>
           </CardBody>
         </Card>
-        <Card width={{ sm: "90vw", lg: "25vw" }}>
+        <Card width={innerWidth > 700 ? "25vw" : "90vw"}>
           <CardBody>
             {" "}
             <Heading size="md"> Total Revenue</Heading>
@@ -41,7 +41,7 @@ const TopCards = () => {
           </CardBody>
         </Card>
 
-        <Card width={{ sm: "90vw", lg: "25vw" }}>
+        <Card width={innerWidth > 700 ? "25vw" : "90vw"}>
           <CardBody>
             {" "}
             <Heading size="md">Clients No</Heading>

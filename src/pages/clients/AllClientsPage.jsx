@@ -42,15 +42,18 @@ function AllClientsPage() {
         <Table height="10vh">
           <Thead>
             <Tr>
-              <Td>
-                {" "}
-                <Tooltip label="Add New Client">
-                  <Button>
-                    {" "}
-                    <AiOutlinePlus />
-                  </Button>
-                </Tooltip>
-              </Td>
+              {innerWidth > 700 && (
+                <Td>
+                  {" "}
+                  <Tooltip label="Add New Client">
+                    <Button>
+                      {" "}
+                      <AiOutlinePlus />
+                    </Button>
+                  </Tooltip>
+                </Td>
+              )}
+
               <Td>
                 <Text
                   fontSize="md"
@@ -95,9 +98,17 @@ function AllClientsPage() {
                 </Td>
               )}
 
-              <Td>
-                <Button p="0px" bg="transparent"></Button>
-              </Td>
+              {innerWidth < 700 && (
+                <Td>
+                  {" "}
+                  <Tooltip label="Add New Client">
+                    <Button>
+                      {" "}
+                      <AiOutlinePlus />
+                    </Button>
+                  </Tooltip>
+                </Td>
+              )}
             </Tr>
           </Thead>
 
@@ -108,9 +119,11 @@ function AllClientsPage() {
               return (
                 <Tr key={nanoid()}>
                   {" "}
-                  <Td>
-                    <Avatar />
-                  </Td>
+                  {innerWidth > 700 && (
+                    <Td>
+                      <Avatar />
+                    </Td>
+                  )}
                   <Td height="10vh">
                     <Flex direction="column">
                       <Text
