@@ -1,4 +1,5 @@
 import React from "react";
+import { useGlobalContext } from "@/context/AppContext";
 import {
   Icon,
   Menu,
@@ -11,10 +12,10 @@ import {
   MenuDivider,
   Button,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import { FaEllipsisV } from "react-icons/fa";
 
 const ClientMenu = () => {
+  const { handleNavigateUser } = useGlobalContext();
   return (
     <Menu>
       <MenuButton as={Button}>
@@ -22,7 +23,9 @@ const ClientMenu = () => {
       </MenuButton>
       <MenuList>
         <MenuItem>View Invoices</MenuItem>
-        <MenuItem>More details</MenuItem>
+        <MenuItem onClick={() => handleNavigateUser("client")}>
+          More details
+        </MenuItem>
         <MenuItem>Delete Client</MenuItem>
       </MenuList>
     </Menu>
