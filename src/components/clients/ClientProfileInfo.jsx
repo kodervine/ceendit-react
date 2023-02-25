@@ -13,7 +13,7 @@ const ClientProfileInfo = () => {
   const textColor = useColorModeValue("gray.700", "white");
 
   return (
-    <Card width="30vw">
+    <Card>
       <CardHeader>
         <Heading size="md">Client Report</Heading>
       </CardHeader>
