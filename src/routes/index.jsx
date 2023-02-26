@@ -1,8 +1,6 @@
 import { Route, Routes } from "react-router-dom";
-
 import AlertComponent from "@/components/AlertComponent";
 import Error from "@/components/Error";
-
 import DashboardPage from "@/pages/DashboardPage";
 import FormPreviewPage from "@/pages/FormPreviewPage";
 import HomePage from "@/pages/HomePage";
@@ -14,7 +12,7 @@ import InvoiceHistoryPage from "@/pages/invoice/InvoiceHistoryPage";
 import InvoicePage from "@/pages/invoice/InvoicePage";
 import ShareInvoicePage from "@/pages/invoice/ShareInvoicePage";
 
-import ProtectedRoutes from "@/utils/ProtectedRoutes";
+import ProtectedRoutes from "@/routes/ProtectedRoutes";
 
 import { useGlobalContext } from "@/context/AppContext";
 
