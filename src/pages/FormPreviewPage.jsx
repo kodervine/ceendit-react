@@ -51,7 +51,7 @@ const FormPreviewPage = () => {
     <Box id="form-input">
       <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
-      <Flex>
+      <Flex direction={smallScreenWidth ? "column" : "row"}>
         {!smallScreenWidth && <Sidebar />}
 
         <Stack
@@ -179,9 +179,7 @@ const FormPreviewPage = () => {
             </Table>
           </TableContainer>
         </Stack>
-      </Flex>
-      {/* Buttons */}
-      <Flex width={{ base: "100%", md: "90%", lg: "90%" }}>
+        {/* buttons */}
         <Menu colorScheme="blue">
           <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
             Actions
