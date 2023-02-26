@@ -94,6 +94,11 @@ export const invoiceFormReducer = (state, action) => {
         ...state,
         allInvoiceData: updateDeletedArray,
       };
+    case "SET_INVOICE_FORM_DATA":
+      return {
+        ...state,
+        invoiceFormData: action.payload,
+      };
     case "EDIT_INVOICE":
       const { editedInvoice, id } = action.payload;
       const updatedInvoiceData = [...state.allInvoiceData];

@@ -5,7 +5,7 @@ import React, {
   useRef,
   useReducer,
 } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import jsPDF from "jspdf";
 import { collection, getDocs, query, doc, updateDoc } from "firebase/firestore";
 import { db, auth } from "../firebase-config";
@@ -51,7 +51,26 @@ const AppProvider = ({ children }) => {
   });
 
   // Combined variables to get reducer form proper
-  const invoiceFormDataDirect = invoiceFormState.invoiceFormData;
+
+  const INVOICE_FORM_LOCAL_STORAGE_KEY = "invoiceFormData";
+  useEffect(() => {
+    const invoiceFormState = localStorage.getItem(
+      INVOICE_FORM_LOCAL_STORAGE_KEY
+    );
+    if (invoiceFormState.invoiceFormData) {
+      formDispatch({
+        type: "SET_INVOICE_FORM_DATA",
+        payload: JSON.parse(invoiceFormState.invoiceFormData),
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      INVOICE_FORM_LOCAL_STORAGE_KEY,
+      JSON.stringify(invoiceFormState.invoiceFormData)
+    );
+  }, [invoiceFormState.invoiceFormData]);
 
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
@@ -102,7 +121,7 @@ const AppProvider = ({ children }) => {
 
   // FormPreview function - If it evealuated to true, it renders the FormPreview Page on the App.js
   const handlePreviewData = () => {
-    const checkEmptyInput = Object.values(invoiceFormDataDirect);
+    const checkEmptyInput = Object.values(invoiceFormState.invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
@@ -120,7 +139,7 @@ const AppProvider = ({ children }) => {
   // Handles each invoice submit and pushes it to be stored in firestore
   const handleInvoiceSubmit = async (e) => {
     e.preventDefault();
-    const checkEmptyInput = Object.values(invoiceFormDataDirect);
+    const checkEmptyInput = Object.values(invoiceFormState.invoiceFormData);
     if (checkEmptyInput.some((input) => !input)) {
       alert("please fill out all fields");
       return;
@@ -237,7 +256,6 @@ const AppProvider = ({ children }) => {
         userInitState,
         handleNavigateUser,
         invoiceFormState,
-        invoiceFormDataDirect,
         handleInputChange,
         addNewInvoiceItems,
         handleInvoiceSubmit,

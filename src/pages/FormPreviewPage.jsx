@@ -40,7 +40,7 @@ const FormPreviewPage = () => {
   const { colorMode } = useColorMode();
 
   const {
-    invoiceFormDataDirect,
+    invoiceFormState,
     FormPreviewRef,
     handleInvoiceSubmit,
     showPreviewComponent,
@@ -70,37 +70,39 @@ const FormPreviewPage = () => {
             <Image src={logo} />
             <Box>
               <Text fontWeight="bold">
-                Invoice No {invoiceFormDataDirect.dateCreated}
+                Invoice No {invoiceFormState.invoiceFormData.dateCreated}
               </Text>
             </Box>
           </Flex>
 
           {/* Date */}
           <Box>
-            <Heading size="md">{invoiceFormDataDirect.billFromName}</Heading>
-            <Text>{invoiceFormDataDirect.billFromPhoneNumber}</Text>
-            <Text>{invoiceFormDataDirect.billFromEmail}</Text>
+            <Heading size="md">
+              {invoiceFormState.invoiceFormData.billFromName}
+            </Heading>
+            <Text>{invoiceFormState.invoiceFormData.billFromPhoneNumber}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billFromEmail}</Text>
           </Box>
 
           {/* Invoice date and due date */}
           <Flex>
             <Box>
               <Heading size="sm">Invoice date</Heading>
-              <Text>{invoiceFormDataDirect.dateCreated}</Text>
+              <Text>{invoiceFormState.invoiceFormData.dateCreated}</Text>
             </Box>
             <Spacer />
             <Box>
               <Heading size="sm">Due date</Heading>
-              <Text>{invoiceFormDataDirect.dateDue}</Text>
+              <Text>{invoiceFormState.invoiceFormData.dateDue}</Text>
             </Box>
           </Flex>
 
           {/* Billed to */}
           <Box>
             <Heading size="sm">Billed to</Heading>
-            <Text>{invoiceFormDataDirect.billToName}</Text>
-            <Text>{invoiceFormDataDirect.billToPhoneNumber}</Text>
-            <Text>{invoiceFormDataDirect.billToEmail}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billToName}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billToPhoneNumber}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billToEmail}</Text>
           </Box>
 
           {/* Bank details */}
@@ -124,9 +126,11 @@ const FormPreviewPage = () => {
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>{invoiceFormDataDirect.bankName}</Td>
-                  <Td>{invoiceFormDataDirect.accountName}</Td>
-                  <Td isNumeric>{invoiceFormDataDirect.bankAccount}</Td>
+                  <Td>{invoiceFormState.invoiceFormData.bankName}</Td>
+                  <Td>{invoiceFormState.invoiceFormData.accountName}</Td>
+                  <Td isNumeric>
+                    {invoiceFormState.invoiceFormData.bankAccount}
+                  </Td>
                 </Tr>
               </Tbody>
             </Table>
@@ -163,7 +167,7 @@ const FormPreviewPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {invoiceFormDataDirect.itemContainer.map((item) => {
+                {invoiceFormState.invoiceFormData.itemContainer.map((item) => {
                   return (
                     <Tr key={nanoid()}>
                       <Td>{item.itemContent}</Td>
