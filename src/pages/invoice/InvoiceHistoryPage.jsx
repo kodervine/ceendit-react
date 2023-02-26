@@ -172,7 +172,10 @@ const InvoiceHistoryPage = () => {
                             </Td>
                             <Td textAlign="center">{item.itemPrice}</Td>
                             <Td isNumeric>
-                              #{parseInt(item.itemQty * item.itemPrice)}
+                              #
+                              {parseInt(item.itemQty * item.itemPrice)
+                                .toLocaleString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </Td>
                           </Tr>
                         );

@@ -2,7 +2,30 @@ import React from "react";
 import { useGlobalContext } from "@/context/AppContext";
 import { Card, CardBody, Heading, Button, Text, Flex } from "@chakra-ui/react";
 const TopCards = () => {
-  const { handleNavigateUser } = useGlobalContext();
+  const { handleNavigateUser, invoiceFormState } = useGlobalContext();
+
+  // const total = invoiceFormState.allInvoiceData.map((items) => {
+  //   return items.reduce((acc, curr) => {
+  //     const qty = parseInt(curr.itemQty);
+  //     const price = parseFloat(curr.itemPrice);
+  //     if (!isNaN(qty) && !isNaN(price)) {
+  //       return acc + qty * price;
+  //     }
+  //     return acc;
+  //   });
+  // }, 0);
+
+  const allInvoicesTotal = invoiceFormState.allInvoiceData.map((items) => {
+    return items.itemContainer.reduce(
+      (acc, item) =>
+        acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
+      0
+    );
+  });
+  const allInvoicesRevenue = allInvoicesTotal.reduce(
+    (accumulator, currentValue) => accumulator + currentValue
+  );
+
   return (
     <>
       <Flex
@@ -30,7 +53,12 @@ const TopCards = () => {
           <CardBody>
             {" "}
             <Heading size="md"> Total Revenue</Heading>
-            <Text>#1,298,987</Text>
+            <Text>
+              #
+              {allInvoicesRevenue
+                .toLocaleString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Text>
             <Button
               onClick={() => {
                 handleNavigateUser("invoice-history");

@@ -134,7 +134,7 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  console.log(invoiceFormState);
+  console.log(invoiceFormState.allInvoiceData);
 
   // Handle form reset from InvoiceFormReducer
   const handleInvoiceFormReset = () => {
@@ -199,11 +199,6 @@ const AppProvider = ({ children }) => {
         id,
       },
     };
-  };
-
-  const handleUpdateEditedInvoice = () => {
-    handleNavigateUser("create-invoice");
-    handleInputChange();
   };
 
   // Sent this to DeleteInvoice component and InvoiceHistory page.
