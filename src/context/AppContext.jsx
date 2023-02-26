@@ -44,14 +44,13 @@ const AppProvider = ({ children }) => {
     });
   }, [auth, userInitState.currentUser]);
 
-  // Form data to be updated to be previewed, and concanated to the state pushed to firestore
+  // reducer function of invoiceFormState
   const [invoiceFormState, formDispatch] = useReducer(invoiceFormReducer, {
     invoiceFormData: INVOICE_INITIAL_STATE,
     allInvoiceData: [],
   });
 
-  // Combined variables to get reducer form proper
-
+  // wanting to set the invoice to local storage
   const INVOICE_FORM_LOCAL_STORAGE_KEY = "invoiceFormData";
   useEffect(() => {
     const invoiceFormState = localStorage.getItem(
@@ -63,13 +62,15 @@ const AppProvider = ({ children }) => {
         payload: JSON.parse(invoiceFormState.invoiceFormData),
       });
     }
-  }, []);
+  }, [invoiceFormState.invoiceFormData]);
 
   useEffect(() => {
-    localStorage.setItem(
-      INVOICE_FORM_LOCAL_STORAGE_KEY,
-      JSON.stringify(invoiceFormState.invoiceFormData)
-    );
+    if (invoiceFormState.invoiceFormData) {
+      localStorage.setItem(
+        INVOICE_FORM_LOCAL_STORAGE_KEY,
+        JSON.stringify(invoiceFormState.invoiceFormData)
+      );
+    }
   }, [invoiceFormState.invoiceFormData]);
 
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
@@ -126,7 +127,14 @@ const AppProvider = ({ children }) => {
       alert("please fill out all fields");
       return;
     }
+
+    formDispatch({
+      type: "SET_INVOICE_FORM_DATA",
+      payload: JSON.parse(invoiceFormState.invoiceFormData),
+    });
   };
+
+  console.log(invoiceFormState);
 
   // Handle form reset from InvoiceFormReducer
   const handleInvoiceFormReset = () => {

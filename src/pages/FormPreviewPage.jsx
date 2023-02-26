@@ -43,7 +43,6 @@ const FormPreviewPage = () => {
     invoiceFormState,
     FormPreviewRef,
     handleInvoiceSubmit,
-    showPreviewComponent,
     handlePreviewInvoicePdf,
   } = useGlobalContext();
 
