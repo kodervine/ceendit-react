@@ -16,7 +16,12 @@ import {
   Tr,
   useColorMode,
   useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { nanoid } from "nanoid";
 import { useRef } from "react";
 
@@ -24,7 +29,6 @@ import logo from "@/assets/logo.png";
 import DrawerComponent from "@/components/homepage/DrawerComponent";
 import Nav from "@/components/homepage/Nav";
 import Sidebar from "@/components/homepage/Sidebar";
-import InvoiceToPdf from "@/components/invoice/InvoiceToPdf";
 import { useGlobalContext } from "@/context/AppContext";
 
 const FormPreviewPage = () => {
@@ -40,6 +44,7 @@ const FormPreviewPage = () => {
     FormPreviewRef,
     handleInvoiceSubmit,
     showPreviewComponent,
+    handlePreviewInvoicePdf,
   } = useGlobalContext();
 
   return (
@@ -176,23 +181,20 @@ const FormPreviewPage = () => {
         </Stack>
       </Flex>
       {/* Buttons */}
-      {showPreviewComponent && <InvoiceToPdf />}
-      <Box
-        width={{ base: "100%", md: "90%", lg: "70%" }}
-        maxW="960px"
-        margin="auto"
-        mt="10px"
-        mb="10px"
-      >
-        {/* Eventually this should show only the submit */}
-        <Button
-          onClick={handleInvoiceSubmit}
-          colorScheme="blue"
-          width={smallScreenWidth ? "100%" : "100%"}
-        >
-          Save to Invoice History
-        </Button>
-      </Box>
+      <Flex width={{ base: "100%", md: "90%", lg: "90%" }}>
+        <Menu colorScheme="blue">
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            Actions
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={handlePreviewInvoicePdf}>Download</MenuItem>
+
+            <MenuItem onClick={handleInvoiceSubmit}>
+              Save to invoice history
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      </Flex>
     </Box>
   );
 };

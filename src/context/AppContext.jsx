@@ -163,6 +163,22 @@ const AppProvider = ({ children }) => {
     fetchInvoiceData();
   };
 
+  // Handle edit invoice
+  const handleEditInvoice = (editedInvoice, id) => {
+    return {
+      type: "EDIT_INVOICE",
+      payload: {
+        editedInvoice,
+        id,
+      },
+    };
+  };
+
+  const handleUpdateEditedInvoice = () => {
+    handleNavigateUser("create-invoice");
+    handleInputChange();
+  };
+
   // Sent this to DeleteInvoice component and InvoiceHistory page.
   const handleDeleteInvoice = (deleteindex) => {
     formDispatch({
