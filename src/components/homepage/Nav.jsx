@@ -49,7 +49,7 @@ const Nav = ({ onOpen, btnRef }) => {
     >
       {/* <Image src={logo} alt="ceendit logo" /> */}
       <Text fontSize="xl" fontWeight="bold">
-        Ceendit
+        <Link to="/dashboard"> Ceendit</Link>
       </Text>
 
       <Spacer />

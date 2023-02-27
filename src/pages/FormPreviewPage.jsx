@@ -16,7 +16,12 @@ import {
   Tr,
   useColorMode,
   useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { nanoid } from "nanoid";
 import { useRef } from "react";
 
@@ -24,7 +29,6 @@ import logo from "@/assets/logo.png";
 import DrawerComponent from "@/components/homepage/DrawerComponent";
 import Nav from "@/components/homepage/Nav";
 import Sidebar from "@/components/homepage/Sidebar";
-import InvoiceToPdf from "@/components/invoice/InvoiceToPdf";
 import { useGlobalContext } from "@/context/AppContext";
 
 const FormPreviewPage = () => {
@@ -36,17 +40,17 @@ const FormPreviewPage = () => {
   const { colorMode } = useColorMode();
 
   const {
-    invoiceFormDataDirect,
+    invoiceFormState,
     FormPreviewRef,
     handleInvoiceSubmit,
-    showPreviewComponent,
+    handlePreviewInvoicePdf,
   } = useGlobalContext();
 
   return (
     <Box id="form-input">
       <Nav btnRef={btnRef} onOpen={onOpen} />
       <DrawerComponent isOpen={isOpen} onClose={onClose} btnRef={btnRef} />
-      <Flex>
+      <Flex direction={smallScreenWidth ? "column" : "row"}>
         {!smallScreenWidth && <Sidebar />}
 
         <Stack
@@ -65,37 +69,39 @@ const FormPreviewPage = () => {
             <Image src={logo} />
             <Box>
               <Text fontWeight="bold">
-                Invoice No {invoiceFormDataDirect.dateCreated}
+                Invoice No {invoiceFormState.invoiceFormData.dateCreated}
               </Text>
             </Box>
           </Flex>
 
           {/* Date */}
           <Box>
-            <Heading size="md">{invoiceFormDataDirect.billFromName}</Heading>
-            <Text>{invoiceFormDataDirect.billFromPhoneNumber}</Text>
-            <Text>{invoiceFormDataDirect.billFromEmail}</Text>
+            <Heading size="md">
+              {invoiceFormState.invoiceFormData.billFromName}
+            </Heading>
+            <Text>{invoiceFormState.invoiceFormData.billFromPhoneNumber}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billFromEmail}</Text>
           </Box>
 
           {/* Invoice date and due date */}
           <Flex>
             <Box>
               <Heading size="sm">Invoice date</Heading>
-              <Text>{invoiceFormDataDirect.dateCreated}</Text>
+              <Text>{invoiceFormState.invoiceFormData.dateCreated}</Text>
             </Box>
             <Spacer />
             <Box>
               <Heading size="sm">Due date</Heading>
-              <Text>{invoiceFormDataDirect.dateDue}</Text>
+              <Text>{invoiceFormState.invoiceFormData.dateDue}</Text>
             </Box>
           </Flex>
 
           {/* Billed to */}
           <Box>
             <Heading size="sm">Billed to</Heading>
-            <Text>{invoiceFormDataDirect.billToName}</Text>
-            <Text>{invoiceFormDataDirect.billToPhoneNumber}</Text>
-            <Text>{invoiceFormDataDirect.billToEmail}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billToName}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billToPhoneNumber}</Text>
+            <Text>{invoiceFormState.invoiceFormData.billToEmail}</Text>
           </Box>
 
           {/* Bank details */}
@@ -119,9 +125,11 @@ const FormPreviewPage = () => {
               </Thead>
               <Tbody>
                 <Tr>
-                  <Td>{invoiceFormDataDirect.bankName}</Td>
-                  <Td>{invoiceFormDataDirect.accountName}</Td>
-                  <Td isNumeric>{invoiceFormDataDirect.bankAccount}</Td>
+                  <Td>{invoiceFormState.invoiceFormData.bankName}</Td>
+                  <Td>{invoiceFormState.invoiceFormData.accountName}</Td>
+                  <Td isNumeric>
+                    {invoiceFormState.invoiceFormData.bankAccount}
+                  </Td>
                 </Tr>
               </Tbody>
             </Table>
@@ -158,7 +166,7 @@ const FormPreviewPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {invoiceFormDataDirect.itemContainer.map((item) => {
+                {invoiceFormState.invoiceFormData.itemContainer.map((item) => {
                   return (
                     <Tr key={nanoid()}>
                       <Td>{item.itemContent}</Td>
@@ -174,25 +182,20 @@ const FormPreviewPage = () => {
             </Table>
           </TableContainer>
         </Stack>
+        {/* buttons */}
+        <Menu colorScheme="blue">
+          <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+            Actions
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={handlePreviewInvoicePdf}>Download</MenuItem>
+
+            <MenuItem onClick={handleInvoiceSubmit}>
+              Save to invoice history
+            </MenuItem>
+          </MenuList>
+        </Menu>
       </Flex>
-      {/* Buttons */}
-      {showPreviewComponent && <InvoiceToPdf />}
-      <Box
-        width={{ base: "100%", md: "90%", lg: "70%" }}
-        maxW="960px"
-        margin="auto"
-        mt="10px"
-        mb="10px"
-      >
-        {/* Eventually this should show only the submit */}
-        <Button
-          onClick={handleInvoiceSubmit}
-          colorScheme="blue"
-          width={smallScreenWidth ? "100%" : "100%"}
-        >
-          Save to Invoice History
-        </Button>
-      </Box>
     </Box>
   );
 };
