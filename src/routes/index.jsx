@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import { useGlobalContext } from "@/context/AppContext";
 import AlertComponent from "@/components/AlertComponent";
 import ProtectedRoutes from "@/routes/ProtectedRoutes";
+import Loading from "@/components/ui/Loading";
 
 // Lazy loading import
 const Error = lazy(() => import("@/components/Error"));
@@ -28,7 +29,7 @@ export default () => {
     <>
       {/* Display when invoice is saved successfully */}
       {showAllInvoice && <AlertComponent />}
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loading />}>
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/signin" element={<SignInPage />} />
