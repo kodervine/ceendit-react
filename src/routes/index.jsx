@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
+import { lazy, Suspense } from "react";
 import AlertComponent from "@/components/AlertComponent";
-import Error from "@/components/Error";
+// import Error from "@/components/Error";
 import DashboardPage from "@/pages/DashboardPage";
 import FormPreviewPage from "@/pages/FormPreviewPage";
 import HomePage from "@/pages/HomePage";
@@ -15,6 +16,8 @@ import ShareInvoicePage from "@/pages/invoice/ShareInvoicePage";
 import ProtectedRoutes from "@/routes/ProtectedRoutes";
 
 import { useGlobalContext } from "@/context/AppContext";
+
+const Error = lazy(() => import("@/components/Error"));
 
 export default () => {
   // For form preview

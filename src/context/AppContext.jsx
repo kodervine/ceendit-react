@@ -56,12 +56,12 @@ const AppProvider = ({ children }) => {
     const invoiceFormState = localStorage.getItem(
       INVOICE_FORM_LOCAL_STORAGE_KEY
     );
-    if (invoiceFormState.invoiceFormData) {
-      formDispatch({
-        type: "SET_INVOICE_FORM_DATA",
-        payload: JSON.parse(invoiceFormState.invoiceFormData),
-      });
-    }
+    // if (invoiceFormState.invoiceFormData) {
+    //   formDispatch({
+    //     type: "SET_INVOICE_FORM_DATA",
+    //     payload: JSON.parse(invoiceFormState.invoiceFormData),
+    //   });
+    // }
   }, [invoiceFormState.invoiceFormData]);
 
   useEffect(() => {

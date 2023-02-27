@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useGlobalContext } from "@/context/AppContext";
 import { Card, CardBody, Heading, Button, Text, Flex } from "@chakra-ui/react";
 const TopCards = () => {
@@ -15,16 +15,23 @@ const TopCards = () => {
   //   });
   // }, 0);
 
-  const allInvoicesTotal = invoiceFormState.allInvoiceData.map((items) => {
-    return items.itemContainer.reduce(
-      (acc, item) =>
-        acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
-      0
+  const [allInvoiceRevenue, setAllInvoiceRevenue] = useState(0);
+
+  useEffect(() => {
+    const allInvoicesTotal = invoiceFormState.allInvoiceData.map((items) => {
+      return items.itemContainer.reduce(
+        (acc, item) =>
+          acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
+        0
+      );
+    });
+
+    setAllInvoiceRevenue(
+      allInvoicesTotal.reduce(
+        (accumulator, currentValue) => accumulator + currentValue
+      )
     );
-  });
-  const allInvoicesRevenue = allInvoicesTotal.reduce(
-    (accumulator, currentValue) => accumulator + currentValue
-  );
+  }, [invoiceFormState.allInvoiceData]);
 
   return (
     <>
@@ -39,7 +46,7 @@ const TopCards = () => {
           <CardBody>
             {" "}
             <Heading size="md"> Total Invoice No</Heading>
-            <Text>70</Text>
+            <Text>{invoiceFormState.allInvoiceData.length}</Text>
             <Button
               onClick={() => {
                 handleNavigateUser("create-invoice");
@@ -55,10 +62,10 @@ const TopCards = () => {
             <Heading size="md"> Total Revenue</Heading>
             <Text>
               #
-              {allInvoicesRevenue
+              {allInvoiceRevenue
                 .toLocaleString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            </Text>
+            </Text>{" "}
             <Button
               onClick={() => {
                 handleNavigateUser("invoice-history");
