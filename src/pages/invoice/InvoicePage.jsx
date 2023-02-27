@@ -8,7 +8,12 @@ import {
   Spacer,
   Text,
   useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 
@@ -24,7 +29,7 @@ import { useGlobalContext } from "@/context/AppContext";
 
 const InvoicePage = () => {
   const {
-    invoiceFormDataDirect,
+    invoiceFormState,
     handleInputChange,
     addNewInvoiceItems,
     handleInvoiceSubmit,
@@ -38,11 +43,12 @@ const InvoicePage = () => {
   const smallScreenWidth = window.innerWidth < 700;
 
   // Const total from items price and quantity
-  const invoiceItemsTotal = invoiceFormDataDirect.itemContainer.reduce(
-    (acc, item) =>
-      acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
-    0
-  );
+  const invoiceItemsTotal =
+    invoiceFormState.invoiceFormData.itemContainer.reduce(
+      (acc, item) =>
+        acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
+      0
+    );
 
   return (
     <>
@@ -73,14 +79,14 @@ const InvoicePage = () => {
               text="Date Created"
               nameOfDateInput="dateCreated"
               onHandleChange={handleInputChange}
-              valueofDateInput={invoiceFormDataDirect.dateCreated}
+              valueofDateInput={invoiceFormState.invoiceFormData.dateCreated}
             />
             <Spacer />
             <DateInput
               text="Date due"
               nameOfDateInput="dateDue"
               onHandleChange={handleInputChange}
-              valueOfDateInput={invoiceFormDataDirect.dateDue}
+              valueOfDateInput={invoiceFormState.invoiceFormData.dateDue}
             />
           </Flex>
 
@@ -94,10 +100,14 @@ const InvoicePage = () => {
               formNameOfInvoiceFormEmail="billFromEmail"
               formNameOfInvoiceFormText="billFromName"
               formNameOfInvoiceFormNumber="billFromPhoneNumber"
-              valueOfInvoiceFormEmail={invoiceFormDataDirect.billFromEmail}
-              valueOfInvoiceFormText={invoiceFormDataDirect.billFromName}
+              valueOfInvoiceFormEmail={
+                invoiceFormState.invoiceFormData.billFromEmail
+              }
+              valueOfInvoiceFormText={
+                invoiceFormState.invoiceFormData.billFromName
+              }
               valueOfInvoiceFormPhoneNumber={
-                invoiceFormDataDirect.billFromPhoneNumber
+                invoiceFormState.invoiceFormData.billFromPhoneNumber
               }
               onHandleChange={handleInputChange}
             />
@@ -109,10 +119,14 @@ const InvoicePage = () => {
               formNameOfInvoiceFormEmail="billToEmail"
               formNameOfInvoiceFormText="billToName"
               formNameOfInvoiceFormNumber="billToPhoneNumber"
-              valueOfInvoiceFormEmail={invoiceFormDataDirect.billToEmail}
-              valueOfInvoiceFormText={invoiceFormDataDirect.billToName}
+              valueOfInvoiceFormEmail={
+                invoiceFormState.invoiceFormData.billToEmail
+              }
+              valueOfInvoiceFormText={
+                invoiceFormState.invoiceFormData.billToName
+              }
               valueOfInvoiceFormPhoneNumber={
-                invoiceFormDataDirect.billToPhoneNumber
+                invoiceFormState.invoiceFormData.billToPhoneNumber
               }
               onHandleChange={handleInputChange}
             />
@@ -124,30 +138,38 @@ const InvoicePage = () => {
               formNameOfInvoiceFormBankName="bankName"
               formNameOfInvoiceFormBankAccount="bankAccount"
               formNameOfInvoiceFormAccountName="accountName"
-              valueOfInvoiceFormBankName={invoiceFormDataDirect.bankName}
-              valueOfInvoiceFormAccountName={invoiceFormDataDirect.accountName}
-              valueOfInvoiceFormBankAccount={invoiceFormDataDirect.bankAccount}
+              valueOfInvoiceFormBankName={
+                invoiceFormState.invoiceFormData.bankName
+              }
+              valueOfInvoiceFormAccountName={
+                invoiceFormState.invoiceFormData.accountName
+              }
+              valueOfInvoiceFormBankAccount={
+                invoiceFormState.invoiceFormData.bankAccount
+              }
               onHandleChange={handleInputChange}
             />
           </Box>
 
-          {/* InvoiceItems rendering with data gotten from useContext - invoiceFormDataDirect variable. Plus passing the data via to the InvoiceItems component*/}
+          {/* InvoiceItems rendering with data gotten from useContext - invoiceFormState.invoiceFormData variable. Plus passing the data via to the InvoiceItems component*/}
           <section>
-            {invoiceFormDataDirect.itemContainer.map((item, index) => {
-              return (
-                <InvoiceItems
-                  key={index}
-                  nameOfInvoiceItemPrice={`itemContainer.${index}.itemPrice`}
-                  nameOfInvoiceItemContent={`itemContainer.${index}.itemContent`}
-                  nameOfInvoiceItemQty={`itemContainer.${index}.itemQty`}
-                  nameOfInvoiceItemTotal="itemTotal"
-                  valueOfInvoiceItemPrice={item.itemPrice}
-                  valueOfInvoiceItemContent={item.itemContent}
-                  valueOfInvoiceItemQty={item.itemQty}
-                  onHandleChange={handleInputChange}
-                />
-              );
-            })}
+            {invoiceFormState.invoiceFormData.itemContainer.map(
+              (item, index) => {
+                return (
+                  <InvoiceItems
+                    key={index}
+                    nameOfInvoiceItemPrice={`itemContainer.${index}.itemPrice`}
+                    nameOfInvoiceItemContent={`itemContainer.${index}.itemContent`}
+                    nameOfInvoiceItemQty={`itemContainer.${index}.itemQty`}
+                    nameOfInvoiceItemTotal="itemTotal"
+                    valueOfInvoiceItemPrice={item.itemPrice}
+                    valueOfInvoiceItemContent={item.itemContent}
+                    valueOfInvoiceItemQty={item.itemQty}
+                    onHandleChange={handleInputChange}
+                  />
+                );
+              }
+            )}
 
             {/* Add more invoice items */}
             <Button
@@ -160,6 +182,7 @@ const InvoicePage = () => {
               Add more items
             </Button>
             {/* Invoice Total */}
+
             <Box>
               <Heading as="h4" size="lg">
                 Total
@@ -167,53 +190,34 @@ const InvoicePage = () => {
               <Text>{invoiceItemsTotal}</Text>
             </Box>
           </section>
-          <Flex pt="6" gap="2" direction={smallScreenWidth ? "column" : "row"}>
+          <Flex pt="6" gap="2" width="100vw">
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                Actions
+              </MenuButton>
+              <MenuList>
+                {!showPreviewComponent ? (
+                  <MenuItem onClick={handlePreviewData}>
+                    <Link disabled> Preview Invoice</Link>
+                  </MenuItem>
+                ) : (
+                  <MenuItem onClick={handlePreviewData}>
+                    {showPreviewComponent && (
+                      <Link to="/form-preview"> Preview Invoice</Link>
+                    )}
+                  </MenuItem>
+                )}
+
+                <MenuItem onClick={handleInvoiceSubmit}>
+                  Save to invoice history
+                </MenuItem>
+                <MenuItem>
+                  {" "}
+                  <Link to="/invoice-history">View all Invoice</Link>
+                </MenuItem>
+              </MenuList>
+            </Menu>
             {/* Disable preview invoice button if the forms haven't been filled */}
-            <Box>
-              {!showPreviewComponent ? (
-                <Button
-                  onClick={handlePreviewData}
-                  colorScheme="blue"
-                  type="submit"
-                  width={smallScreenWidth ? "100%" : "auto"}
-                  disabled
-                >
-                  {" "}
-                  <Link disabled> Preview Invoice</Link>
-                </Button>
-              ) : (
-                <Button
-                  onClick={handlePreviewData}
-                  colorScheme="blue"
-                  type="submit"
-                  width={smallScreenWidth ? "100%" : "auto"}
-                >
-                  {" "}
-                  {showPreviewComponent && (
-                    <Link to="/form-preview"> Preview Invoice</Link>
-                  )}
-                </Button>
-              )}
-            </Box>
-            <Box>
-              {/* Eventually this should show only the submit */}
-              <Button
-                onClick={handleInvoiceSubmit}
-                colorScheme="blue"
-                width={smallScreenWidth ? "100%" : "auto"}
-              >
-                Save to Invoice History
-              </Button>
-            </Box>
-            <Box>
-              {/* View all invoice */}
-              <Button
-                colorScheme="blue"
-                width={smallScreenWidth ? "100%" : "auto"}
-              >
-                <Link to="/invoice-history">View all Invoice</Link>
-              </Button>
-            </Box>
           </Flex>
         </FormControl>
       </Flex>

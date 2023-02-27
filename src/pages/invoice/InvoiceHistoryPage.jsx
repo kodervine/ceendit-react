@@ -16,7 +16,13 @@ import {
   Tr,
   useColorMode,
   useDisclosure,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
 } from "@chakra-ui/react";
+import React from "react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import { nanoid } from "nanoid";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
@@ -25,7 +31,6 @@ import logo from "@/assets/logo.png";
 import DrawerComponent from "@/components/homepage/DrawerComponent";
 import Nav from "@/components/homepage/Nav";
 import Sidebar from "@/components/homepage/Sidebar";
-import DeleteInvoice from "@/components/invoice/DeleteInvoice";
 import { useGlobalContext } from "@/context/AppContext";
 
 //  set up the invoice history page with data gotten from the allInvoiceData state from context.
@@ -38,7 +43,8 @@ const InvoiceHistoryPage = () => {
   const { colorMode } = useColorMode();
 
   // from AppContext
-  const { invoiceFormState, userInitState, handlePrint } = useGlobalContext();
+  const { invoiceFormState, userInitState, handlePrint, handleDeleteInvoice } =
+    useGlobalContext();
 
   return (
     <Box>
@@ -166,7 +172,10 @@ const InvoiceHistoryPage = () => {
                             </Td>
                             <Td textAlign="center">{item.itemPrice}</Td>
                             <Td isNumeric>
-                              #{parseInt(item.itemQty * item.itemPrice)}
+                              #
+                              {parseInt(item.itemQty * item.itemPrice)
+                                .toLocaleString()
+                                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                             </Td>
                           </Tr>
                         );
@@ -175,33 +184,36 @@ const InvoiceHistoryPage = () => {
                   </Table>
                 </TableContainer>
 
-                {/* Buttons  */}
+                {/* Invoice actions */}
                 <Flex direction={smallScreenWidth ? "column" : "row"}>
-                  <Button
-                    onClick={() => handlePrint(invoiceFirestore, index)}
-                    colorScheme="blue"
-                    mt="10px"
-                    width={smallScreenWidth ? "100%" : "auto"}
-                    maxW="960px"
-                  >
-                    <Text>Download</Text>
-                  </Button>
-                  <Button
-                    marginLeft={smallScreenWidth ? "0" : "12px"}
-                    colorScheme="blue"
-                    mt="10px"
-                    width={smallScreenWidth ? "100%" : "auto"}
-                    maxW="960px"
-                  >
-                    <Link
-                      to={`/invoices/${userInitState.currentUser.displayName}/${index}`}
-                    >
-                      Share invoice
-                    </Link>
-                  </Button>
-
-                  {/* same id from the map from firestore */}
-                  <DeleteInvoice id={index} />
+                  <Menu>
+                    <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                      Actions
+                    </MenuButton>
+                    <MenuList>
+                      <MenuItem
+                        onClick={() => handlePrint(invoiceFirestore, index)}
+                      >
+                        Download
+                      </MenuItem>
+                      <MenuItem>Edit</MenuItem>
+                      <MenuItem>
+                        {" "}
+                        <Link
+                          to={`/invoices/${userInitState.currentUser.displayName}/${index}`}
+                        >
+                          Share invoice
+                        </Link>
+                      </MenuItem>
+                      <MenuItem
+                        onClick={() => {
+                          handleDeleteInvoice(index);
+                        }}
+                      >
+                        Delete
+                      </MenuItem>
+                    </MenuList>
+                  </Menu>
                 </Flex>
               </Stack>
             );
