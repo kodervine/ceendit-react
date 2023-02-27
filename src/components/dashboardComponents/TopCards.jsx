@@ -18,19 +18,22 @@ const TopCards = () => {
   const [allInvoiceRevenue, setAllInvoiceRevenue] = useState(0);
 
   useEffect(() => {
-    const allInvoicesTotal = invoiceFormState.allInvoiceData.map((items) => {
-      return items.itemContainer.reduce(
-        (acc, item) =>
-          acc + parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
-        0
-      );
-    });
+    if (invoiceFormState.allInvoiceData.length > 1) {
+      const allInvoicesTotal = invoiceFormState.allInvoiceData.map((items) => {
+        return items.itemContainer.reduce(
+          (acc, item) =>
+            acc +
+            parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
+          0
+        );
+      });
 
-    setAllInvoiceRevenue(
-      allInvoicesTotal.reduce(
-        (accumulator, currentValue) => accumulator + currentValue
-      )
-    );
+      setAllInvoiceRevenue(
+        allInvoicesTotal.reduce(
+          (accumulator, currentValue) => accumulator + currentValue
+        )
+      );
+    }
   }, [invoiceFormState.allInvoiceData]);
 
   return (
