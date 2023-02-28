@@ -46,12 +46,6 @@ const BarChart = () => {
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(53, 162, 235, 0.4)",
         },
-        // {
-        //   label: "Invoices",
-        //   data: [1234, 5678, 9876, 5432, 1234, 5678, 9098],
-        //   borderColor: "rgb(53, 162, 235)",
-        //   backgroundColor: "rgba(53, 162, 235, 0.4)",
-        // },
       ],
     });
     setChartOptions({
@@ -67,7 +61,7 @@ const BarChart = () => {
       maintainAspectRatio: false,
       responsive: true,
     });
-  }, []);
+  }, [invoiceFormState]);
   return (
     <>
       <Box
