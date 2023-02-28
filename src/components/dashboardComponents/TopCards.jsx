@@ -16,7 +16,9 @@ const TopCards = () => {
   // }, 0);
 
   const [allInvoiceRevenue, setAllInvoiceRevenue] = useState(0);
+  const [invoiceDueDateState, setInvoiceDueDateState] = useState(0);
 
+  // Top cards
   useEffect(() => {
     if (invoiceFormState.allInvoiceData.length > 1) {
       const allInvoicesTotal = invoiceFormState.allInvoiceData.map((items) => {
@@ -34,6 +36,38 @@ const TopCards = () => {
         )
       );
     }
+  }, [invoiceFormState.allInvoiceData]);
+
+  // Due Today invoice total
+  useEffect(() => {
+    invoiceFormState.allInvoiceData.map((invoices) => {
+      const { dateDue, itemContainer } = invoices;
+      const numericDate = dateDue;
+      const invoiceCurrentDate = new Date(numericDate);
+      const options = {
+        // weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+      const invoiceDueDate = invoiceCurrentDate.toLocaleDateString(
+        "en-UK",
+        options
+      );
+      const todayDate = new Date().toLocaleDateString("en-UK", options);
+      if (invoiceDueDate == todayDate) {
+        return setInvoiceDueDateState(
+          itemContainer.reduce(
+            (acc, item) =>
+              acc +
+              parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
+            0
+          )
+        );
+      } else {
+        return setInvoiceDueDateState(0);
+      }
+    });
   }, [invoiceFormState.allInvoiceData]);
 
   return (
@@ -59,6 +93,22 @@ const TopCards = () => {
             </Button>
           </CardBody>
         </Card>
+
+        <Card width={innerWidth > 700 ? "25vw" : "90vw"}>
+          <CardBody>
+            {" "}
+            <Heading size="md">Due today</Heading>
+            <Text>
+              #
+              {invoiceDueDateState
+                .toLocaleString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            </Text>
+            <Button onClick={() => handleNavigateUser("my-clients")}>
+              See All Clients
+            </Button>
+          </CardBody>
+        </Card>
         <Card width={innerWidth > 700 ? "25vw" : "90vw"}>
           <CardBody>
             {" "}
@@ -75,17 +125,6 @@ const TopCards = () => {
               }}
             >
               See all Invoices
-            </Button>
-          </CardBody>
-        </Card>
-
-        <Card width={innerWidth > 700 ? "25vw" : "90vw"}>
-          <CardBody>
-            {" "}
-            <Heading size="md">Clients No</Heading>
-            <Text>#17</Text>
-            <Button onClick={() => handleNavigateUser("my-clients")}>
-              See All Clients
             </Button>
           </CardBody>
         </Card>
