@@ -32,7 +32,8 @@ const ShareInvoicePage = () => {
   const smallScreenWidth = window.innerWidth < 700;
   const { colorMode } = useColorMode();
 
-  const { invoiceFormState, handlePreviewInvoicePdf } = useGlobalContext();
+  const { invoiceFormState, FormPreviewRef, handlePreviewInvoicePdf } =
+    useGlobalContext();
 
   // Retrieve invoice data based on the id parameter in the URL. If the invoice does not exist, display an error message.
   const { id } = useParams();
@@ -60,6 +61,7 @@ const ShareInvoicePage = () => {
           p="6"
           boxShadow="dark-lg"
           rounded="md"
+          ref={FormPreviewRef}
         >
           <Flex alignItems="center" justifyContent="space-between">
             <Box>
