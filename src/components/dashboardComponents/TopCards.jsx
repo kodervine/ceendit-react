@@ -42,6 +42,7 @@ const TopCards = () => {
   useEffect(() => {
     invoiceFormState.allInvoiceData.map((invoices) => {
       const { dateDue, itemContainer } = invoices;
+      console.log(dateDue);
       const numericDate = dateDue;
       const invoiceCurrentDate = new Date(numericDate);
       const options = {
@@ -55,7 +56,7 @@ const TopCards = () => {
         options
       );
       const todayDate = new Date().toLocaleDateString("en-UK", options);
-      if (invoiceDueDate == todayDate) {
+      if (invoiceDueDate === todayDate) {
         return setInvoiceDueDateState(
           itemContainer.reduce(
             (acc, item) =>
@@ -65,7 +66,7 @@ const TopCards = () => {
           )
         );
       } else {
-        return setInvoiceDueDateState(0);
+        return;
       }
     });
   }, [invoiceFormState.allInvoiceData]);
