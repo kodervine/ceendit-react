@@ -134,8 +134,6 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  console.log(invoiceFormState.allInvoiceData);
-
   // Handle form reset from InvoiceFormReducer
   const handleInvoiceFormReset = () => {
     formDispatch({
@@ -156,7 +154,9 @@ const AppProvider = ({ children }) => {
     // Add new invoice to the array in the state
     formDispatch({
       type: "SUBMIT_INVOICE_FORM_DATA",
-      payload: invoiceFormState.invoiceFormData,
+      payload: invoiceFormState.allInvoiceData.push(
+        invoiceFormState.invoiceFormData
+      ),
     });
 
     // Save to firestore and fetch the updated data from function below
