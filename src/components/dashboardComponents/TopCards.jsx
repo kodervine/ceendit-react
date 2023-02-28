@@ -4,17 +4,6 @@ import { Card, CardBody, Heading, Button, Text, Flex } from "@chakra-ui/react";
 const TopCards = () => {
   const { handleNavigateUser, invoiceFormState } = useGlobalContext();
 
-  // const total = invoiceFormState.allInvoiceData.map((items) => {
-  //   return items.reduce((acc, curr) => {
-  //     const qty = parseInt(curr.itemQty);
-  //     const price = parseFloat(curr.itemPrice);
-  //     if (!isNaN(qty) && !isNaN(price)) {
-  //       return acc + qty * price;
-  //     }
-  //     return acc;
-  //   });
-  // }, 0);
-
   const [allInvoiceRevenue, setAllInvoiceRevenue] = useState(0);
   const [invoiceDueDateState, setInvoiceDueDateState] = useState(0);
 
@@ -38,36 +27,43 @@ const TopCards = () => {
     }
   }, [invoiceFormState.allInvoiceData]);
 
-  // Due Today invoice total
+  // Due today invoices
   useEffect(() => {
-    invoiceFormState.allInvoiceData.map((invoices) => {
-      const { dateDue, itemContainer } = invoices;
-      const numericDate = dateDue;
-      const invoiceCurrentDate = new Date(numericDate);
-      const options = {
-        // weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
-      const invoiceDueDate = invoiceCurrentDate.toLocaleDateString(
-        "en-UK",
-        options
-      );
-      const todayDate = new Date().toLocaleDateString("en-UK", options);
-      if (invoiceDueDate == todayDate) {
-        return setInvoiceDueDateState(
-          itemContainer.reduce(
-            (acc, item) =>
-              acc +
+    const invoicesWithTodayDueDate = invoiceFormState.allInvoiceData.filter(
+      (invoices) => {
+        const { dateDue } = invoices;
+        const numericDate = dateDue;
+        const invoiceCurrentDate = new Date(numericDate);
+        const options = {
+          // weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        const invoiceDueDate = invoiceCurrentDate.toLocaleDateString(
+          "en-UK",
+          options
+        );
+        const todayDate = new Date().toLocaleDateString("en-UK", options);
+        return invoiceDueDate === todayDate;
+      }
+    );
+    if (invoicesWithTodayDueDate.length) {
+      const invoiceTotal = invoicesWithTodayDueDate.reduce(
+        (acc, invoices) =>
+          acc +
+          invoices.itemContainer.reduce(
+            (total, item) =>
+              total +
               parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
             0
-          )
-        );
-      } else {
-        return setInvoiceDueDateState(0);
-      }
-    });
+          ),
+        0
+      );
+      setInvoiceDueDateState(invoiceTotal);
+    } else {
+      return;
+    }
   }, [invoiceFormState.allInvoiceData]);
 
   return (
