@@ -1,5 +1,5 @@
 import React from "react";
-import { FaShoppingBag } from "react-icons/fa";
+import { FaFileInvoiceDollar } from "react-icons/fa";
 import { Box, Flex, Grid, Text, Heading } from "@chakra-ui/react";
 import { useGlobalContext } from "@/context/AppContext";
 
@@ -30,8 +30,13 @@ const RecentInvoices = () => {
               key={index}
               justifyContent="space-between"
             >
-              <Box backgroundColor="blue.100" padding={3} borderRadius="lg">
-                <FaShoppingBag className="text-purple-800" />
+              <Box
+                backgroundColor="blue.600"
+                padding={3}
+                borderRadius="lg"
+                color="white"
+              >
+                <FaFileInvoiceDollar className="text-purple-800" />
               </Box>
               <Text textAlign="left" flex={2} paddingLeft="3">
                 {billToName}

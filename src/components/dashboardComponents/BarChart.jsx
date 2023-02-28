@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
+import { useGlobalContext } from "@/context/AppContext";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -21,6 +22,7 @@ ChartJS.register(
 );
 
 const BarChart = () => {
+  const { invoiceFormState } = useGlobalContext();
   const [chartData, setChartData] = useState({
     datasets: [],
   });
@@ -29,11 +31,18 @@ const BarChart = () => {
 
   useEffect(() => {
     setChartData({
-      labels: ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+      labels: invoiceFormState.allInvoiceData.map((items) => items.dateDue),
       datasets: [
         {
           label: "Invoices",
-          data: [1234, 5678, 9876, 5432, 1234, 5678, 9098],
+          data: invoiceFormState.allInvoiceData.map((items) => {
+            return items.itemContainer.reduce(
+              (acc, item) =>
+                acc +
+                parseFloat(item.itemQty || 0) * parseFloat(item.itemPrice || 0),
+              0
+            );
+          }),
           borderColor: "rgb(53, 162, 235)",
           backgroundColor: "rgba(53, 162, 235, 0.4)",
         },
@@ -52,7 +61,7 @@ const BarChart = () => {
       maintainAspectRatio: false,
       responsive: true,
     });
-  }, []);
+  }, [invoiceFormState]);
   return (
     <>
       <Box
