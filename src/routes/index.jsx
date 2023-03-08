@@ -4,6 +4,7 @@ import { useGlobalContext } from "@/context/AppContext";
 import AlertComponent from "@/components/AlertComponent";
 import ProtectedRoutes from "@/routes/ProtectedRoutes";
 import Loading from "@/components/ui/Loading";
+import SettingsPage from "@/pages/settings/SettingsPage";
 
 // Lazy loading import
 const Error = lazy(() => import("@/components/Error"));
@@ -55,6 +56,7 @@ export default () => {
                 />
               </Route>
             )}
+            <Route path="/settings" element={<SettingsPage />} />
           </Route>
           {/* <Route path="/invoices/:id" component={ShareInvoicePage} /> */}
           <Route path="*" element={<Error />} />

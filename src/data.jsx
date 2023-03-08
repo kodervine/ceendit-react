@@ -46,6 +46,7 @@ export const linksData = [
       {
         name: "Settings",
         icon: <AiOutlineSetting />,
+        link: "/settings"
       },
       {
         name: "Subscription",
