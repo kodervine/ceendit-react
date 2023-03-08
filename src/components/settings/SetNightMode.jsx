@@ -1,5 +1,4 @@
 import React from "react";
-import DateTimePicker from 'react-datetime-picker'
 import { Box, useColorMode, Flex, Text } from "@chakra-ui/react";
 import { BsToggle2Off, BsToggle2On } from "react-icons/bs";
 import { useThemeContext } from "@/context/ThemeContext";
@@ -22,13 +21,15 @@ const SetNightMode = () => {
       <Flex justifyContent="space-between">
         {" "}
         <Text>Schedule Night Mode</Text>
-        {isEvening ? <BsToggle2Off /> : <BsToggle2On />}
+        {isEvening && colorMode === "dark"}
+        {colorMode === "light" ? <BsToggle2Off /> : <BsToggle2Off />}
       </Flex>
-      <Flex><Text>Turn on</Text>
-      <DateTimePicker /></Flex>
-      <Flex><Text>Turn off</Text>
-      <DateTimePicker /></Flex>
-      
+      <Flex>
+        <Text>Turn on</Text>
+      </Flex>
+      <Flex>
+        <Text>Turn off</Text>
+      </Flex>
     </div>
   );
 };
