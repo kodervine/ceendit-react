@@ -4,17 +4,15 @@ import { extendTheme } from "@chakra-ui/react";
 const ThemeContext = createContext();
 
 const AppThemeProvider = ({ children }) => {
+  const config = {
+    initialColorMode: "light",
+    useSystemColorMode: false,
+  };
+
+  // https://chakra-ui.com/docs/styled-system/color-mode
+  const chakraTheme = extendTheme({ config });
   const [isEvening, setIsEvening] = useState(false);
-
   useEffect(() => {
-    const config = {
-      initialColorMode: "light",
-      useSystemColorMode: false,
-    };
-
-    // https://chakra-ui.com/docs/styled-system/color-mode
-    const chakraTheme = extendTheme({ config });
-
     const now = new Date();
     const eveningStart = new Date().setHours(18, 0, 0);
     // set evening start time to 6:00 PM
