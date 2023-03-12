@@ -84,7 +84,7 @@ function Invoices() {
                       fontWeight="semibold"
                       pb=".2rem"
                     >
-                      Duration
+                      Debt
                     </Text>
                     <Progress
                       colorScheme="blue"
@@ -112,8 +112,23 @@ function Invoices() {
 
           {/* Another table */}
           <Tbody>
-            {invoiceFormState.allInvoiceData.map((clients, index) => {
-              const { billToName, billToEmail, dateCreated, dateDue } = clients;
+            {invoiceFormState.allInvoiceData.map((invoices, index) => {
+              const {
+                billToName,
+                billToEmail,
+                dateCreated,
+                dateDue,
+                itemContainer,
+              } = invoices;
+              const numericDate = dateDue;
+              const date = new Date(numericDate);
+              const options = {
+                // weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              };
+              const textDate = date.toLocaleDateString("en-UK", options);
               return (
                 <Tr key={nanoid()}>
                   {" "}
@@ -133,7 +148,7 @@ function Invoices() {
                         {billToName}
                       </Text>
                       <Text fontSize="sm" color="gray.400" fontWeight="normal">
-                        {billToEmail}
+                        {textDate}
                       </Text>
                     </Flex>
                   </Td>
@@ -146,20 +161,41 @@ function Invoices() {
                         p="3px 10px"
                         borderRadius="8px"
                       >
-                        Active
+                        NOT DUE
                       </Badge>
                     </Td>
                   )}
                   {innerWidth > 700 && (
                     <Td>
-                      <Text
+                      {/* <Text
                         fontSize="md"
                         color={textColor}
                         fontWeight="semibold"
                         pb=".5rem"
                       >
                         {dateDue}
-                      </Text>
+                      </Text> */}
+                      {itemContainer.map((item, id) => {
+                        return (
+                          <Flex direction="column">
+                            <Text
+                              fontSize="md"
+                              color={textColor}
+                              fontWeight="semibold"
+                              minWidth="100%"
+                            >
+                              {item.itemContent}
+                            </Text>
+                            <Text
+                              fontSize="sm"
+                              color="gray.400"
+                              fontWeight="normal"
+                            >
+                              #{item.itemPrice} * {item.itemQty}
+                            </Text>
+                          </Flex>
+                        );
+                      })}
                     </Td>
                   )}
                   <Td>

@@ -23,8 +23,6 @@ const AppThemeProvider = ({ children }) => {
       setIsEvening(false);
     }
   }, []);
-
-  console.log(isEvening);
   return (
     <ThemeContext.Provider value={{ chakraTheme, isEvening }}>
       {children}
