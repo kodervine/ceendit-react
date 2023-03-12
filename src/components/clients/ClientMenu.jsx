@@ -26,7 +26,7 @@ const ClientMenu = () => {
         <MenuItem onClick={() => handleNavigateUser("client")}>
           More details
         </MenuItem>
-        <MenuItem>Deletet</MenuItem>
+        <MenuItem>Delete</MenuItem>
       </MenuList>
     </Menu>
   );

@@ -29,6 +29,7 @@ export const INVOICE_INITIAL_STATE = {
     },
   ],
 };
+
 // Define the reducer function to handle state updates
 export const invoiceFormReducer = (state, action) => {
   switch (action.type) {
@@ -89,6 +90,7 @@ export const invoiceFormReducer = (state, action) => {
       const updateDeletedArray = state.allInvoiceData.filter(
         (item, i) => i !== deleteindex
       );
+
       return {
         ...state,
         allInvoiceData: updateDeletedArray,
