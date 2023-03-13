@@ -199,7 +199,11 @@ function Invoices() {
                     </Td>
                   )}
                   <Td>
-                    <ClientMenu />
+                    <ClientMenu
+                      delete="Delete Invoice"
+                      moreDetails="More Details"
+                      view="View Invoices"
+                    />
                   </Td>
                 </Tr>
               );
