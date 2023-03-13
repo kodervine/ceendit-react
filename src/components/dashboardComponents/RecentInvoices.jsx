@@ -4,7 +4,8 @@ import { Box, Flex, Text, Heading } from "@chakra-ui/react";
 import { useGlobalContext } from "@/context/AppContext";
 
 const RecentInvoices = () => {
-  const { invoiceFormState } = useGlobalContext();
+  const { userInitState, invoiceFormState, handleNavigateUser } =
+    useGlobalContext();
   return (
     <Box
       width={innerWidth > 700 ? "50%" : "90%"}
@@ -42,7 +43,19 @@ const RecentInvoices = () => {
                 >
                   <FaFileInvoiceDollar className="text-purple-800" />
                 </Box>
-                <Text textAlign="left" flex={2} paddingLeft="3">
+                <Text
+                  textAlign="left"
+                  flex={2}
+                  paddingLeft="3"
+                  onClick={() => {
+                    const itemIndex = invoiceFormState.allInvoiceData.findIndex(
+                      (item) => item === items
+                    );
+                    handleNavigateUser(
+                      `invoices/${userInitState.currentUser.displayName}/${itemIndex}`
+                    );
+                  }}
+                >
                   {billToName}
                 </Text>
                 <Text textAlign="right">{dateDue}</Text>
