@@ -28,7 +28,7 @@ function Invoices() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
-  const { invoiceFormState } = useGlobalContext();
+  const { invoiceFormState, userInitState } = useGlobalContext();
 
   return (
     <>
@@ -203,6 +203,7 @@ function Invoices() {
                       delete="Delete Invoice"
                       moreDetails="More Details"
                       view="View Invoices"
+                      navigate={`invoices/${userInitState.currentUser.displayName}/${index}`}
                     />
                   </Td>
                 </Tr>

@@ -169,6 +169,7 @@ function AllClientsPage() {
                       delete="Delete Client"
                       moreDetails="More Details"
                       view="View Clients"
+                      navigate="client"
                     />
                   </Td>
                 </Tr>

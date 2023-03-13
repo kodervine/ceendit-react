@@ -19,7 +19,7 @@ const ClientMenu = (props) => {
       </MenuButton>
       <MenuList>
         <MenuItem>{props.view}</MenuItem>
-        <MenuItem onClick={() => handleNavigateUser("client")}>
+        <MenuItem onClick={() => handleNavigateUser(props.navigate)}>
           {props.moreDetails}
         </MenuItem>
         <MenuItem>{props.delete}</MenuItem>

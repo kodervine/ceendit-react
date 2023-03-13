@@ -33,7 +33,6 @@ import Nav from "@/components/homepage/Nav";
 import Sidebar from "@/components/homepage/Sidebar";
 import { useGlobalContext } from "@/context/AppContext";
 
-//  set up the invoice history page with data gotten from the allInvoiceData state from context.
 const InvoiceHistoryPage = () => {
   // For drawer component
   const { isOpen, onOpen, onClose } = useDisclosure();
