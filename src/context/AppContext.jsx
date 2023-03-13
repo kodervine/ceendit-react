@@ -73,6 +73,7 @@ const AppProvider = ({ children }) => {
     }
   }, [invoiceFormState.invoiceFormData]);
 
+  // boolean values
   const [showPreviewComponent, setShowPreviewComponent] = useState(false);
   const [showAllInvoice, setShowAllInvoice] = useState(false);
 
@@ -100,12 +101,12 @@ const AppProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (userInitState.currentUser) {
+    if (userInitState.currentUser || invoiceFormState.allInvoiceData) {
       fetchInvoiceData();
     }
   }, [userInitState.currentUser]);
 
-  // Handles the create Invoice input values on the forms are saved to the invoiceFormData state
+  // Handles the create Invoice input values with reducer
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     formDispatch({
@@ -187,7 +188,6 @@ const AppProvider = ({ children }) => {
     } catch (e) {
       console.log(e);
     }
-    fetchInvoiceData();
   };
 
   // Handle edit invoice
@@ -202,12 +202,13 @@ const AppProvider = ({ children }) => {
   };
 
   // Sent this to DeleteInvoice component and InvoiceHistory page.
-  const handleDeleteInvoice = (deleteindex) => {
+  const handleDeleteInvoice = async (deleteindex) => {
+    console.log(invoiceFormState.allInvoiceData);
     formDispatch({
       type: "DELETE_INVOICE",
-      payload: { deleteindex },
+      payload1: { deleteindex },
+      payload2: handleUpdateDataInFirebase(invoiceFormState.allInvoiceData),
     });
-    handleUpdateDataInFirebase(invoiceFormState.allInvoiceData);
   };
 
   // handle each individual download with jspdf. This youtube video was helpful - https://www.youtube.com/watch?v=ygPIjzhKB2s
@@ -234,7 +235,7 @@ const AppProvider = ({ children }) => {
     });
   };
 
-  // Used the jspdf library to convert FormPreview page to pdf. Sent the handleGenerateInvoicePdf function to the InvoiceToPdf component
+  // Used the jspdf library to convert a single page to pdf.
   const FormPreviewRef = useRef();
   const handlePreviewInvoicePdf = () => {
     // src code - https://github.com/parallax/jsPDF/issues/3504#issuecomment-1290812020

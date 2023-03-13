@@ -29,6 +29,7 @@ export const INVOICE_INITIAL_STATE = {
     },
   ],
 };
+
 // Define the reducer function to handle state updates
 export const invoiceFormReducer = (state, action) => {
   switch (action.type) {
@@ -85,14 +86,25 @@ export const invoiceFormReducer = (state, action) => {
         allInvoiceData: action.payload,
       };
     case DELETE_INVOICE:
-      const { deleteindex } = action.payload;
+      const { deleteindex } = action.payload1;
       const updateDeletedArray = state.allInvoiceData.filter(
         (item, i) => i !== deleteindex
       );
-      return {
+      // action.payload2;
+      const updatedState = {
         ...state,
         allInvoiceData: updateDeletedArray,
       };
+      // Call handleUpdateData after updating the state
+      action.payload2
+        .then(() => {
+          alert("handleUpdateData completed successfully!");
+        })
+        .catch((error) => {
+          alert(`handleUpdateData error: ${error}`);
+        });
+
+      return updatedState;
     case "SET_INVOICE_FORM_DATA":
       return {
         ...state,

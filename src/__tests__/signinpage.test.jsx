@@ -1,17 +1,17 @@
 import { render, screen } from "@testing-library/react";
-import { describe, expect } from "vitest";
+import { describe, expect, test } from "vitest";
 
 import SignInPage from "@/pages/auth/SignInPage";
 
-describe("SignInPage test", () => {
-  // test goes here
-  est("should show title all the time", () => {
-    render(
-      <SignInPage title="Testing">
-        <Button>Log in</Button>
-      </SignInPage>
-    );
+describe("SignInPage", () => {
+  test("renders sign in form", () => {
+    render(<SignInPage />);
+    const emailInput = screen.getByL("Email");
+    const passwordInput = screen.getByLabelText("Password");
+    const submitButton = screen.getByRole("button", { name: "Sign In" });
 
-    expect(screen.getByText(/Testing/i)).toBeDefined();
+    expect(emailInput).toBeInTheDocument();
+    expect(passwordInput).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
   });
 });

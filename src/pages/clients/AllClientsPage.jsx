@@ -165,7 +165,12 @@ function AllClientsPage() {
                     </Td>
                   )}
                   <Td>
-                    <ClientMenu />
+                    <ClientMenu
+                      delete="Delete Client"
+                      moreDetails="More Details"
+                      view="View Clients"
+                      navigate="client"
+                    />
                   </Td>
                 </Tr>
               );

@@ -6,15 +6,11 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  MenuItemOption,
-  MenuGroup,
-  MenuOptionGroup,
-  MenuDivider,
   Button,
 } from "@chakra-ui/react";
 import { FaEllipsisV } from "react-icons/fa";
 
-const ClientMenu = () => {
+const ClientMenu = (props) => {
   const { handleNavigateUser } = useGlobalContext();
   return (
     <Menu>
@@ -22,11 +18,14 @@ const ClientMenu = () => {
         <Icon as={FaEllipsisV} color="gray.400" cursor="pointer" />
       </MenuButton>
       <MenuList>
-        <MenuItem>View Invoices</MenuItem>
-        <MenuItem onClick={() => handleNavigateUser("client")}>
-          More details
+        <MenuItem>{props.view}</MenuItem>
+        {props.download && (
+          <MenuItem onClick={props.handleDownload}>{props.download}</MenuItem>
+        )}
+        <MenuItem onClick={() => handleNavigateUser(props.navigate)}>
+          {props.moreDetails}
         </MenuItem>
-        <MenuItem>Delete Client</MenuItem>
+        <MenuItem>{props.delete}</MenuItem>
       </MenuList>
     </Menu>
   );
