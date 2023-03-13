@@ -117,7 +117,7 @@ const TopCards = () => {
             </Text>{" "}
             <Button
               onClick={() => {
-                handleNavigateUser("invoice-history");
+                handleNavigateUser("invoices");
               }}
             >
               See all Invoices
