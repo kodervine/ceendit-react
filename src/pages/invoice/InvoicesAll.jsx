@@ -28,7 +28,12 @@ function Invoices() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const btnRef = useRef();
 
-  const { invoiceFormState, userInitState } = useGlobalContext();
+  const {
+    invoiceFormState,
+    userInitState,
+    handlePrint,
+    handlePreviewInvoicePdf,
+  } = useGlobalContext();
 
   return (
     <>
@@ -113,13 +118,7 @@ function Invoices() {
           {/* Another table */}
           <Tbody>
             {invoiceFormState.allInvoiceData.map((invoices, index) => {
-              const {
-                billToName,
-                billToEmail,
-                dateCreated,
-                dateDue,
-                itemContainer,
-              } = invoices;
+              const { billToName, dateDue, itemContainer } = invoices;
               const numericDate = dateDue;
               const date = new Date(numericDate);
               const options = {
@@ -131,7 +130,6 @@ function Invoices() {
               const textDate = date.toLocaleDateString("en-UK", options);
               return (
                 <Tr key={nanoid()}>
-                  {" "}
                   {innerWidth > 700 && (
                     <Td>
                       <Avatar />
@@ -167,17 +165,9 @@ function Invoices() {
                   )}
                   {innerWidth > 700 && (
                     <Td>
-                      {/* <Text
-                        fontSize="md"
-                        color={textColor}
-                        fontWeight="semibold"
-                        pb=".5rem"
-                      >
-                        {dateDue}
-                      </Text> */}
                       {itemContainer.map((item, id) => {
                         return (
-                          <Flex direction="column">
+                          <Flex direction="column" key={nanoid()}>
                             <Text
                               fontSize="md"
                               color={textColor}
@@ -204,6 +194,10 @@ function Invoices() {
                       moreDetails="More Details"
                       view="View Invoices"
                       navigate={`invoices/${userInitState.currentUser.displayName}/${index}`}
+                      download="Download Invoice"
+                      handleDownload={handlePreviewInvoicePdf}
+
+                      // {handlePrint(invoices, index)}
                     />
                   </Td>
                 </Tr>

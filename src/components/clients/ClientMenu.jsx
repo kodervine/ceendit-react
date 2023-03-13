@@ -19,6 +19,9 @@ const ClientMenu = (props) => {
       </MenuButton>
       <MenuList>
         <MenuItem>{props.view}</MenuItem>
+        {props.download && (
+          <MenuItem onClick={props.handleDownload}>{props.download}</MenuItem>
+        )}
         <MenuItem onClick={() => handleNavigateUser(props.navigate)}>
           {props.moreDetails}
         </MenuItem>
