@@ -1,6 +1,6 @@
 import React from "react";
 import { FaFileInvoiceDollar } from "react-icons/fa";
-import { Box, Flex, Grid, Text, Heading } from "@chakra-ui/react";
+import { Box, Flex, Text, Heading } from "@chakra-ui/react";
 import { useGlobalContext } from "@/context/AppContext";
 
 const RecentInvoices = () => {
@@ -19,32 +19,36 @@ const RecentInvoices = () => {
       <Heading as="h5" size="md">
         Recent Invoices
       </Heading>
+
       <ul>
-        {invoiceFormState.allInvoiceData.map((items, index) => {
-          const { billToName, dateDue } = items;
-          return (
-            <Flex
-              p={2}
-              my={3}
-              cursor="pointer"
-              key={index}
-              justifyContent="space-between"
-            >
-              <Box
-                backgroundColor="blue.600"
-                padding={3}
-                borderRadius="lg"
-                color="white"
+        {invoiceFormState.allInvoiceData
+          .slice()
+          .reverse()
+          .map((items, index) => {
+            const { billToName, dateDue } = items;
+            return (
+              <Flex
+                p={2}
+                my={3}
+                cursor="pointer"
+                key={index}
+                justifyContent="space-between"
               >
-                <FaFileInvoiceDollar className="text-purple-800" />
-              </Box>
-              <Text textAlign="left" flex={2} paddingLeft="3">
-                {billToName}
-              </Text>
-              <Text textAlign="right">{dateDue}</Text>
-            </Flex>
-          );
-        })}
+                <Box
+                  backgroundColor="blue.600"
+                  padding={3}
+                  borderRadius="lg"
+                  color="white"
+                >
+                  <FaFileInvoiceDollar className="text-purple-800" />
+                </Box>
+                <Text textAlign="left" flex={2} paddingLeft="3">
+                  {billToName}
+                </Text>
+                <Text textAlign="right">{dateDue}</Text>
+              </Flex>
+            );
+          })}
       </ul>
     </Box>
   );
